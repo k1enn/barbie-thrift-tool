@@ -4,134 +4,159 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nhập Thông Tin Quần Áo</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-    <div class="container">
-        <h1>Nhập Thông Tin Quần Áo</h1>
-        <label for="set-price">Chọn số lượng set:</label>
-        <select id="set-price">
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
+    <div class="container mt-5">
+        <h1 class="text-center text-primary">Nhập Thông Tin Quần Áo</h1>
 
-        <!-- Section 1: Top -->
-        <section id="section-top">
-            <h2>Top</h2>
-            <label for="top-type">Chọn loại:</label>
-            <select id="top-type">
-                <option value="">Không chọn</option>
-                <option value="Top">Top</option>
-                <option value="Cami">Cami</option>
-                <option value="Inner Top">Inner Top</option>
-                <option value="Outer Top">Outer Top</option>
+        <!-- Số lượng set -->
+        <div class="mb-4">
+            <h2 class="text-secondary">Số lượng:</h2>
+            <select id="set-price" class="form-select">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
             </select>
-            
-            <label for="fit-top">Chọn kích cỡ (tùy chọn):</label>
-            <select id="fit-top">
-                <option value="">Không chọn</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="S/M">S/M</option>
-                <option value="M/L">M/L</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-            </select>
-
-            <label for="top-chest">Chọn thông số ngực / chest:</label>
-            <input type="number" id="top-chest" placeholder="Nhập số">
-
-            <label for="top-waist">Chọn thông số eo / waist:</label>
-            <input type="number" id="top-waist" placeholder="Nhập số">
-
-            <label for="top-length">Chọn thông số dài / length:</label>
-            <input type="number" id="top-length" placeholder="Nhập số">
-        </section>
-
-        <!-- Section 2: Bottom -->
-        <section id="section-bottom">
-            <h2>Bottom</h2>
-            <label for="bottom-type">Chọn loại:</label>
-            <select id="bottom-type">
-                <option value="">Không chọn</option>
-                <option value="Shorts">Shorts</option>
-                <option value="Skirt">Skirt</option>
-                <option value="Skirt Pants">Skirt Pants</option>
-                <option value="Bloomer">Bloomer</option>
-                <option value="Pumpkin Pants">Pumpkin Pants</option>
-            </select>
-
-            <label for="fit-bottom">Chọn kích cỡ (tùy chọn):</label>
-            <select id="fit-bottom">
-                <option value="">Không chọn</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="S/M">S/M</option>
-                <option value="M/L">M/L</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-            </select>
-
-            <label for="bottom-waist">Chọn thông số eo / waist:</label>
-            <input type="number" id="bottom-waist" placeholder="Nhập số">
-
-            <label for="bottom-length">Chọn thông số dài / length:</label>
-            <input type="number" id="bottom-length" placeholder="Nhập số">
-        </section>
-
-        <!-- Section 3: Khoác -->
-        <section id="section-coat">
-            <h2>Khoác</h2>
-            <label for="coat-type">Chọn loại:</label>
-            <select id="coat-type">
-                <option value="">Không chọn</option>
-                <option value="Jacket">Jacket</option>
-                <option value="Coat">Coat</option>
-            </select>
-
-            <label for="fit-coat">Chọn kích cỡ (tùy chọn):</label>
-            <select id="fit-coat">
-                <option value="">Không chọn</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="S/M">S/M</option>
-                <option value="M/L">M/L</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-            </select>
-
-            <label for="coat-armpit">Chọn thông số vòng nách / armpit:</label>
-            <input type="number" id="coat-armpit" placeholder="Nhập số">
-
-            <label for="coat-length">Chọn thông số dài / length:</label>
-            <input type="number" id="coat-length" placeholder="Nhập số">
-        </section>
-
-        <button style="margin-bottom: 20px;" id="generate-output">Tạo Kết Quả</button>
-        <hr style="margin-bottom: 20px;" />
-        <div style="
-        padding: 20px 10px;
-        background-color: #e7e7e7;
-        border-radius: 5px;
-        ">
-        <h1>Kết quả</h1>
-            <div id="output"></div>
-            <button style="border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background-color: hotpink; width: 100%;
-            padding: 10px 20px; margin: 0 ;justify-content: center;" id="copy-output">Sao chép kết quả</button>
         </div>
-        
 
-        <div id="history-container">
-            <h2>Lịch Sử Kết Quả</h2>
-            <ul id="history-list"></ul>
-            <button id="copy-history">Sao chép tất cả lịch sử</button>
+        <!-- Top -->
+        <section class="mb-4">
+            <h2 class="text-secondary">Top</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="top-type" class="form-label">Chọn loại:</label>
+                    <select id="top-type" class="form-select">
+                        <option value="">Không chọn</option>
+                        <option value="Top">Top</option>
+                        <option value="Cami">Cami</option>
+                        <option value="Inner Top">Inner Top</option>
+                        <option value="Outer Top">Outer Top</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="fit-top" class="form-label">Chọn kích cỡ (tùy chọn):</label>
+                    <select id="fit-top" class="form-select">
+                        <option value="">Không chọn</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="S/M">S/M</option>
+                        <option value="M/L">M/L</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="top-chest" class="form-label">Ngực / Chest:</label>
+                    <input type="number" id="top-chest" class="form-control" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="top-waist" class="form-label">Eo / Waist:</label>
+                    <input type="number" id="top-waist" class="form-control" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="top-length" class="form-label">Dài / Length:</label>
+                    <input type="number" id="top-length" class="form-control" placeholder="Nhập số">
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom -->
+        <section class="mb-4">
+            <h2 class="text-secondary">Bottom</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="bottom-type" class="form-label">Chọn loại:</label>
+                    <select id="bottom-type" class="form-select">
+                        <option value="">Không chọn</option>
+                        <option value="Shorts">Shorts</option>
+                        <option value="Skirt">Skirt</option>
+                        <option value="Skirt Pants">Skirt Pants</option>
+                        <option value="Bloomer">Bloomer</option>
+                        <option value="Pumpkin Pants">Pumpkin Pants</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="fit-bottom" class="form-label">Chọn kích cỡ (tùy chọn):</label>
+                    <select id="fit-bottom" class="form-select">
+                        <option value="">Không chọn</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="S/M">S/M</option>
+                        <option value="M/L">M/L</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="bottom-waist" class="form-label">Eo / Waist:</label>
+                    <input type="number" id="bottom-waist" class="form-control" placeholder="Nhập số">
+                </div>
+                <div class="col-md-6">
+                    <label for="bottom-length" class="form-label">Dài / Length:</label>
+                    <input type="number" id="bottom-length" class="form-control" placeholder="Nhập số">
+                </div>
+            </div>
+        </section>
+
+        <!-- Coat -->
+        <section class="mb-4">
+            <h2 class="text-secondary">Khoác</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="coat-type" class="form-label">Chọn loại:</label>
+                    <select id="coat-type" class="form-select">
+                        <option value="">Không chọn</option>
+                        <option value="Jacket">Jacket</option>
+                        <option value="Coat">Coat</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="fit-coat" class="form-label">Chọn kích cỡ (tùy chọn):</label>
+                    <select id="fit-coat" class="form-select">
+                        <option value="">Không chọn</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="S/M">S/M</option>
+                        <option value="M/L">M/L</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="coat-armpit" class="form-label">Vòng nách / Armpit:</label>
+                    <input type="number" id="coat-armpit" class="form-control" placeholder="Nhập số">
+                </div>
+                <div class="col-md-6">
+                    <label for="coat-length" class="form-label">Dài / Length:</label>
+                    <input type="number" id="coat-length" class="form-control" placeholder="Nhập số">
+                </div>
+            </div>
+        </section>
+
+          <!-- Buttons -->
+          <div class="text-center">
+            <button class="btn btn-primary w-100 mb-3" id="generate-output">Tạo Kết Quả</button>
+            <div class="output-container bg-light p-3 rounded">
+                <h3 class="text-center">Kết quả</h3>
+                <pre id="output" class="p-2 text-secondary" style="white-space: pre-wrap;"></pre>
+                <button class="btn btn-success w-100 mt-3" id="copy-output">Sao chép kết quả đầy đủ</button>
+            </div>
         </div>
+
+        <!-- History -->
+        <div class="mt-4">
+            <h2 class="text-secondary">Lịch Sử Kết Quả</h2>
+            <ul class="list-group ms-2" id="history-list"></ul>
+            <button class="btn btn-info w-100 mt-3" id="copy-history">Sao chép tất cả lịch sử</button>
+        </div>
+    
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

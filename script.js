@@ -1,6 +1,8 @@
-document.getElementById('generate-output').addEventListener('click', function() {
-    // Lấy thông tin từ form
-    const setPrice = document.getElementById('set-price').value;  // Lấy giá trị số lượng set
+let historyCount = 0;
+
+// Hàm xử lý tạo kết quả
+document.getElementById('generate-output').addEventListener('click', function () {
+    const setPrice = document.getElementById('set-price').value;
     const topType = document.getElementById('top-type').value;
     const fitTop = document.getElementById('fit-top').value;
     const topChest = document.getElementById('top-chest').value;
@@ -17,120 +19,107 @@ document.getElementById('generate-output').addEventListener('click', function() 
     const coatArmpit = document.getElementById('coat-armpit').value;
     const coatLength = document.getElementById('coat-length').value;
 
-    // Khởi tạo chuỗi kết quả
-    let output = `✨\n🎀 𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞  ${setPrice}𝐩𝐜𝐬:  VND / USD\n\n`;
+    let resultDisplay = "";
+    if (setPrice) resultDisplay += `Số lượng set: ${setPrice}\n\n`;
 
-    // Top
     if (topType) {
-        output += `    • 𝐓𝐨𝐩: \n`;
-        if (fitTop) output += `        Fit: ${fitTop}\n`;
-        if (topChest) output += `        Ngực / Chest: ${topChest}\n`;
-        if (topWaist) output += `        Eo / Waist: ${topWaist}\n`;
-        if (topLength) output += `        Dài / Length: ${topLength}\n`;
-        output += `\n`;  // Thêm một dòng trống sau phần Top
+        resultDisplay += `𝐓𝐨𝐩:\n`;
+        if (fitTop) resultDisplay += `  - Fit: ${fitTop}\n`;
+        if (topChest) resultDisplay += `  - Ngực: ${topChest}\n`;
+        if (topWaist) resultDisplay += `  - Eo: ${topWaist}\n`;
+        if (topLength) resultDisplay += `  - Dài: ${topLength}\n`;
     }
 
-    // Bottom
     if (bottomType) {
-        output += `    • 𝐁𝐨𝐭𝐭𝐨𝐦: \n`;
-        if (fitBottom) output += `        Fit: ${fitBottom}\n`;
-        if (bottomWaist) output += `        Eo / Waist: ${bottomWaist}\n`;
-        if (bottomLength) output += `        Dài / Length: ${bottomLength}\n`;
-        output += `\n`;  // Thêm một dòng trống sau phần Bottom
+        resultDisplay += `𝐁𝐨𝐭𝐭𝐨𝐦:\n`;
+        if (fitBottom) resultDisplay += `  - Fit: ${fitBottom}\n`;
+        if (bottomWaist) resultDisplay += `  - Eo: ${bottomWaist}\n`;
+        if (bottomLength) resultDisplay += `  - Dài: ${bottomLength}\n`;
     }
 
-    // Khoác
     if (coatType) {
-        output += `    • 𝐂𝐨𝐚𝐭: \n`;
-        if (fitCoat) output += `        Fit: ${fitCoat}\n`;
-        if (coatArmpit) output += `        Vòng nách / Armpit: ${coatArmpit}\n`;
-        if (coatLength) output += `        Dài / Length: ${coatLength}\n`;
-        output += `\n`;  // Thêm một dòng trống sau phần Coat
+        resultDisplay += `𝐂𝐨𝐚𝐭:\n`;
+        if (fitCoat) resultDisplay += `  - Fit: ${fitCoat}\n`;
+        if (coatArmpit) resultDisplay += `  - Vòng nách: ${coatArmpit}\n`;
+        if (coatLength) resultDisplay += `  - Dài: ${coatLength}\n`;
     }
 
-    // Chú ý
-    output += `\n‼️𝐀𝐭𝐭𝐞𝐧𝐭𝐢𝐨𝐧‼️
+    document.getElementById('output').textContent = resultDisplay;
+
+    const fullOutput = `${resultDisplay}\n‼️𝐀𝐭𝐭𝐞𝐧𝐭𝐢𝐨𝐧‼️
     𝑷𝒓𝒊𝒐𝒓𝒊𝒕𝒚 𝑪𝒐𝒎𝒎𝒆𝒏𝒕: Payment within 12 hours.
-    𝑷𝒓𝒐𝒅𝒖𝒄𝒕 𝑫𝒆𝒕𝒂𝒊𝒍𝒔: Check each post carefully before buying. Feel free to ask for more information.
-    𝑺𝒆𝒄𝒐𝒏𝒅𝒉𝒂𝒏𝒅 𝑰𝒕𝒆𝒎𝒔: May have minor flaws not visible in pictures.
-    𝑼𝒏𝒃𝒐𝒙𝒊𝒏𝒈: Record a video when opening the package.
-    𝑵𝒐 𝑹𝒆𝒕𝒖𝒓𝒏/𝑹𝒆𝒇𝒖𝒏𝒅: Except for serious defects with unboxing video proof.`;
+    𝑷𝒓𝒐𝒅𝒖𝒄𝒕 𝑫𝒆𝒕𝒂𝒊𝒍𝒔: Check each post carefully before buying.`;
 
-    // Hiển thị kết quả
-    document.getElementById('output').textContent = output;
+    addToHistory(fullOutput);
 });
 
-// Sao chép kết quả vào clipboard
-document.getElementById('copy-output').addEventListener('click', function() {
-    const outputText = document.getElementById('output').textContent;
-
-    // Tạo một element text tạm thời để sao chép vào clipboard
-    const tempTextArea = document.createElement('textarea');
-    tempTextArea.value = outputText;
-    document.body.appendChild(tempTextArea);
-
-    // Chọn và sao chép nội dung
-    tempTextArea.select();
-    document.execCommand('copy');
-
-    // Xóa element text tạm thời
-    document.body.removeChild(tempTextArea);
-
-    // Hiển thị thông báo sao chép thành công
-    alert('Kết quả đã được sao chép!');
+// Hàm sao chép kết quả
+document.getElementById('copy-output').addEventListener('click', function () {
+    copyToClipboard(document.getElementById('output').textContent, 'Kết quả đã được sao chép!');
 });
 
-
-let historyCount = 0;
-
-// Hàm lưu kết quả vào lịch sử
-function addToHistory(outputText) {
+// Thêm kết quả vào lịch sử
+function addToHistory(fullOutput) {
     historyCount++;
     const historyList = document.getElementById('history-list');
 
-    // Tạo mục lịch sử mới
     const historyItem = document.createElement('li');
+    historyItem.className = 'list-group-item';
     historyItem.dataset.index = historyCount;
 
-    // Thêm nội dung kết quả và nút xóa
     historyItem.innerHTML = `
-        <span><strong>#${historyCount}:</strong> ${outputText}</span>
-        <button onclick="deleteHistory(${historyCount})">Xóa</button>
+        <strong>#${historyCount}:</strong>
+        <pre>${fullOutput}</pre>
+        <button class="btn btn-sm btn-success me-2" onclick="copyHistoryItem(${historyCount})">Sao chép</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteHistory(${historyCount})">Xóa</button>
     `;
 
-    // Thêm mục mới vào danh sách lịch sử
     historyList.appendChild(historyItem);
 }
 
-// Hàm xóa mục trong lịch sử
-function deleteHistory(index) {
-    const historyItem = document.querySelector(`#history-list li[data-index="${index}"]`);
+// Sao chép từng mục lịch sử
+function copyHistoryItem(index) {
+    const historyItem = document.querySelector(`#history-list li[data-index="${index}"] pre`);
     if (historyItem) {
-        historyItem.remove();
+        copyToClipboardWithIndex(historyItem.textContent, `Lịch sử #${index} đã được sao chép!`, index);
     }
 }
 
-// Sự kiện khi bấm "Tạo Kết Quả"
-document.getElementById('generate-output').addEventListener('click', function () {
-    const outputText = document.getElementById('output').textContent;
-
-    if (outputText.trim() !== '') {
-        addToHistory(outputText);
+// Xóa lịch sử
+function deleteHistory(index) {
+    const itemToRemove = document.querySelector(`#history-list li[data-index="${index}"]`);
+    if (itemToRemove) {
+        itemToRemove.remove();
+        updateHistoryNumbers();
     }
-});
+}
 
 // Sao chép toàn bộ lịch sử
 document.getElementById('copy-history').addEventListener('click', function () {
-    const historyList = document.querySelectorAll('#history-list li span');
-    const allHistory = Array.from(historyList).map(item => item.textContent).join('\n\n');
+    const allHistoryItems = document.querySelectorAll('#history-list li pre');
+    const historyText = Array.from(allHistoryItems).map((item, index) => `#${index + 1}:\n${item.textContent}`).join('\n\n');
+    copyToClipboardWithIndex(historyText, 'Toàn bộ lịch sử đã được sao chép!');
+});
 
-    // Tạo text area tạm để sao chép
+// Hàm sao chép vào clipboard với số thứ tự
+function copyToClipboardWithIndex(text, successMessage, index) {
     const tempTextArea = document.createElement('textarea');
-    tempTextArea.value = allHistory;
+    tempTextArea.value = `#${index}:\n${text}`;
     document.body.appendChild(tempTextArea);
     tempTextArea.select();
     document.execCommand('copy');
     document.body.removeChild(tempTextArea);
+    alert(successMessage);
+}
 
-    alert('Toàn bộ lịch sử đã được sao chép!');
-});
+// Cập nhật số thứ tự sau khi xóa
+function updateHistoryNumbers() {
+    const allItems = document.querySelectorAll('#history-list li');
+    historyCount = 0; // Reset lại số thứ tự
+    allItems.forEach(item => {
+        historyCount++;
+        item.dataset.index = historyCount;
+        const strongTag = item.querySelector('strong');
+        if (strongTag) strongTag.textContent = `#${historyCount}:`;
+    });
+}

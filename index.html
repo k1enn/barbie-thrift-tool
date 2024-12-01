@@ -6,16 +6,19 @@
     <title>Nhập Thông Tin Quần Áo</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css"/>
 </head>
-<body>
+<body class="inter-body">
     <div class="container mt-5">
-        <h1 class="text-center text-primary">Nhập Thông Tin Quần Áo</h1>
+        <h1 class="text-center inter-title">Nhập Thông Tin Quần Áo</h1>
 
         <!-- Số lượng set -->
         <div class="mb-4">
-            <h2 class="text-secondary">Số lượng:</h2>
-            <select id="set-price" class="form-select">
+            <h2 class=" inter-title">Số lượng:</h2>
+            <select id="set-price" class="form-select inter-body">
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -24,11 +27,11 @@
 
         <!-- Top -->
         <section class="mb-4">
-            <h2 class="text-secondary">Top</h2>
+            <h2 class="inter-title">Top</h2>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="top-type" class="form-label">Chọn loại:</label>
-                    <select id="top-type" class="form-select">
+                    <label for="top-type" class="form-label inter-body">Chọn loại:</label>
+                    <select id="top-type" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="Top">Top</option>
                         <option value="Cami">Cami</option>
@@ -37,8 +40,8 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="fit-top" class="form-label">Chọn kích cỡ (tùy chọn):</label>
-                    <select id="fit-top" class="form-select">
+                    <label for="fit-top" class="form-label inter-body">Chọn kích cỡ (tùy chọn):</label>
+                    <select id="fit-top" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
@@ -49,27 +52,27 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label for="top-chest" class="form-label">Ngực / Chest:</label>
-                    <input type="number" id="top-chest" class="form-control" placeholder="Nhập số">
+                    <label for="top-chest" class="form-label inter-body">Ngực / Chest:</label>
+                    <input type="text" id="top-chest" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top-waist" class="form-label">Eo / Waist:</label>
-                    <input type="number" id="top-waist" class="form-control" placeholder="Nhập số">
+                    <label for="top-waist" class="form-label inter-body">Eo / Waist:</label>
+                    <input type="text" id="top-waist" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top-length" class="form-label">Dài / Length:</label>
-                    <input type="number" id="top-length" class="form-control" placeholder="Nhập số">
+                    <label for="top-length" class="form-label inter-body">Dài / Length:</label>
+                    <input type="text" id="top-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>
         </section>
 
         <!-- Bottom -->
         <section class="mb-4">
-            <h2 class="text-secondary">Bottom</h2>
+            <h2 class="inter-title">Bottom</h2>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="bottom-type" class="form-label">Chọn loại:</label>
-                    <select id="bottom-type" class="form-select">
+                    <label for="bottom-type" class="form-label inter-body">Chọn loại:</label>
+                    <select id="bottom-type" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="Shorts">Shorts</option>
                         <option value="Skirt">Skirt</option>
@@ -79,8 +82,8 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="fit-bottom" class="form-label">Chọn kích cỡ (tùy chọn):</label>
-                    <select id="fit-bottom" class="form-select">
+                    <label for="fit-bottom" class="form-label inter-body">Chọn kích cỡ (tùy chọn):</label>
+                    <select id="fit-bottom" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
@@ -91,31 +94,31 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="bottom-waist" class="form-label">Eo / Waist:</label>
-                    <input type="number" id="bottom-waist" class="form-control" placeholder="Nhập số">
+                    <label for="bottom-waist" class="form-label inter-body">Eo / Waist:</label>
+                    <input type="text" id="bottom-waist" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-6">
-                    <label for="bottom-length" class="form-label">Dài / Length:</label>
-                    <input type="number" id="bottom-length" class="form-control" placeholder="Nhập số">
+                    <label for="bottom-length" class="form-label inter-body">Dài / Length:</label>
+                    <input type="text" id="bottom-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>
         </section>
 
         <!-- Coat -->
         <section class="mb-4">
-            <h2 class="text-secondary">Khoác</h2>
+            <h2 class="inter-title">Khoác</h2>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="coat-type" class="form-label">Chọn loại:</label>
-                    <select id="coat-type" class="form-select">
+                    <label for="coat-type" class="form-label inter-body">Chọn loại:</label>
+                    <select id="coat-type" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="Jacket">Jacket</option>
                         <option value="Coat">Coat</option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="fit-coat" class="form-label">Chọn kích cỡ (tùy chọn):</label>
-                    <select id="fit-coat" class="form-select">
+                    <label for="fit-coat" class="form-label inter-body">Chọn kích cỡ (tùy chọn):</label>
+                    <select id="fit-coat" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
@@ -126,33 +129,32 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="coat-armpit" class="form-label">Vòng nách / Armpit:</label>
-                    <input type="number" id="coat-armpit" class="form-control" placeholder="Nhập số">
+                    <label for="coat-armpit" class="form-label inter-body">Vòng nách / Armpit:</label>
+                    <input type="text" id="coat-armpit" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-6">
-                    <label for="coat-length" class="form-label">Dài / Length:</label>
-                    <input type="number" id="coat-length" class="form-control" placeholder="Nhập số">
+                    <label for="coat-length" class="form-label inter-body">Dài / Length:</label>
+                    <input type="text" id="coat-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>
         </section>
 
-          <!-- Buttons -->
-          <div class="text-center">
-            <button class="btn btn-primary w-100 mb-3" id="generate-output">Tạo Kết Quả</button>
+        <!-- Buttons -->
+        <div class="text-center">
+            <button class="btn btn-primary w-100 mb-3 inter-body" id="generate-output">Tạo Kết Quả</button>
             <div class="output-container bg-light p-3 rounded">
-                <h3 class="text-center">Kết quả</h3>
-                <pre id="output" class="p-2 text-secondary" style="white-space: pre-wrap;"></pre>
-                <button class="btn btn-success w-100 mt-3" id="copy-output">Sao chép kết quả gần nhất</button>
+                <h3 class="text-center inter-title">Kết quả</h3>
+                <pre id="output" class="p-2 text-secondary inter-body" style="white-space: pre-wrap;"></pre>
+                <button class="btn btn-success w-100 mt-3 inter-body" id="copy-output">Sao chép kết quả gần nhất</button>
             </div>
         </div>
 
         <!-- History -->
         <div class="mt-4">
-            <h2 class="text-secondary">Lịch Sử Kết Quả</h2>
-            <ul class="list-group ms-2" id="history-list"></ul>
-            <button class="btn btn-info w-100 mt-3" id="copy-history">Sao chép tất cả lịch sử</button>
+            <h2 class="text-secondary inter-title">Lịch Sử Kết Quả</h2>
+            <ul class="list-group ms-2 inter-body" id="history-list"></ul>
+            <button class="btn btn-info w-100 mt-3 inter-body" id="copy-history">Sao chép tất cả lịch sử</button>
         </div>
-    
     </div>
 
     <!-- Bootstrap JS -->

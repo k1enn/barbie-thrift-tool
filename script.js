@@ -2,47 +2,43 @@ let historyCount = 0;
 
 // Hàm xử lý tạo kết quả
 document.getElementById('generate-output').addEventListener('click', function () {
+
+    // Get set quantity
     const setPrice = document.getElementById('set-price').value;
+
+    //Get top value
     const topType = document.getElementById('top-type').value;
     const fitTop = document.getElementById('fit-top').value;
     const topChest = document.getElementById('top-chest').value;
     const topWaist = document.getElementById('top-waist').value;
     const topLength = document.getElementById('top-length').value;
 
+    // Get bottom value
     const bottomType = document.getElementById('bottom-type').value;
     const fitBottom = document.getElementById('fit-bottom').value;
     const bottomWaist = document.getElementById('bottom-waist').value;
     const bottomLength = document.getElementById('bottom-length').value;
 
+    // Get coat value
     const coatType = document.getElementById('coat-type').value;
     const fitCoat = document.getElementById('fit-coat').value;
     const coatArmpit = document.getElementById('coat-armpit').value;
     const coatLength = document.getElementById('coat-length').value;
-
+    
     let resultDisplay = "";
-    if (setPrice) resultDisplay += `Số lượng set: ${setPrice}\n\n`;
 
-    if (topType) {
-        resultDisplay += `𝐓𝐨𝐩:\n`;
-        if (fitTop) resultDisplay += `  - Fit: ${fitTop}\n`;
-        if (topChest) resultDisplay += `  - Ngực: ${topChest}\n`;
-        if (topWaist) resultDisplay += `  - Eo: ${topWaist}\n`;
-        if (topLength) resultDisplay += `  - Dài: ${topLength}\n`;
-    }
+    // Add set quantity
+    resultDisplay += getSetQuantity(setPrice);
 
-    if (bottomType) {
-        resultDisplay += `𝐁𝐨𝐭𝐭𝐨𝐦:\n`;
-        if (fitBottom) resultDisplay += `  - Fit: ${fitBottom}\n`;
-        if (bottomWaist) resultDisplay += `  - Eo: ${bottomWaist}\n`;
-        if (bottomLength) resultDisplay += `  - Dài: ${bottomLength}\n`;
-    }
+    // Thêm thông tin Top
+    resultDisplay += getTopInfo(topType, fitTop, topChest, topWaist, topLength);
 
-    if (coatType) {
-        resultDisplay += `𝐂𝐨𝐚𝐭:\n`;
-        if (fitCoat) resultDisplay += `  - Fit: ${fitCoat}\n`;
-        if (coatArmpit) resultDisplay += `  - Vòng nách: ${coatArmpit}\n`;
-        if (coatLength) resultDisplay += `  - Dài: ${coatLength}\n`;
-    }
+    // Thêm thông tin Bottom
+    resultDisplay += getBottomInfo(bottomType, fitBottom, bottomWaist, bottomLength);
+
+    // Thêm thông tin Coat
+    resultDisplay += getCoatInfo(coatType, fitCoat, coatArmpit, coatLength);
+
 
     document.getElementById('output').textContent = resultDisplay;
 
@@ -125,4 +121,120 @@ function updateHistoryNumbers() {
         const strongTag = item.querySelector('strong');
         if (strongTag) strongTag.textContent = `#${historyCount}:`;
     });
+}
+function getSetQuantity(setPrice) {
+    var result = "";
+        switch (setPrice) {
+        case '2': 
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n\n`;
+            break;
+        case '3': 
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n\n`;
+            break;
+        case '4': 
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n\n`;
+            break;
+        default:
+    }
+    return result;
+}
+
+// Add Top information
+function getTopInfo(topType, fitTop, topChest, topWaist, topLength) {
+    var result = "";
+  
+    switch (topType) {
+        case 'Top':
+            result += `𝐓𝐨𝐩:\n`;
+            if (fitTop) result += `  - Fit: ${fitTop}\n`;
+            if (topChest) result += `  - Ngực: ${topChest}\n`;
+            if (topWaist) result += `  - Eo: ${topWaist}\n`;
+            if (topLength) result += `  - Dài: ${topLength}\n`;
+            break;
+        case 'Cami':
+         result += `𝐂𝐚𝐦𝐢:\n`;
+            if (fitTop) result += `  - Fit: ${fitTop}\n`;
+            if (topChest) result += `  - Ngực: ${topChest}\n`;
+            if (topWaist) result += `  - Eo: ${topWaist}\n`;
+            if (topLength) result += `  - Dài: ${topLength}\n`;
+            break;
+        case 'Inner Top':
+         result += `𝐈𝐧𝐧𝐞𝐫 𝐓𝐨𝐩:\n`;
+            if (fitTop) result += `  - Fit: ${fitTop}\n`;
+            if (topChest) result += `  - Ngực: ${topChest}\n`;
+            if (topWaist) result += `  - Eo: ${topWaist}\n`;
+            if (topLength) result += `  - Dài: ${topLength}\n`;
+            break;
+        case 'Outer Top':
+         result += `𝐎𝐮𝐭𝐞𝐫 𝐓𝐨𝐩:\n`;
+            if (fitTop) result += `  - Fit: ${fitTop}\n`;
+            if (topChest) result += `  - Ngực: ${topChest}\n`;
+            if (topWaist) result += `  - Eo: ${topWaist}\n`;
+            if (topLength) result += `  - Dài: ${topLength}\n`;
+            break;
+        default:
+    }
+    return result;
+}
+
+// Add Bottom information
+function getBottomInfo(bottomType, fitBottom, bottomWaist, bottomLength) {
+    var result = "";
+    
+    switch (bottomType) {
+        case 'Shorts':
+            result += `𝐒𝐡𝐨𝐫𝐭𝐬:\n`;
+            if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
+            if (bottomWaist) result += `  - Eo: ${bottomWaist}\n`;
+            if (bottomLength) result += `  - Dài: ${bottomLength}\n`;
+            break;
+        case 'Skirt':
+            result += `𝐒𝐤𝐢𝐫𝐭:\n`;
+        if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
+        if (bottomWaist) result += `  - Eo: ${bottomWaist}\n`;
+        if (bottomLength) result += `  - Dài: ${bottomLength}\n`;
+            break;
+        case 'Skirt Pants':
+            result += `𝐒𝐤𝐢𝐫𝐭 𝐏𝐚𝐧𝐭𝐬:\n`;
+        if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
+        if (bottomWaist) result += `  - Eo: ${bottomWaist}\n`;
+        if (bottomLength) result += `  - Dài: ${bottomLength}\n`;
+            break;
+        case 'Bloomer':
+            result += `𝐁𝐥𝐨𝐨𝐦𝐞𝐫:\n`;
+        if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
+        if (bottomWaist) result += `  - Eo: ${bottomWaist}\n`;
+        if (bottomLength) result += `  - Dài: ${bottomLength}\n`;
+            break;
+        case 'Pumpkin Pants':
+            result += `𝐏𝐮𝐦𝐩𝐤𝐢𝐧 𝐏𝐚𝐧𝐭𝐬:\n`;
+            if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
+            if (bottomWaist) result += `  - Eo: ${bottomWaist}\n`;
+            if (bottomLength) result += `  - Dài: ${bottomLength}\n`;
+            break;
+        default:
+    }
+    return result;
+}
+
+//  Add Coat information
+function getCoatInfo(coatType, fitCoat, coatArmpit, coatLength) {
+    var result = "";
+  
+    switch (coatType) {
+        case 'Coat':
+            result += `𝐉𝐚𝐜𝐤𝐞𝐭:\n`;
+            if (fitCoat) result += `  - Fit: ${fitCoat}\n`;
+            if (coatArmpit) result += `  - Vòng nách: ${coatArmpit}\n`;
+            if (coatLength) result += `  - Dài: ${coatLength}\n`;
+            break;
+        case 'Jacket':
+            result += `𝐂𝐨𝐚𝐭:\n`;
+            if (fitCoat) result += `  - Fit: ${fitCoat}\n`;
+            if (coatArmpit) result += `  - Vòng nách: ${coatArmpit}\n`;
+            if (coatLength) result += `  - Dài: ${coatLength}\n`;
+            break;
+        default:
+    }
+    return result;
 }

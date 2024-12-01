@@ -1,6 +1,23 @@
 .container {
     max-width: 724px;
 }
+
 body {
     padding-bottom: 8vh;
+}
+
+.inter-title {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    /* Example: Bold weight */
+    font-style: normal;
+}
+
+.inter-body {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    /* Example: Regular weight */
+    font-style: normal;
 }

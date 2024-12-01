@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  Outfit Template Maker
+  Tools for thrift store
 </h1>
 <div align="center">
   <h3>Follow me: </h3>

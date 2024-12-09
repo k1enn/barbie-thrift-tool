@@ -19,6 +19,7 @@
         <div class="mb-4">
             <h2 class=" inter-title">Số lượng:</h2>
             <select id="set-price" class="form-select inter-body">
+                <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -40,14 +41,17 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="fit-top" class="form-label inter-body">Chọn kích cỡ (tùy chọn):</label>
+                    <label for="fit-top" class="form-label inter-body">Chọn kích cỡ:</label>
                     <select id="fit-top" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
+                        <option value="S">XS/S</option>
                         <option value="S/M">S/M</option>
+                        <option value="S">M</option>
                         <option value="M/L">M/L</option>
                         <option value="L">L</option>
+                        <option value="S">L/XL</option>
                         <option value="XL">XL</option>
                     </select>
                 </div>
@@ -63,9 +67,14 @@
                     <label for="top-length" class="form-label inter-body">Dài / Length:</label>
                     <input type="text" id="top-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
+                <div class="col-md-4">
+                    <label for="top-armpit" class="form-label inter-body">Vòng nách / Armpit:</label>
+                    <input type="text" id="top-armpit" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                
             </div>
         </section>
-
+       
         <!-- Bottom -->
         <section class="mb-4">
             <h2 class="inter-title">Bottom</h2>
@@ -82,14 +91,17 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="fit-bottom" class="form-label inter-body">Chọn kích cỡ (tùy chọn):</label>
+                    <label for="fit-bottom" class="form-label inter-body">Chọn kích cỡ:</label>
                     <select id="fit-bottom" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
+                        <option value="S">XS/S</option>
                         <option value="S/M">S/M</option>
+                        <option value="S">M</option>
                         <option value="M/L">M/L</option>
                         <option value="L">L</option>
+                        <option value="S">L/XL</option>
                         <option value="XL">XL</option>
                     </select>
                 </div>
@@ -98,8 +110,20 @@
                     <input type="text" id="bottom-waist" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-6">
+                    <label for="bottom-hip" class="form-label inter-body">Hông / Hip</label>
+                    <input type="text" id="bottom-hip" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-6">
+                    <label for="bottom-butt" class="form-label inter-body">Mông / Butt</label>
+                    <input type="text" id="bottom-butt" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-6">
                     <label for="bottom-length" class="form-label inter-body">Dài / Length:</label>
                     <input type="text" id="bottom-length" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-6">
+                    <label for="bottom-thigh" class="form-label inter-body">Đùi / Thigh:</label>
+                    <input type="text" id="bottom-thigh" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>
         </section>
@@ -117,14 +141,17 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="fit-coat" class="form-label inter-body">Chọn kích cỡ (tùy chọn):</label>
+                    <label for="fit-coat" class="form-label inter-body">Chọn kích cỡ:</label>
                     <select id="fit-coat" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
+                        <option value="S">XS/S</option>
                         <option value="S/M">S/M</option>
+                        <option value="S">M</option>
                         <option value="M/L">M/L</option>
                         <option value="L">L</option>
+                        <option value="S">L/XL</option>
                         <option value="XL">XL</option>
                     </select>
                 </div>
@@ -138,6 +165,12 @@
                 </div>
             </div>
         </section>
+
+        <button id="add-section" class="btn btn-danger mt-3">Thêm sản phẩm khác</button>
+
+        <!-- Vùng để thêm phần HTML -->
+        <div id="section-container" class="mt-4"></div>
+
 
         <!-- Buttons -->
         <div class="text-center">

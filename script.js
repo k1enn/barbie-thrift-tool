@@ -22,6 +22,7 @@ document.getElementById('generate-output').addEventListener('click', function ()
     const topWaist = document.getElementById('top-waist').value;
     const topLength = document.getElementById('top-length').value;
     const topArmpit = document.getElementById('top-armpit').value;
+    const topDefect = document.getElementById('top-defect').value;
 
     //Get top2 value
     // Lấy giá trị từ các phần tử DOM, và cho phép chúng có thể là null nếu không có giá trị
@@ -31,7 +32,7 @@ document.getElementById('generate-output').addEventListener('click', function ()
     const top2Waist = document.getElementById('top2-waist')?.value || null;
     const top2Length = document.getElementById('top2-length')?.value || null;
     const top2Armpit = document.getElementById('top2-armpit')?.value || null;
-
+    const top2Defect = document.getElementById('top2-defect')?.value || null;
 
     // Get bottom value
     const bottomType = document.getElementById('bottom-type').value;
@@ -39,12 +40,14 @@ document.getElementById('generate-output').addEventListener('click', function ()
     const bottomWaist = document.getElementById('bottom-waist').value;
     const bottomLength = document.getElementById('bottom-length').value;
     const bottomThigh = document.getElementById('bottom-thigh').value;
+    const bottomDefect = document.getElementById('bottom-defect').value;
 
     // Get coat value
     const coatType = document.getElementById('coat-type').value;
     const fitCoat = document.getElementById('fit-coat').value;
     const coatArmpit = document.getElementById('coat-armpit').value;
     const coatLength = document.getElementById('coat-length').value;
+    const coatDefect = document.getElementById('coat-defect').value;
 
     const otherName = document.getElementById('other-name')?.value || null;
     const fitOther = document.getElementById('other-fit')?.value || null;
@@ -55,6 +58,7 @@ document.getElementById('generate-output').addEventListener('click', function ()
     const otherLength = document.getElementById('other-length')?.value || null;
     const otherArmpit = document.getElementById('other-armpit')?.value || null;
     const otherThigh = document.getElementById('other-thigh')?.value || null;
+    const otherDefect = document.getElementById('other-defect')?.value || null;
     
     let resultDisplay = "";
 
@@ -62,19 +66,24 @@ document.getElementById('generate-output').addEventListener('click', function ()
     resultDisplay += getSetQuantity(setPrice);
 
     // Thêm thông tin Top
-    resultDisplay += getTopInfo(topType, fitTop, topChest, topWaist, topLength, topArmpit);
-
+    if(setPrice == '1') {
+        resultDisplay += getSingleTopInfo(fitTop, topChest, topWaist, topLength, topArmpit, topDefect);
+    }
+    else {
+        resultDisplay += getTopInfo(topType, fitTop, topChest, topWaist, topLength, topArmpit, topDefect);
+    }
+    
     // Thêm thông tin Top2
-    resultDisplay += getTop2Info(top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Armpit);
+    resultDisplay += getTop2Info(top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Armpit, topDefect);
 
     // Thêm thông tin Bottom
-    resultDisplay += getBottomInfo(bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh);
+    resultDisplay += getBottomInfo(bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh, bottomDefect);
 
     // Thêm thông tin Coat
-    resultDisplay += getCoatInfo(coatType, fitCoat, coatArmpit, coatLength);
+    resultDisplay += getCoatInfo(coatType, fitCoat, coatArmpit, coatLength, bottomDefect);
 
     // Thêm thông tin cho sản phẩm khác
-    resultDisplay += getOtherInfo(otherName, fitOther, otherChest, otherButt, otherWaist, otherHip, otherLength, otherArmpit, otherThigh);
+    resultDisplay += getOtherInfo(otherName, fitOther, otherChest, otherButt, otherWaist, otherHip, otherLength, otherArmpit, otherThigh, otherDefect);
 
 
     document.getElementById('output').textContent = resultDisplay;
@@ -89,8 +98,120 @@ document.getElementById('generate-output').addEventListener('click', function ()
     addToHistory(fullOutput);
     
     // Xóa dữ liệu input
-    clearInputs();
+    //clearInputs();
 });
+
+function getSetQuantity(setPrice) {
+    var result = "";
+        switch (setPrice) { 
+        case '1':
+            result += `✨\n🎀𝐏𝐫𝐢𝐜𝐞: \n`;
+            break;
+        case '2': 
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n\n`;
+            break;
+        case '3': 
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n\n`;
+            break;
+        case '4': 
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n\n`;
+            break;
+        default:
+    }
+    return result;
+}
+
+// Add Top information
+const getTopInfo = (topType, fitTop, topChest, topWaist, topLength, topArmpit, topDefect) => {
+    let result = "";
+    if(topType){ // Kiểm tra nếu topType không phải là chuỗi rỗng
+        result += `${convertToBoldUnicode(topType)}:\n`;
+        if (topDefect) result += `${topDefect}\n`;
+        if (fitTop) result += `  - Fit: ${fitTop}\n`;
+        if (topChest) result += `  - Ngực / Chest: ${topChest}cm\n`;
+        if (topWaist) result += `  - Eo / Waist: ${topWaist}cm\n`;
+        if (topLength) result += `  - Dài / Length: ${topLength}cm\n`;
+        if (topArmpit) result += `  - Vòng nách / Armpit: ${topArmpit}cm\n`;
+    } 
+    return result;
+}
+
+const getSingleTopInfo = (fitTop, topChest, topWaist, topLength, topArmpit, topDefect) => {
+    var result = ""
+    if (topDefect) result += `${topDefect}\n`;
+    if (fitTop)  {
+        if(fitTop != "Freesize") result += `  - Fit: ${fitTop}\n`;
+        else result += `  - Freesize\n`;
+    }
+    if (topChest) result += `- Ngực / Chest: ${topChest}cm\n`;
+    if (topWaist) result += `- Eo / Waist: ${topWaist}cm\n`;
+    if (topLength) result += `- Dài / Length: ${topLength}cm\n`;
+    if (topArmpit) result += `- Vòng nách / Armpit: ${topArmpit}cm`;
+    return result;
+}
+
+const getTop2Info = (top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Armpit, top2Defect) => {
+    let result = "";
+    if(top2Type) { // Kiểm tra nếu top2Type không phải là chuỗi rỗng
+    result += `${convertToBoldUnicode(top2Type)}:\n`;
+    if (top2Defect) result += `${top2Defect}\n`;
+    if (fit2Top)  {
+        if(fit2Top != "Freesize") result += `  - Fit: ${fit2Top}\n`;
+        else result += `  - Freesize\n`;
+    }
+        
+    if (top2Chest) result += `  - Ngực / Chest: ${top2Chest}cm\n`;
+    if (top2Waist) result += `  - Eo / Waist: ${top2Waist}cm\n`;
+    if (top2Length) result += `  - Dài / Length: ${top2Length}cm\n`;
+    if (top2Armpit) result += `  - Vòng nách / Armpit: ${top2Armpit}cm\n`;
+    }
+    return result;
+}
+
+// Add Bottom information
+const getBottomInfo = (bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh, bottomDefect) => {
+    let result = "";
+    if(bottomType) { // Kiểm tra nếu bottomType không phải là chuỗi rỗng
+        result += `${convertToBoldUnicode(bottomType)}:\n`;
+        if (bottomDefect) result += `${bottomDefect}\n`;
+        if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
+        if (bottomWaist) result += `  - Eo / Waist: ${bottomWaist}cm\n`;
+        if (bottomLength) result += `  - Dài / Length: ${bottomLength}cm\n`;
+        if (bottomThigh) result += `  - Đùi / Thigh: ${bottomThigh}cm\n`;
+    }
+
+    return result;
+}
+
+//  Add Coat information
+const getCoatInfo = (coatType, fitCoat, coatArmpit, coatLength, coatDefect) => {
+    let result = "";
+    if (coatType) { // Kiểm tra nếu coatType không phải là chuỗi rỗng
+        result += `${convertToBoldUnicode(coatType)}:\n`;
+        if (coatDefect) result += `${coatDefect}\n`;
+        if (fitCoat) result += `  - Fit: ${fitCoat}\n`;
+        if (coatArmpit) result += `  - Vòng nách / Armpit: ${coatArmpit}cm\n`;
+        if (coatLength) result += `  - Dài / Length: ${coatLength}cm\n`;
+    }
+    return result;
+};
+
+
+
+const getOtherInfo = (otherName, fitOther, otherChest, otherButt, otherWaist, otherHip, otherLength, otherArmpit, otherThigh, otherDefect) => {
+    var result = `${convertToBoldUnicode(otherName)}`;
+    if (otherName) result += `:\n`;
+    if (otherDefect) result += `${otherDefect}\n`;
+    if (fitOther) result += `  - Fit: ${fitOther}\n`;
+    if (otherChest) result += `  - Ngực / Chest: ${otherChest}cm\n`;
+    if (otherButt) result += `  - Mông / Butt: ${otherButt}cm\n`; 
+    if (otherWaist) result += `  - Eo / Waist: ${otherWaist}cm\n`;
+    if (otherHip) result += `  - Hông / Hip: ${otherHip}cm\n`;
+    if (otherLength) result += `  - Dài / Length: ${otherLength}cm\n`;
+    if (otherArmpit) result += `  - Vòng nách / Armpit: ${otherArmpit}cm\n`;
+    if (otherThigh) result += `  - Đùi / Thigh: ${otherThigh}cm\n`;
+    return result;
+}
 
 // Hàm sao chép kết quả
 var copyOutput = document.getElementById('copy-output')
@@ -163,193 +284,8 @@ function updateHistoryNumbers() {
         if (strongTag) strongTag.textContent = `#${historyCount}:`;
     });
 }
-function getSetQuantity(setPrice) {
-    var result = "";
-        switch (setPrice) { 
-        case '2': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n\n`;
-            break;
-        case '3': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n\n`;
-            break;
-        case '4': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n\n`;
-            break;
-        default:
-    }
-    return result;
-}
 
-// Add Top information
-function getTopInfo(topType, fitTop, topChest, topWaist, topLength, topArmpit) {
-    var result = "";
-  
-    switch (topType) {
-        case 'Top':
-            result += `𝐓𝐨𝐩:\n`;
-            if (fitTop) result += `  - Fit: ${fitTop}\n`;
-            if (topChest) result += `  - Ngực / Chest: ${topChest}\n`;
-            if (topWaist) result += `  - Eo / Waist: ${topWaist}\n`;
-            if (topLength) result += `  - Dài / Length: ${topLength}\n`;
-            if (topArmpit) result += `  - Vòng nách / Armpit: ${topArmpit}\n`;
-            break;
-        case 'Cami':
-         result += `𝐂𝐚𝐦𝐢:\n`;
-            if (fitTop) result += `  - Fit: ${fitTop}\n`;
-            if (topChest) result += `  - Ngực / Chest: ${topChest}\n`;
-            if (topWaist) result += `  - Eo / Waist: ${topWaist}\n`;
-            if (topLength) result += `  - Dài / Length: ${topLength}\n`;
-            if (topArmpit) result += `  - Vòng nách / Armpit: ${topArmpit}\n`;
-            break;
-        case 'Inner Top':
-         result += `𝐈𝐧𝐧𝐞𝐫 𝐓𝐨𝐩:\n`;
-            if (fitTop) result += `  - Fit: ${fitTop}\n`;
-            if (topChest) result += `  - Ngực / Chest: ${topChest}\n`;
-            if (topWaist) result += `  - Eo / Waist: ${topWaist}\n`;
-            if (topLength) result += `  - Dài / Length: ${topLength}\n`;
-            if (topArmpit) result += `  - Vòng nách / Armpit: ${topArmpit}\n`;
-            break;
-        case 'Outer Top':
-         result += `𝐎𝐮𝐭𝐞𝐫 𝐓𝐨𝐩:\n`;
-            if (fitTop) result += `  - Fit: ${fitTop}\n`;
-            if (topChest) result += `  - Ngực: ${topChest}\n`;
-            if (topWaist) result += `  - Eo / Waist: ${topWaist}\n`;
-            if (topLength) result += `  - Dài / Length: ${topLength}\n`;
-            if (topArmpit) result += `  - Vòng nách / Armpit: ${topArmpit}\n`;
-            break;
-        default:
-    }
-    return result;
-}
-
-function getTop2Info(top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Armpit) {
-    var result = "";
-  
-    switch (top2Type) {
-        case 'Top':
-            result += `𝐓𝐨𝐩:\n`;
-            if (fit2Top) result += `  - Fit: ${fit2Top}\n`;
-            if (top2Chest) result += `  - Ngực / Chest: ${top2Chest}\n`;
-            if (top2Waist) result += `  - Eo / Waist: ${top2Waist}\n`;
-            if (top2Length) result += `  - Dài / Length: ${top2Length}\n`;
-            if (top2Armpit) result += `  - Vòng nách / Armpit: ${top2Armpit}\n`;
-            break;
-        case 'Cami':
-         result += `𝐂𝐚𝐦𝐢:\n`;
-            if (fit2Top) result += `  - Fit: ${fit2Top}\n`;
-            if (top2Chest) result += `  - Ngực / Chest: ${top2Chest}\n`;
-            if (top2Waist) result += `  - Eo / Waist: ${top2Waist}\n`;
-            if (top2Length) result += `  - Dài / Length: ${top2Length}\n`;
-            if (top2Armpit) result += `  - Vòng nách / Armpit: ${top2Armpit}\n`;
-            break;
-        case 'Inner Top':
-         result += `𝐈𝐧𝐧𝐞𝐫 𝐓𝐨𝐩:\n`;
-            if (fit2Top) result += `  - Fit: ${fitTop}\n`;
-            if (top2Chest) result += `  - Ngực / Chest: ${top2Chest}\n`;
-            if (top2Waist) result += `  - Eo / Waist: ${top2Waist}\n`;
-            if (top2Length) result += `  - Dài / Length: ${top2Length}\n`;
-            if (top2Armpit) result += `  - Vòng nách / Armpit: ${top2Armpit}\n`;
-            break;
-        case 'Outer Top':
-         result += `𝐎𝐮𝐭𝐞𝐫 𝐓𝐨𝐩:\n`;
-            if (fit2Top) result += `  - Fit: ${fit2Top}\n`;
-            if (top2Chest) result += `  - Ngực: ${top2Chest}\n`;
-            if (top2Waist) result += `  - Eo / Waist: ${top2Waist}\n`;
-            if (top2Length) result += `  - Dài / Length: ${top2Length}\n`;
-            if (top2Armpit) result += `  - Vòng nách / Armpit: ${top2Armpit}\n`;
-            break;
-        default:
-    }
-    return result;
-}
-
-// Add Bottom information
-function getBottomInfo(bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh) {
-    var result = "";
-    
-    switch (bottomType) {
-        case 'Shorts':
-            result += `𝐒𝐡𝐨𝐫𝐭𝐬:\n`;
-            if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
-            if (bottomWaist) result += `  - Eo / Waist: ${bottomWaist}\n`;
-            if (bottomLength) result += `  - Dài / Length: ${bottomLength}\n`;
-            if (bottomThigh) result += `  - Đùi / Thigh: ${bottomThigh}\n`;
-            break;
-        case 'Skirt':
-            result += `𝐒𝐤𝐢𝐫𝐭:\n`;
-            if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
-            if (bottomWaist) result += `  - Eo / Waist: ${bottomWaist}\n`;
-            if (bottomLength) result += `  - Dài / Length: ${bottomLength}\n`;
-            if (bottomThigh) result += `  - Đùi / Thigh: ${bottomThigh}\n`;
-            break;
-        case 'Skirt Pants':
-            result += `𝐒𝐤𝐢𝐫𝐭 𝐏𝐚𝐧𝐭𝐬:\n`;
-            if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
-            if (bottomWaist) result += `  - Eo / Waist: ${bottomWaist}\n`;
-            if (bottomLength) result += `  - Dài / Length: ${bottomLength}\n`;
-            if (bottomThigh) result += `  - Đùi / Thigh: ${bottomThigh}\n`;
-            break;
-        case 'Bloomer':
-            result += `𝐁𝐥𝐨𝐨𝐦𝐞𝐫:\n`;
-            if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
-            if (bottomWaist) result += `  - Eo / Waist: ${bottomWaist}\n`;
-            if (bottomLength) result += `  - Dài / Length: ${bottomLength}\n`;
-            if (bottomThigh) result += `  - Đùi / Thigh: ${bottomThigh}\n`;
-            break;
-        case 'Pumpkin Pants':
-            result += `𝐏𝐮𝐦𝐩𝐤𝐢𝐧 𝐏𝐚𝐧𝐭𝐬:\n`;
-            if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
-            if (bottomWaist) result += `  - Eo / Waist: ${bottomWaist}\n`;
-            if (bottomLength) result += `  - Dài / Length: ${bottomLength}\n`;
-            if (bottomThigh) result += `  - Đùi / Thigh: ${bottomThigh}\n`;
-            break;
-        default:
-    }
-    return result;
-}
-
-//  Add Coat information
-function getCoatInfo(coatType, fitCoat, coatArmpit, coatLength) {
-    var result = "";
-  
-    switch (coatType) {
-        case 'Coat':
-            result += `𝐉𝐚𝐜𝐤𝐞𝐭:\n`;
-            if (fitCoat) result += `  - Fit: ${fitCoat}\n`;
-            if (coatArmpit) result += `  - Vòng nách / Armpit: ${coatArmpit}\n`;
-            if (coatLength) result += `  - Dài / Length: ${coatLength}\n`;
-            break;
-        case 'Jacket':
-            result += `𝐂𝐨𝐚𝐭:\n`;
-            if (fitCoat) result += `  - Fit: ${fitCoat}\n`;
-            if (coatArmpit) result += `  - Vòng nách / Armpit: ${coatArmpit}\n`;
-            if (coatLength) result += `  - Dài / Length: ${coatLength}\n`;
-            break;
-        default:
-    }
-    return result;
-}
-
-function getOtherInfo (otherName, fitOther, otherChest, otherButt, otherWaist, otherHip, otherLength, otherArmpit, otherThigh)
-{
-    var result = "";
-    switch(otherName) {
-        default:
-            result += `${otherName}\n`;
-            if (fitOther) result += `  - Fit: ${fitOther}\n`;
-            if (otherChest) result += `  - Ngực / Chest: ${otherChest}\n`;
-            if (otherButt) result += `  - Mông / Butt: ${otherButt}\n`; 
-            if (otherWaist) result += `  - Eo / Waist: ${otherWaist}\n`;
-            if (otherHip) result += `  - Hông / Hip: ${otherHip}\n`;
-            if (otherLength) result += `  - Dài / Length: ${otherLength}\n`;
-            if (otherArmpit) result += `  - Vòng nách / Armpit: ${otherArmpit}\n`;
-            if (otherThigh) result += `  - Đùi / Thigh: ${otherThigh}\n`;
-            break;
-    }
-    
-
-    return result;
-}
+// Thêm vào Top phụ
 document.addEventListener("DOMContentLoaded", () => {
     const topTypeElement = document.getElementById("top-type");
     const generateOutputButton = document.getElementById("generate-output");
@@ -375,6 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label for="fit2-top" class="form-label inter-body">Chọn kích cỡ (tùy chọn):</label>
                     <select id="fit2-top" class="form-select inter-body">
                         <option value="">Không chọn</option>
+                        <option value="Freesize">Freesize</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
                         <option value="S">XS/S</option>
@@ -401,6 +338,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="col-md-4">
                     <label for="top2-armpit" class="form-label inter-body">Dài / Length:</label>
                     <input type="text" id="top2-armpit" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="top2-defect" class="form-label inter-body">Defect:</label>
+                    <input type="text" id="top2-defect" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>`;
 
@@ -458,6 +399,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <label for="other-fit" class="form-label inter-body">Chọn kích cỡ:</label>
                         <select id="other-fit" class="form-select inter-body">
                             <option value="">Không chọn</option>
+                            <option value="Freesize">Freesize</option>
                             <option value="XS">XS</option>
                             <option value="S">S</option>
                             <option value="S">XS/S</option>
@@ -498,6 +440,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         <label for="other-armpit" class="form-label inter-body">Vòng nách / Armpit:</label>
                         <input type="text" id="other-armpit" class="form-control inter-body" placeholder="Nhập số">
                     </div>
+                    <div class="col-md-4">
+                    <label for="other-defect" class="form-label inter-body">Defect:</label>
+                    <input type="text" id="other-defect" class="form-control inter-body" placeholder="Nhập số">
+                </div>
                 </div>
                 <!-- Nút Xóa phần HTML -->
                 <button class="btn btn-danger mt-3" onclick="deleteSection(this)">Xóa</button>
@@ -518,3 +464,41 @@ document.addEventListener("DOMContentLoaded", () => {
         // Hiện lại nút "Thêm Section" sau khi xóa phần tử HTML
         addSectionButton.style.display = 'inline-block';
     }
+
+// Chuyển đổi phông chữ trực tiếp
+function convertToBoldUnicode(inputText) {
+    if (!inputText) return '';  // Return an empty string if input is empty
+
+    // Mapping for converting normal characters to bold unicode
+    const boldMap = {
+        'A': '𝐀', 'B': '𝐁', 'C': '𝐂', 'D': '𝐃', 'E': '𝐄', 'F': '𝐅', 'G': '𝐆', 'H': '𝐇', 'I': '𝐈', 'J': '𝐉',
+        'K': '𝐊', 'L': '𝐋', 'M': '𝐌', 'N': '𝐍', 'O': '𝐎', 'P': '𝐏', 'Q': '𝐐', 'R': '𝐑', 'S': '𝐒', 'T': '𝐓',
+        'U': '𝐔', 'V': '𝐕', 'W': '𝐖', 'X': '𝐗', 'Y': '𝐘', 'Z': '𝐙',
+        'a': '𝐚', 'b': '𝐛', 'c': '𝐜', 'd': '𝐝', 'e': '𝐞', 'f': '𝐟', 'g': '𝐠', 'h': '𝐡', 'i': '𝐢', 'j': '𝐣',
+        'k': '𝐤', 'l': '𝐥', 'm': '𝐦', 'n': '𝐧', 'o': '𝐨', 'p': '𝐩', 'q': '𝐪', 'r': '𝐫', 's': '𝐬', 't': '𝐭',
+        'u': '𝐮', 'v': '𝐯', 'w': '𝐰', 'x': '𝐱', 'y': '𝐲', 'z': '𝐳',
+        '0': '𝟎', '1': '𝟏', '2': '𝟐', '3': '𝟑', '4': '𝟒', '5': '𝟓', '6': '𝟔', '7': '𝟕', '8': '𝟖', '9': '𝟗',
+        
+        // Vietnamese uppercase characters
+        'À': '𝐀̀', 'Á': '𝐀́', 'Ả': '𝐀̉', 'Ã': '𝐀̃', 'Ạ': '𝐀̣',
+        'È': '𝐄̀', 'É': '𝐄́', 'Ẻ': '𝐄̉', 'Ẽ': '𝐄̃', 'Ẹ': '𝐄̣',
+        'Ì': '𝐼̀', 'Í': '𝐼́', 'Ỉ': '𝐼̉', 'Ĩ': '𝐼̃', 'Ị': '𝐼̣',
+        'Ò': '𝑂̀', 'Ó': '𝑂́', 'Ỏ': '𝑂̉', 'Õ': '𝑂̃', 'Ọ': '𝑂̣',
+        'Ù': '𝑈̀', 'Ú': '𝑈́', 'Ủ': '𝑈̉', 'Ũ': '𝑈̃', 'Ụ': '𝑈̣',
+        'Ỳ': '𝑌̀', 'Ý': '𝑌́', 'Ỷ': '𝑌̉', 'Ỹ': '𝑌̃', 'Ỵ': '𝑌̣',
+        'Đ': '𝐷', 'Ê': '𝐸̂', 'Ô': '𝑂̂', 'Ơ': '𝑂̛', 'Ư': '𝑈̛',
+        
+        // Vietnamese lowercase characters
+        'à': '𝐚̀', 'á': '𝐚́', 'ả': '𝐚̉', 'ã': '𝐚̃', 'ạ': '𝐚̣',
+        'è': '𝐞̀', 'é': '𝐞́', 'ẻ': '𝐞̉', 'ẽ': '𝐞̃', 'ẹ': '𝐞̣',
+        'ì': '𝑖̀', 'í': '𝑖́', 'ỉ': '𝑖̉', 'ĩ': '𝑖̃', 'ị': '𝑖̣',
+        'ò': '𝑜̀', 'ó': '𝑜́', 'ỏ': '𝑜̉', 'õ': '𝑜̃', 'ọ': '𝑜̣',
+        'ù': '𝑢̀', 'ú': '𝑢́', 'ủ': '𝑢̉', 'ũ': '𝑢̃', 'ụ': '𝑢̣',
+        'ỳ': '𝑦̀', 'ý': '𝑦́', 'ỷ': '𝑦̉', 'ỹ': '𝑦̃', 'ỵ': '𝑦̣',
+        'đ': '𝑑', 'ê': '𝑒̂', 'ô': '𝑜̂', 'ơ': '𝑜̛', 'ư': '𝑢̛',
+    };    
+
+    const boldText = Array.from(inputText).map(char => boldMap[char] || char).join('');
+    return boldText;
+}
+

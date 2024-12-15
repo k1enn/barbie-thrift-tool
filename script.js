@@ -98,7 +98,7 @@ document.getElementById('generate-output').addEventListener('click', function ()
     addToHistory(fullOutput);
     
     // Xóa dữ liệu input
-    //clearInputs();
+    clearInputs();
 });
 
 function getSetQuantity(setPrice) {

@@ -80,7 +80,7 @@ document.getElementById('generate-output').addEventListener('click', function ()
     resultDisplay += getBottomInfo(bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh, bottomDefect);
 
     // Thêm thông tin Coat
-    resultDisplay += getCoatInfo(coatType, fitCoat, coatArmpit, coatLength, bottomDefect);
+    resultDisplay += getCoatInfo(coatType, fitCoat, coatArmpit, coatLength, coatDefect);
 
     // Thêm thông tin cho sản phẩm khác
     resultDisplay += getOtherInfo(otherName, fitOther, otherChest, otherButt, otherWaist, otherHip, otherLength, otherArmpit, otherThigh, otherDefect);
@@ -108,13 +108,13 @@ function getSetQuantity(setPrice) {
             result += `✨\n🎀𝐏𝐫𝐢𝐜𝐞: \n`;
             break;
         case '2': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n\n`;
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n`;
             break;
         case '3': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n\n`;
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n`;
             break;
         case '4': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n\n`;
+            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n`;
             break;
         default:
     }

@@ -236,7 +236,7 @@ const getSingleTopInfo = (fitTop, topChest, topWaist, topLength, topArmpit, topD
     var result = ""
     if (topDefect) result += `${topDefect}\n`;
     if (fitTop)  {
-        if(fitTop != "Freesize") result += `  - Fit: ${fitTop}\n`;
+        if(fitTop != "Freesize") result += `- Fit: ${fitTop}\n`;
         else result += `  - Freesize\n`;
     }
     if (topChest) result += `- Ngực / Chest: ${topChest}cm\n`;

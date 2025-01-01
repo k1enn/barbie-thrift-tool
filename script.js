@@ -1,3 +1,20 @@
+// Dark mode switch
+function darkMode() {
+    const body = document.body;
+    const icon = document.getElementById('darkModeIcon');
+    
+    body.classList.toggle('dark-mode');
+    
+    // Toggle icon between moon and sun
+    if (body.classList.contains('dark-mode')) {
+        icon.classList.remove('bi-moon-stars-fill');
+        icon.classList.add('bi-sun-fill');
+    } else {
+        icon.classList.remove('bi-sun-fill');
+        icon.classList.add('bi-moon-stars-fill');
+    }
+}
+
 let historyCount = 0;
 
 // Hàm xóa dữ liệu trong các input

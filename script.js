@@ -105,7 +105,7 @@ document.getElementById('generate-output').addEventListener('click', function ()
     const setPrice = document.getElementById('set-price').value;
 
     if (!setPrice) {
-        showValidationModal('Vui lòng chọn số lượng sản phẩm trong set!');
+        showValidationModal('Vui lòng chọn số lượng sản phẩm!');
         return;
     }
     

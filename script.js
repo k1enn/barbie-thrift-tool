@@ -26,9 +26,66 @@ function clearInputs() {
     document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
 }
 
+// Hàm kiểm tra số lượng sản phẩm đã nhập
+function validateInputs() {
+    const setCount = parseInt(document.getElementById('set-price').value);
+    if (!setCount) return true; // If no set count selected, skip validation
+    
+    let itemCount = 0;
+    
+    // Count items that have at least one field filled
+    const sections = ['top', 'bottom', 'coat'];
+    sections.forEach(section => {
+        const type = document.getElementById(`${section}-type`).value;
+        if (type) itemCount++;
+    });
+    
+    // Count additional sections if they exist
+    const additionalSections = document.getElementById('section-container').children;
+    for (let section of additionalSections) {
+        const type = section.querySelector('select[id$="-type"]').value;
+        if (type) itemCount++;
+    }
+    
+    if (itemCount < setCount) {
+        showValidationModal(`Bạn chọn ${setCount} sản phẩm nhưng mới chỉ nhập ${itemCount} \n Vui lòng nhập thêm ${setCount - itemCount} món nữa.`);
+        return false;
+    }
+    
+    return true;
+}
+
+// Add this new function
+function showValidationModal(message) {
+    // Create modal container
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'validation-modal-container';
+    
+    // Create modal content
+    const modalContent = document.createElement('div');
+    modalContent.className = 'validation-modal-content';
+    
+    // Add message
+    const messageElement = document.createElement('p');
+    messageElement.textContent = message;
+    
+    // Add close button
+    const closeButton = document.createElement('button');
+    closeButton.className = 'btn btn-primary';
+    closeButton.textContent = 'Đóng';
+    closeButton.onclick = () => modalContainer.remove();
+    
+    // Assemble modal
+    modalContent.appendChild(messageElement);
+    modalContent.appendChild(closeButton);
+    modalContainer.appendChild(modalContent);
+    document.body.appendChild(modalContainer);
+}
+
 // Hàm xử lý tạo kết quả
 document.getElementById('generate-output').addEventListener('click', function () {
-
+    if (!validateInputs()) return; // Stop if validation fails
+    
     // Get set quantity
     const setPrice = document.getElementById('set-price').value;
 
@@ -247,9 +304,19 @@ function addToHistory(fullOutput) {
 
     historyItem.innerHTML = `
         <strong>#${historyCount}:</strong>
-        <pre>${fullOutput}</pre>
-        <button class="btn btn-sm btn-success me-2" onclick="copyHistoryItem(${historyCount})">Sao chép</button>
-        <button class="btn btn-sm btn-danger" onclick="deleteHistory(${historyCount})">Xóa</button>
+        <pre class="history-content">${fullOutput}</pre>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-outline-success me-2 rounded-pill px-3 py-2" onclick="copyHistoryItem(${historyCount})">Sao chép</button>
+            <button class="btn btn-sm btn-outline-warning me-2 rounded-pill px-3 py-2" onclick="editHistory(${historyCount})">Sửa</button>
+            <button class="btn btn-sm btn-outline-danger me-2 rounded-pill px-3 py-2" onclick="deleteHistory(${historyCount})">Xóa</button>
+        </div>
+        <div class="edit-container d-none mt-2">
+            <textarea class="form-control mb-2 inter-body">${fullOutput}</textarea>
+            <div class="btn-group">
+                <button class="btn btn-sm btn-outline-primary me-2 rounded-pill px-3 py-2" onclick="saveEdit(${historyCount})">Lưu</button>
+                <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2" onclick="cancelEdit(${historyCount})">Hủy</button>
+            </div>
+        </div>
     `;
 
     historyList.appendChild(historyItem);
@@ -257,9 +324,9 @@ function addToHistory(fullOutput) {
 
 // Sao chép từng mục lịch sử
 function copyHistoryItem(index) {
-    const historyItem = document.querySelector(`#history-list li[data-index="${index}"] pre`);
+    const historyItem = document.querySelector(`#history-list li[data-index="${index}"]`);
     if (historyItem) {
-        copyToClipboardWithIndex(historyItem.textContent, `Lịch sử #${index} đã được sao chép!`, index);
+        copyToClipboardWithIndex(historyItem.querySelector('.history-content').textContent, `Lịch sử #${index} đã được sao chép!`, index);
     }
 }
 
@@ -517,5 +584,37 @@ function convertToBoldUnicode(inputText) {
 
     const boldText = Array.from(inputText).map(char => boldMap[char] || char).join('');
     return boldText;
+}
+
+// Add these new functions for editing functionality
+function editHistory(index) {
+    const historyItem = document.querySelector(`#history-list li[data-index="${index}"]`);
+    const editContainer = historyItem.querySelector('.edit-container');
+    const content = historyItem.querySelector('.history-content');
+    
+    editContainer.classList.remove('d-none');
+    content.classList.add('d-none');
+}
+
+function saveEdit(index) {
+    const historyItem = document.querySelector(`#history-list li[data-index="${index}"]`);
+    const editContainer = historyItem.querySelector('.edit-container');
+    const content = historyItem.querySelector('.history-content');
+    const textarea = editContainer.querySelector('textarea');
+    
+    content.textContent = textarea.value;
+    editContainer.classList.add('d-none');
+    content.classList.remove('d-none');
+}
+
+function cancelEdit(index) {
+    const historyItem = document.querySelector(`#history-list li[data-index="${index}"]`);
+    const editContainer = historyItem.querySelector('.edit-container');
+    const content = historyItem.querySelector('.history-content');
+    const textarea = editContainer.querySelector('textarea');
+    
+    textarea.value = content.textContent;
+    editContainer.classList.add('d-none');
+    content.classList.remove('d-none');
 }
 

@@ -29,15 +29,16 @@ body {
 .shadow-box {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
     max-width: 724px;
     text-align: left;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .shadow-box:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.02);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -121,7 +122,7 @@ body {
 }
 
 .dark-mode .shadow-box:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 1);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 .dark-mode .shadow-box .content h2 {

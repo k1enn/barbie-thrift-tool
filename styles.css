@@ -48,7 +48,7 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     padding: 20px;
     max-width: 724px;
-    text-align: center;
+    text-align: left;
     margin: 20px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Keep transition only here */
 }

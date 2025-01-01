@@ -4,15 +4,21 @@ function darkMode() {
     const icon = document.getElementById('darkModeIcon');
     
     body.classList.toggle('dark-mode');
-    
-    // Toggle icon between moon and sun
-    if (body.classList.contains('dark-mode')) {
-        icon.classList.remove('bi-moon-stars-fill');
-        icon.classList.add('bi-sun-fill');
-    } else {
+    icon.classList.add('animated');
+
+    // Update icon
+    if(body.classList.contains('dark-mode')) {
         icon.classList.remove('bi-sun-fill');
         icon.classList.add('bi-moon-stars-fill');
+    } else {
+        icon.classList.remove('bi-moon-stars-fill');
+        icon.classList.add('bi-sun-fill');
     }
+
+    // Remove animation class after it completes
+    setTimeout(() => {
+        icon.classList.remove('animated');
+    }, 500);
 }
 
 let historyCount = 0;
@@ -29,7 +35,7 @@ function clearInputs() {
 // Hàm kiểm tra số lượng sản phẩm đã nhập
 function validateInputs() {
 
-
+    // Còn thiếu trường hợp nếu người dùng chọn mà không nhập, nhưng vì có thể làm vậy với chủ đích nên không làm
 
     const setCount = parseInt(document.getElementById('set-price').value);
     if (!setCount) return true; // If no set count selected, skip validation

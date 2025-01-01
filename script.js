@@ -28,32 +28,42 @@ function clearInputs() {
 
 // Hàm kiểm tra số lượng sản phẩm đã nhập
 function validateInputs() {
+
+
+
     const setCount = parseInt(document.getElementById('set-price').value);
     if (!setCount) return true; // If no set count selected, skip validation
     
     let itemCount = 0;
     
     // Count items that have at least one field filled
-    const sections = ['top', 'bottom', 'coat'];
+    const sections = ['top', 'bottom', 'coat', 'other'];
     sections.forEach(section => {
-        const type = document.getElementById(`${section}-type`).value;
-        if (type) itemCount++;
+        const type = document.getElementById(`${section}-type`);
+        if (type && type.value) itemCount++;
     });
     
-    // Count additional sections if they exist
-    const additionalSections = document.getElementById('section-container').children;
-    for (let section of additionalSections) {
-        const type = section.querySelector('select[id$="-type"]').value;
-        if (type) itemCount++;
-    }
-    
-    if (itemCount < setCount) {
-        showValidationModal(`Bạn chọn ${setCount} sản phẩm nhưng mới chỉ nhập ${itemCount} \n Vui lòng nhập thêm ${setCount - itemCount} món nữa.`);
+
+    // Check if #other-name is filled
+    const otherName = document.getElementById('other-name');
+    if (otherName && otherName.value.trim() === '') {
+        showValidationModal('Vui lòng nhập tên sản phẩm trong mục "Khác".');
         return false;
     }
-    
+    else {
+        itemCount++;
+    }
+
+    if (itemCount < setCount) {
+        showValidationModal(
+            `Bạn chọn ${setCount} sản phẩm nhưng chỉ nhập ${itemCount}.\nVui lòng nhập thêm ${setCount - itemCount} món nữa.`
+        );
+        return false;
+    }
+
     return true;
 }
+
 
 // Add this new function
 function showValidationModal(message) {
@@ -72,7 +82,7 @@ function showValidationModal(message) {
     // Add close button
     const closeButton = document.createElement('button');
     closeButton.className = 'btn btn-primary';
-    closeButton.textContent = 'Đóng';
+    closeButton.textContent = 'Ok';
     closeButton.onclick = () => modalContainer.remove();
     
     // Assemble modal
@@ -84,11 +94,17 @@ function showValidationModal(message) {
 
 // Hàm xử lý tạo kết quả
 document.getElementById('generate-output').addEventListener('click', function () {
-    if (!validateInputs()) return; // Stop if validation fails
-    
+
     // Get set quantity
     const setPrice = document.getElementById('set-price').value;
 
+    if (!setPrice) {
+        showValidationModal('Vui lòng chọn số lượng sản phẩm trong set!');
+        return;
+    }
+    
+    if (!validateInputs()) return; // Stop if validation fails
+    
     //Get top value
     const topType = document.getElementById('top-type').value;
     const fitTop = document.getElementById('fit-top').value;
@@ -378,7 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hàm thêm HTML
     const addInnerOrOuterHtml = () => {
         const newHtml = `
-            <div style="padding-top:1rem; padding-bottom: 0.1rem;" class="row g-3" id="additional-html">
+            <div style="padding-top: 2rem; padding-bottom:0.1rem;" class="row g-3" id="additional-html">
             <hr class="w-70 mx-auto">
             <h5>Addition</h5>
                 <div class="col-md-6">
@@ -418,10 +434,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="col-md-4">
                     <label for="top2-length" class="form-label inter-body">Dài / Length:</label>
                     <input type="text" id="top2-length" class="form-control inter-body" placeholder="Nhập số">
-                </div>
-                <div class="col-md-4">
-                    <label for="top2-armpit" class="form-label inter-body">Dài / Length:</label>
-                    <input type="text" id="top2-armpit" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
                     <label for="top2-defect" class="form-label inter-body">Defect:</label>
@@ -472,7 +484,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addSectionButton.addEventListener('click', function () {
         // Đoạn HTML cần thêm vào
         const newHtml = `
-            <section class="mb-4" id="new-section">
+            <section class="mb-4 shadow-box" id="new-section">
                 <h2 class="inter-title">Khác</h2>
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -617,4 +629,3 @@ function cancelEdit(index) {
     editContainer.classList.add('d-none');
     content.classList.remove('d-none');
 }
-

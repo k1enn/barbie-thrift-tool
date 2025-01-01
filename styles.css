@@ -294,8 +294,9 @@ body.dark-mode #darkModeIcon {
     border-color: #505050;
 }
 
-
-
+.dark-mode div #additional-html {
+  background-color: #1e1e1e;
+}
 
 
 

@@ -29,34 +29,32 @@ body {
 .shadow-box {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     padding: 20px;
     max-width: 724px;
-    text-align: left;
-    transition: transform 0.2s ease-in-out,
-                box-shadow 0.2s ease-in-out;
-}
-
-.shadow-box:hover {
-    transform: translateY(-8px) scale(1.01);
+    text-align: center;
+    margin: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .shadow-box:hover {
+    transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease-in-out,
-                box-shadow 0.2s ease-in-out;
-}
-
-.shadow-box .content h2 {
+  }
+  
+  .shadow-box .content h2 {
     font-size: 24px;
     margin-bottom: 15px;
     color: #333;
-}
-
-.shadow-box .content p {
+  }
+  
+  .shadow-box .content p {
     font-size: 16px;
     color: #666;
     margin-bottom: 20px;
-}
-
-.shadow-box .btn {
+  }
+  
+  .shadow-box .btn {
     display: inline-block;
     padding: 10px 20px;
     background: #007BFF;
@@ -64,11 +62,11 @@ body {
     border-radius: 5px;
     text-decoration: none;
     transition: background 0.3s ease;
-}
-
-.shadow-box .btn:hover {
+  }
+  
+  .shadow-box .btn:hover {
     background: #0056b3;
-}
+  }
 
 /* Dark Mode Styles */
 .dark-mode {

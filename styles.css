@@ -3,6 +3,22 @@
     max-width: 724px;
 }
 
+ /* Add transition for smooth theme switching */
+ body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add transitions for all relevant elements */
+.shadow-box,
+.form-control,
+.form-select,
+.output-container,
+.list-group-item {
+    transition: background-color 0.3s ease, 
+                color 0.3s ease,
+                border-color 0.3s ease;
+}
+
 body {
     padding-bottom: 8vh;
     background-color: white;

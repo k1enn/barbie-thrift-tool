@@ -34,13 +34,14 @@ body {
     max-width: 724px;
     text-align: center;
     margin: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .shadow-box:hover {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Keep transition only here */
+}
+
+.shadow-box:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  }
+}
+
   
   .shadow-box .content h2 {
     font-size: 24px;
@@ -64,9 +65,7 @@ body {
     transition: background 0.3s ease;
   }
   
-  .shadow-box .btn:hover {
-    background: #0056b3;
-  }
+
 
 /* Dark Mode Styles */
 .dark-mode {

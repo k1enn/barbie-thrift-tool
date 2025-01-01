@@ -442,6 +442,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <input type="text" id="top2-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
+                    <label for="top2-length" class="form-label inter-body">Vòng nách / Armpit:</label>
+                    <input type="text" id="top2-armpit" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
                     <label for="top2-defect" class="form-label inter-body">Defect:</label>
                     <input type="text" id="top2-defect" class="form-control inter-body" placeholder="Nhập số">
                 </div>

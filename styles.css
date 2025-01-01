@@ -33,13 +33,15 @@ body {
     padding: 20px;
     max-width: 724px;
     text-align: left;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.2s ease-in-out,
+                box-shadow 0.2s ease-in-out;
 }
 
 .shadow-box:hover {
-    transform: translateY(-8px) scale(1.02);
+    transform: translateY(-8px) scale(1.01);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out,
+                box-shadow 0.2s ease-in-out;
 }
 
 .shadow-box .content h2 {

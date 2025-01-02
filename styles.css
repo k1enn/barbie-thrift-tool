@@ -315,4 +315,10 @@ body.dark-mode #darkModeIcon {
 }
 
 
+/*Set view for iPhone 16 Pro Max specifily */
+@media only screen and (min-device-width: 430px) and (max-device-width: 430px) {
+  shadow-box {
+    max-width: 430px;
+  }
+}
 

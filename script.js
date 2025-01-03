@@ -1,3 +1,36 @@
+let currentLanguage = 'both'; // Can be 'en', 'vi', or 'both'
+
+function switchLanguage(lang) {
+    currentLanguage = lang;
+    updateLanguageDisplay();
+    
+    // Update the button text
+    const langButton = document.getElementById('languageSwitch');
+    switch(lang) {
+        case 'en':
+            langButton.innerHTML = '<i class="bi bi-translate text-decoration-none"></i> EN';
+            break;
+        case 'vi':
+            langButton.innerHTML = '<i class="bi bi-translate text-decoration-none"></i> VI';
+            break;
+        case 'both':
+            langButton.innerHTML = '<i class="bi bi-translate text-decoration-none"></i> EN/VI';
+            break;
+    }
+}
+
+function updateLanguageDisplay() {
+    const elements = document.querySelectorAll('[data-lang]');
+    elements.forEach(element => {
+        const langType = element.getAttribute('data-lang');
+        if (currentLanguage === 'both' || currentLanguage === langType) {
+            element.style.display = '';
+        } else {
+            element.style.display = 'none';
+        }
+    });
+}
+
 // Dark mode switch
 function darkMode() {
     const body = document.body;
@@ -50,15 +83,6 @@ function validateInputs() {
     });
     
 
-    // Check if #other-name is filled
-    const otherName = document.getElementById('other-name');
-    if (otherName && otherName.value.trim() === '') {
-        showValidationModal('Vui lòng nhập tên sản phẩm trong mục "Khác".');
-        return false;
-    }
-    else {
-        itemCount++;
-    }
 
     if (itemCount < setCount) {
         showValidationModal(
@@ -184,70 +208,115 @@ document.getElementById('generate-output').addEventListener('click', function ()
 
     document.getElementById('output').textContent = resultDisplay;
 
-    const fullOutput = `${resultDisplay}\n‼️𝐀𝐭𝐭𝐞𝐧𝐭𝐢𝐨𝐧‼️
-    𝑷𝒓𝒊𝒐𝒓𝒊𝒕𝒚 𝑪𝒐𝒎𝒎𝒆𝒏𝒕: Payment within 12 hours.
-    𝑷𝒓𝒐𝒅𝒖𝒄𝒕 𝑫𝒆𝒕𝒂𝒊𝒍𝒔: Check each post carefully before buying.
-    𝑺𝒆𝒄𝒐𝒏𝒅𝒉𝒂𝒏𝒅 𝑰𝒕𝒆𝒎𝒔: May have minor flaws not visible in pictures.
-    𝑼𝒏𝒃𝒐𝒙𝒊𝒏𝒈: Record a video when opening the package.
-    𝑵𝒐 𝑹𝒆𝒕𝒖𝒓𝒏/𝑹𝒆𝒇𝒖𝒏𝒅: Except for serious defects with unboxing video proof.`;
+    resultDisplay += getAttentionMessage(currentLanguage);
 
-    addToHistory(fullOutput);
+    addToHistory(resultDisplay);
     
     // Xóa dữ liệu input
     clearInputs();
 });
 
 function getSetQuantity(setPrice) {
-    var result = "";
-        switch (setPrice) { 
-        case '1':
-            result += `✨\n🎀𝐏𝐫𝐢𝐜𝐞: \n`;
-            break;
-        case '2': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n`;
-            break;
-        case '3': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n`;
-            break;
-        case '4': 
-            result += `✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n`;
-            break;
-        default:
-    }
-    return result;
+    const messages = {
+        1: {
+            en: "✨\n🎀𝐏𝐫𝐢𝐜𝐞: \n",
+            vi: "✨\n🎀𝐆𝐢𝐚́: \n",
+            both: "✨\n🎀𝐏𝐫𝐢𝐜𝐞 / 𝐆𝐢𝐚́: \n"
+        },
+        2: {
+            en: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n",
+            vi: "✨\n🎀𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟐 𝐦𝐨́𝐧: \n",
+            both: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬 / 𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟐 𝐦𝐨́𝐧: \n"
+        },
+        3: {
+            en: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n",
+            vi: "✨\n🎀𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟑 𝐦𝐨́𝐧: \n",
+            both: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬 / 𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟑 𝐦𝐨́𝐧: \n"
+        },
+        4: {
+            en: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n",
+            vi: "✨\n🎀𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟒 𝐦𝐨́𝐧: \n",
+            both: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬 / 𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟒 𝐦𝐨́𝐧: \n"
+        }
+    };
+
+    return messages[setPrice]?.[currentLanguage] || "";
 }
 
-// Add Top information
+// Translation object
+const translations = {
+    chest: {
+        en: "Chest",
+        vi: "Ngực",
+        both: "Ngực / Chest"
+    },
+    waist: {
+        en: "Waist",
+        vi: "Eo",
+        both: "Eo / Waist"
+    },
+    length: {
+        en: "Length",
+        vi: "Dài",
+        both: "Dài / Length"
+    },
+    armpit: {
+        en: "Armpit",
+        vi: "Vòng nách",
+        both: "Vòng nách / Armpit"
+    },
+    hip: {
+        en: "Hip",
+        vi: "Hông",
+        both: "Hông / Hip"
+    },
+    butt: {
+        en: "Butt",
+        vi: "Mông",
+        both: "Mông / Butt"
+    },
+    thigh: {
+        en: "Thigh",
+        vi: "Đùi",
+        both: "Đùi / Thigh"
+    }
+};
+
+// Helper function to get translated text
+const getTranslatedText = (key) => translations[key][currentLanguage] || translations[key]['both'];
+
+// Modified getTopInfo function
 const getTopInfo = (topType, fitTop, topChest, topWaist, topLength, topArmpit, topDefect) => {
-    let result = "";
-    if(topType){ // Kiểm tra nếu topType không phải là chuỗi rỗng
+    var result = "";
+    if(topType) {
         result += `${convertToBoldUnicode(topType)}:\n`;
         if (topDefect) result += `${topDefect}\n`;
         if (fitTop) result += `  - Fit: ${fitTop}\n`;
-        if (topChest) result += `  - Ngực / Chest: ${topChest}cm\n`;
-        if (topWaist) result += `  - Eo / Waist: ${topWaist}cm\n`;
-        if (topLength) result += `  - Dài / Length: ${topLength}cm\n`;
-        if (topArmpit) result += `  - Vòng nách / Armpit: ${topArmpit}cm\n`;
+        if (topChest) result += `  - ${getTranslatedText('chest')}: ${topChest}cm\n`;
+        if (topWaist) result += `  - ${getTranslatedText('waist')}: ${topWaist}cm\n`;
+        if (topLength) result += `  - ${getTranslatedText('length')}: ${topLength}cm\n`;
+        if (topArmpit) result += `  - ${getTranslatedText('armpit')}: ${topArmpit}cm\n`;
     } 
     return result;
 }
 
+// Modified getSingleTopInfo function
 const getSingleTopInfo = (fitTop, topChest, topWaist, topLength, topArmpit, topDefect) => {
-    var result = ""
+    var result = "";
     if (topDefect) result += `${topDefect}\n`;
-    if (fitTop)  {
+    if (fitTop) {
         if(fitTop != "Freesize") result += `- Fit: ${fitTop}\n`;
-        else result += `  - Freesize\n`;
+        else result += `- Freesize\n`;
     }
-    if (topChest) result += `- Ngực / Chest: ${topChest}cm\n`;
-    if (topWaist) result += `- Eo / Waist: ${topWaist}cm\n`;
-    if (topLength) result += `- Dài / Length: ${topLength}cm\n`;
-    if (topArmpit) result += `- Vòng nách / Armpit: ${topArmpit}cm`;
+    if (topChest) result += `- ${getTranslatedText('chest')}: ${topChest}cm\n`;
+    if (topWaist) result += `- ${getTranslatedText('waist')}: ${topWaist}cm\n`;
+    if (topLength) result += `- ${getTranslatedText('length')}: ${topLength}cm\n`;
+    if (topArmpit) result += `- ${getTranslatedText('armpit')}: ${topArmpit}cm`;
     return result;
 }
 
 const getTop2Info = (top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Armpit, top2Defect) => {
-    let result = "";
+    var result = "";
     if(top2Type) { // Kiểm tra nếu top2Type không phải là chuỗi rỗng
     result += `${convertToBoldUnicode(top2Type)}:\n`;
     if (top2Defect) result += `${top2Defect}\n`;
@@ -256,24 +325,24 @@ const getTop2Info = (top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Ar
         else result += `  - Freesize\n`;
     }
         
-    if (top2Chest) result += `  - Ngực / Chest: ${top2Chest}cm\n`;
-    if (top2Waist) result += `  - Eo / Waist: ${top2Waist}cm\n`;
-    if (top2Length) result += `  - Dài / Length: ${top2Length}cm\n`;
-    if (top2Armpit) result += `  - Vòng nách / Armpit: ${top2Armpit}cm\n`;
+    if (top2Chest) result += `  - ${getTranslatedText('chest')}: ${top2Chest}cm\n`;
+    if (top2Waist) result += `  - ${getTranslatedText('waist')}: ${top2Waist}cm\n`;
+    if (top2Length) result += `  - ${getTranslatedText('length')}: ${top2Length}cm\n`;
+    if (top2Armpit) result += `  - ${getTranslatedText('armpit')}: ${top2Armpit}cm\n`;
     }
     return result;
 }
 
 // Add Bottom information
 const getBottomInfo = (bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh, bottomDefect) => {
-    let result = "";
+    var result = "";
     if(bottomType) { // Kiểm tra nếu bottomType không phải là chuỗi rỗng
         result += `${convertToBoldUnicode(bottomType)}:\n`;
         if (bottomDefect) result += `${bottomDefect}\n`;
         if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
-        if (bottomWaist) result += `  - Eo / Waist: ${bottomWaist}cm\n`;
-        if (bottomLength) result += `  - Dài / Length: ${bottomLength}cm\n`;
-        if (bottomThigh) result += `  - Đùi / Thigh: ${bottomThigh}cm\n`;
+        if (bottomWaist) result += `  - ${getTranslatedText('waist')}: ${bottomWaist}cm\n`;
+        if (bottomLength) result += `  - ${getTranslatedText('length')}: ${bottomLength}cm\n`;
+        if (bottomThigh) result += `  - ${getTranslatedText('thigh')}: ${bottomThigh}cm\n`;
     }
 
     return result;
@@ -281,13 +350,13 @@ const getBottomInfo = (bottomType, fitBottom, bottomWaist, bottomLength, bottomT
 
 //  Add Coat information
 const getCoatInfo = (coatType, fitCoat, coatArmpit, coatLength, coatDefect) => {
-    let result = "";
+    var result = "";
     if (coatType) { // Kiểm tra nếu coatType không phải là chuỗi rỗng
         result += `${convertToBoldUnicode(coatType)}:\n`;
         if (coatDefect) result += `${coatDefect}\n`;
         if (fitCoat) result += `  - Fit: ${fitCoat}\n`;
-        if (coatArmpit) result += `  - Vòng nách / Armpit: ${coatArmpit}cm\n`;
-        if (coatLength) result += `  - Dài / Length: ${coatLength}cm\n`;
+        if (coatArmpit) result += `  - ${getTranslatedText('armpit')}: ${coatArmpit}cm\n`;
+        if (coatLength) result += `  - ${getTranslatedText('length')}: ${coatLength}cm\n`;
     }
     return result;
 };
@@ -299,13 +368,13 @@ const getOtherInfo = (otherName, fitOther, otherChest, otherButt, otherWaist, ot
     if (otherName) result += `:\n`;
     if (otherDefect) result += `${otherDefect}\n`;
     if (fitOther) result += `  - Fit: ${fitOther}\n`;
-    if (otherChest) result += `  - Ngực / Chest: ${otherChest}cm\n`;
-    if (otherButt) result += `  - Mông / Butt: ${otherButt}cm\n`; 
-    if (otherWaist) result += `  - Eo / Waist: ${otherWaist}cm\n`;
-    if (otherHip) result += `  - Hông / Hip: ${otherHip}cm\n`;
-    if (otherLength) result += `  - Dài / Length: ${otherLength}cm\n`;
-    if (otherArmpit) result += `  - Vòng nách / Armpit: ${otherArmpit}cm\n`;
-    if (otherThigh) result += `  - Đùi / Thigh: ${otherThigh}cm\n`;
+    if (otherChest) result += `  - ${getTranslatedText('chest')}: ${otherChest}cm\n`;
+    if (otherButt) result += `  - ${getTranslatedText('butt')}: ${otherButt}cm\n`; 
+    if (otherWaist) result += `  - ${getTranslatedText('waist')}: ${otherWaist}cm\n`;
+    if (otherHip) result += `  - ${getTranslatedText('hip')}: ${otherHip}cm\n`;
+    if (otherLength) result += `  - ${getTranslatedText('length')}: ${otherLength}cm\n`;
+    if (otherArmpit) result += `  - ${getTranslatedText('armpit')}: ${otherArmpit}cm\n`;
+    if (otherThigh) result += `  - ${getTranslatedText('thigh')}: ${otherThigh}cm\n`;
     return result;
 }
 
@@ -316,7 +385,7 @@ copyOutput.addEventListener('click', function () {
 });
 
 // Thêm kết quả vào lịch sử
-function addToHistory(fullOutput) {
+function addToHistory(resultDisplay) {
     historyCount++;
     const historyList = document.getElementById('history-list');
 
@@ -326,14 +395,20 @@ function addToHistory(fullOutput) {
 
     historyItem.innerHTML = `
         <strong>#${historyCount}:</strong>
-        <pre class="history-content">${fullOutput}</pre>
+        <pre class="history-content">${resultDisplay}</pre>
         <div class="btn-group">
-            <button class="btn btn-sm btn-outline-success me-2 rounded-pill px-3 py-2" onclick="copyHistoryItem(${historyCount})">Sao chép</button>
-            <button class="btn btn-sm btn-outline-warning me-2 rounded-pill px-3 py-2" onclick="editHistory(${historyCount})">Sửa</button>
-            <button class="btn btn-sm btn-outline-danger me-2 rounded-pill px-3 py-2" onclick="deleteHistory(${historyCount})">Xóa</button>
+            <button class="btn btn-sm btn-outline-success me-2 rounded-pill px-3 py-2" onclick="copyHistoryItem(${historyCount})">
+                <i class="bi bi-clipboard"></i> Sao chép
+            </button>
+            <button class="btn btn-sm btn-outline-warning me-2 rounded-pill px-3 py-2" onclick="editHistory(${historyCount})">
+                <i class="bi bi-pencil-square"></i> Sửa
+            </button>
+            <button class="btn btn-sm btn-outline-danger me-2 rounded-pill px-3 py-2" onclick="deleteHistory(${historyCount})">
+                <i class="bi bi-trash"></i> Xóa
+            </button>
         </div>
         <div class="edit-container d-none mt-2">
-            <textarea class="form-control mb-2 inter-body">${fullOutput}</textarea>
+            <textarea class="form-control mb-2 inter-body">${resultDisplay}</textarea>
             <div class="btn-group">
                 <button class="btn btn-sm btn-outline-primary me-2 rounded-pill px-3 py-2" onclick="saveEdit(${historyCount})">Lưu</button>
                 <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-2" onclick="cancelEdit(${historyCount})">Hủy</button>
@@ -348,7 +423,8 @@ function addToHistory(fullOutput) {
 function copyHistoryItem(index) {
     const historyItem = document.querySelector(`#history-list li[data-index="${index}"]`);
     if (historyItem) {
-        copyToClipboardWithIndex(historyItem.querySelector('.history-content').textContent, `Lịch sử #${index} đã được sao chép!`, index);
+        const message = `History #${index} has been copied! / Lịch sử #${index} đã được sao chép!`;
+        copyToClipboardWithIndex(historyItem.querySelector('.history-content').textContent, message, index);
     }
 }
 
@@ -404,7 +480,11 @@ document.addEventListener("DOMContentLoaded", () => {
             <hr class="w-70 mx-auto">
             <h5>Addition</h5>
                 <div class="col-md-6">
-                    <label for="top2-type" class="form-label inter-body">Chọn loại:</label>
+                    <label for="top2-type" class="form-label inter-body">
+                        <span data-lang="en">Type</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Loại:</span>:
+                    </label>
                     <select id="top2-type" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="Top">Top</option>
@@ -414,7 +494,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="fit2-top" class="form-label inter-body">Chọn kích cỡ (tùy chọn):</label>
+                    <label for="fit2-top" class="form-label inter-body">
+                        <span data-lang="en">Size</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Kích cỡ</span>:
+                    </label>
                     <select id="fit2-top" class="form-select inter-body">
                         <option value="">Không chọn</option>
                         <option value="Freesize">Freesize</option>
@@ -430,23 +514,43 @@ document.addEventListener("DOMContentLoaded", () => {
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label for="top2-chest" class="form-label inter-body">Ngực / Chest:</label>
+                    <label for="top2-chest" class="form-label inter-body">
+                        <span data-lang="en">Chest</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Ngực</span>:
+                    </label>
                     <input type="text" id="top2-chest" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top2-waist" class="form-label inter-body">Eo / Waist:</label>
+                    <label for="top2-waist" class="form-label inter-body">
+                        <span data-lang="en">Waist</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Eo</span>:
+                    </label>
                     <input type="text" id="top2-waist" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top2-length" class="form-label inter-body">Dài / Length:</label>
+                    <label for="top2-length" class="form-label inter-body">
+                        <span data-lang="en">Length</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Dài</span>:
+                    </label>
                     <input type="text" id="top2-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top2-length" class="form-label inter-body">Vòng nách / Armpit:</label>
+                    <label for="top2-armpit" class="form-label inter-body">
+                        <span data-lang="en">Armpit</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Vòng nách</span>:
+                    </label>
                     <input type="text" id="top2-armpit" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top2-defect" class="form-label inter-body">Defect:</label>
+                    <label for="top2-defect" class="form-label inter-body">
+                        <span data-lang="en">Defect</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Lỗi</span>:
+                    </label>
                     <input type="text" id="top2-defect" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>`;
@@ -485,91 +589,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Phần thêm sản phẩm khác
+// Get the "Add Section" button and the hidden section
+const addSectionButton = document.getElementById('add-section');
+const otherSection = document.getElementById('new-section');
 
-    // Lấy nút "Thêm Section"
-    const addSectionButton = document.getElementById('add-section');
+// Listen for click event on "Add Section" button
+addSectionButton.addEventListener('click', function () {
+    // Show the hidden section
+    otherSection.style.display = 'block';
+    // Hide the "Add Section" button
+    addSectionButton.style.display = 'none';
+});
 
-    // Lắng nghe sự kiện click của nút "Thêm Section"
-    addSectionButton.addEventListener('click', function () {
-        // Đoạn HTML cần thêm vào
-        const newHtml = `
-            <section class="mb-4 shadow-box" id="new-section">
-                <h2 class="inter-title">Khác</h2>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="other-name" class="form-label inter-body">Tên sản phẩm / Product's name:</label>
-                        <input type="text" id="other-name" class="form-control inter-body" placeholder="Nhập số">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="other-fit" class="form-label inter-body">Chọn kích cỡ:</label>
-                        <select id="other-fit" class="form-select inter-body">
-                            <option value="">Không chọn</option>
-                            <option value="Freesize">Freesize</option>
-                            <option value="XS">XS</option>
-                            <option value="S">S</option>
-                            <option value="S">XS/S</option>
-                            <option value="S/M">S/M</option>
-                            <option value="S">M</option>
-                            <option value="M/L">M/L</option>
-                            <option value="L">L</option>
-                            <option value="S">L/XL</option>
-                            <option value="XL">XL</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="other-chest" class="form-label inter-body">Ngực / Chest:</label>
-                        <input type="text" id="other-chest" class="form-control inter-body" placeholder="Nhập số">
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <label for="other-waist" class="form-label inter-body">Eo / Waist:</label>
-                        <input type="text" id="other-waist" class="form-control inter-body" placeholder="Nhập số">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="other-hip" class="form-label inter-body">Hông / Hip</label>
-                        <input type="text" id="other-hip" class="form-control inter-body" placeholder="Nhập số">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="other-butt" class="form-label inter-body">Mông / Butt</label>
-                        <input type="text" id="other-butt" class="form-control inter-body" placeholder="Nhập số">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="other-thigh" class="form-label inter-body">Đùi / Thigh</label>
-                        <input type="text" id="other-thigh" class="form-control inter-body" placeholder="Nhập số">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="other-length" class="form-label inter-body">Dài / Length:</label>
-                        <input type="text" id="other-length" class="form-control inter-body" placeholder="Nhập số">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="other-armpit" class="form-label inter-body">Vòng nách / Armpit:</label>
-                        <input type="text" id="other-armpit" class="form-control inter-body" placeholder="Nhập số">
-                    </div>
-                    <div class="col-md-4">
-                    <label for="other-defect" class="form-label inter-body">Defect:</label>
-                    <input type="text" id="other-defect" class="form-control inter-body" placeholder="Nhập số">
-                </div>
-                </div>
-                <!-- Nút Xóa phần HTML -->
-                <button class="btn btn-danger mt-3" onclick="deleteSection(this)">Xóa</button>
-            </section>`;
-
-        // Thêm HTML vào vùng chứa
-        document.getElementById('section-container').insertAdjacentHTML('beforeend', newHtml);
-
-        // Ẩn nút "Thêm Section" sau khi thêm phần tử HTML
-        addSectionButton.style.display = 'none';
+// Function to hide section
+function deleteSection(button) {
+    const sectionToHide = button.closest('section');
+    // Hide the section
+    sectionToHide.style.display = 'none';
+    
+    // Clear all inputs in the hidden section
+    const inputs = sectionToHide.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.value = '';
     });
 
-    // Hàm để xóa phần HTML
-    function deleteSection(button) {
-        const sectionToRemove = button.closest('section');
-        sectionToRemove.remove();
-
-        // Hiện lại nút "Thêm Section" sau khi xóa phần tử HTML
-        addSectionButton.style.display = 'inline-block';
-    }
+    // Show the "Add Section" button again
+    addSectionButton.style.display = 'inline-block';
+}
 
 // Chuyển đổi phông chữ trực tiếp
 function convertToBoldUnicode(inputText) {
@@ -639,3 +685,45 @@ function cancelEdit(index) {
     editContainer.classList.add('d-none');
     content.classList.remove('d-none');
 }
+
+const getAttentionMessage = (language) => {
+    const messages = {
+        attention: {
+            en: "‼️𝐀𝐭𝐭𝐞𝐧𝐭𝐢𝐨𝐧‼️",
+            vi: `‼️${convertToBoldUnicode("Lưu ý")}‼️`,
+            both: `‼️𝐀𝐭𝐭𝐞𝐧𝐭𝐢𝐨𝐧 / ${convertToBoldUnicode("Lưu ý")}‼️`
+        },
+        priority: {
+            en: "𝑷𝒓𝒊𝒐𝒓𝒊𝒕𝒚 𝑪𝒐𝒎𝒎𝒆𝒏𝒕: Payment within 12 hours.",
+            vi: "𝑳𝒖̛𝒖 𝒚́ 𝒒𝒖𝒂𝒏 𝒕𝒓𝒐̣𝒏𝒈: Thanh toán trong vòng 12 tiếng.",
+            both: "𝑷𝒓𝒊𝒐𝒓𝒊𝒕𝒚 𝑪𝒐𝒎𝒎𝒆𝒏𝒕 / 𝑳𝒖̛𝒖 𝒚́ 𝒒𝒖𝒂𝒏 𝒕𝒓𝒐̣𝒏𝒈: Payment within 12 hours / Thanh toán trong vòng 12 tiếng."
+        },
+        details: {
+            en: "𝑷𝒓𝒐𝒅𝒖𝒄𝒕 𝑫𝒆𝒕𝒂𝒊𝒍𝒔: Check each post carefully before buying.",
+            vi: "𝑻𝒉𝒐̂𝒏𝒈 𝒕𝒊𝒏 𝒔𝒂̉𝒏 𝒑𝒉𝒂̂̉𝒎: Vui lòng đọc kỹ bài đăng trước khi mua.",
+            both: "𝑷𝒓𝒐𝒅𝒖𝒄𝒕 𝑫𝒆𝒕𝒂𝒊𝒍𝒔 / 𝑻𝒉𝒐̂𝒏𝒈 𝒕𝒊𝒏 𝒔𝒂̉𝒏 𝒑𝒉𝒂̂̉𝒎: Check each post carefully before buying / Vui lòng đọc kỹ bài đăng trước khi mua."
+        },
+        secondhand: {
+            en: "𝑺𝒆𝒄𝒐𝒏𝒅𝒉𝒂𝒏𝒅 𝑰𝒕𝒆𝒎𝒔: May have minor flaws not visible in pictures.",
+            vi: "𝑯𝒂̀𝒏𝒈 𝒔𝒆𝒄𝒐𝒏𝒅: Có thể có khuyết điểm nhỏ không thấy trong ảnh.",
+            both: "𝑺𝒆𝒄𝒐𝒏𝒅𝒉𝒂𝒏𝒅 𝑰𝒕𝒆𝒎𝒔 / 𝑯𝒂̀𝒏𝒈 𝒔𝒆𝒄𝒐𝒏𝒅: May have minor flaws not visible in pictures / Có thể có khuyết điểm nhỏ không thấy trong ảnh."
+        },
+        unboxing: {
+            en: "𝑼𝒏𝒃𝒐𝒙𝒊𝒏𝒈: Record a video when opening the package.",
+            vi: "𝑴𝒐̛̉ 𝒉𝒂̀𝒏𝒈: Quay video khi mở hàng.",
+            both: "𝑼𝒏𝒃𝒐𝒙𝒊𝒏𝒈 / 𝑴𝒐̛̉ 𝒉𝒂̀𝒏𝒈: Record a video when opening the package / Quay video khi mở hàng."
+        },
+        noReturn: {
+            en: "𝑵𝒐 𝑹𝒆𝒕𝒖𝒓𝒏/𝑹𝒆𝒇𝒖𝒏𝒅: Except for serious defects with unboxing video proof.",
+            vi: "𝑲𝒉𝒐̂𝒏𝒈 𝒉𝒐𝒂̀𝒏 𝒕𝒓𝒂̉: Trừ trường hợp lỗi nghiêm trọng có video mở hàng.",
+            both: "𝑵𝒐 𝑹𝒆𝒕𝒖𝒓𝒏/𝑹𝒆𝒇𝒖𝒏𝒅 / 𝑲𝒉𝒐̂𝒏𝒈 𝒉𝒐𝒂̀𝒏 𝒕𝒓𝒂̉: Except for serious defects with unboxing video proof / Trừ trường hợp lỗi nghiêm trọng có video mở hàng."
+        }
+    };
+
+    return `${messages.attention[language]}
+            ${messages.priority[language]}
+            ${messages.details[language]}
+            ${messages.secondhand[language]}
+            ${messages.unboxing[language]}
+            ${messages.noReturn[language]}`;
+};

@@ -18,22 +18,41 @@
 <body class="inter-body">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
-            <span class="navbar-brand inter-title"><a href="https://www.instagram.com/barbie._.thrift/" target="_blank" class="text-decoration-none">
+            <span class="navbar-brand inter-title">
+                <a href="https://www.instagram.com/barbie._.thrift/" target="_blank" class="text-decoration-none">
                     <i class="bi bi-instagram"></i> barbie._.thrift
                 </a>
             </span>
-            <button class="btn btn-link" onclick="darkMode()" aria-label="Toggle dark mode">
-                <i class="bi bi-moon-stars-fill" id="darkModeIcon" style="transition: transform 1s ease"></i>
-            </button>
+            <div class="d-flex">
+                <!-- Add language switch button -->
+                <div class="dropdown me-2">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="languageSwitch" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-translate"></i> EN/VI
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageSwitch">
+                        <li><button class="dropdown-item text-decoration-none" onclick="switchLanguage('en')"><i class="bi bi-translate"></i> EN</button></li>
+                        <li><button class="dropdown-item text-decoration-none" onclick="switchLanguage('vi')"><i class="bi bi-translate"></i> VI</button></li>
+                        <li><button class="dropdown-item text-decoration-none" onclick="switchLanguage('both')"><i class="bi bi-translate"></i> EN/VI</button></li>
+                    </ul>
+                </div>
+                <!-- Existing dark mode button -->
+                <button class="btn btn-link" onclick="darkMode()" aria-label="Toggle dark mode">
+                    <i class="bi bi-moon-stars-fill" id="darkModeIcon" style="transition: transform 1s ease"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
     <div class="container mt-5">
         <!-- Số lượng set -->
         <div id="set-number" class="mb-4 shadow-box" >
-            <h2 class=" inter-title">Số lượng:</h2>
+            <h2 class="inter-title">
+                <span data-lang="en">Quantity</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Số lượng</span>:
+            </h2>
             <select id="set-price" class="form-select inter-body">
-                <option value="">Không chọn</option>
+                <option value="">Không chọn / None</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -43,12 +62,20 @@
 
         <!-- Top -->
         <section class="mb-4 shadow-box">
-            <h2 class="inter-title">Top</h2>
+            <h2 class="inter-title">
+                <span data-lang="en">Top</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Áo</span>:
+            </h2>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="top-type" class="form-label inter-body">Chọn loại:</label>
+                    <label for="top-type" class="form-label inter-body">
+                        <span data-lang="en">Type</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Loại</span>:
+                    </label>
                     <select id="top-type" class="form-select inter-body">
-                        <option value="">Không chọn</option>
+                        <option value="">Không chọn / None</option>
                         <option value="Top">Top</option>
                         <option value="Cami">Cami</option>
                         <option value="Inner Top">Inner Top</option>
@@ -58,7 +85,7 @@
                 <div class="col-md-6">
                     <label for="fit-top" class="form-label inter-body">Chọn kích cỡ:</label>
                     <select id="fit-top" class="form-select inter-body">
-                        <option value="">Không chọn</option>
+                        <option value="">Không chọn / None</option>
                         <option value="Freesize">Freesize</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
@@ -72,23 +99,43 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label for="top-chest" class="form-label inter-body">Ngực / Chest:</label>
+                    <label for="top-chest" class="form-label inter-body">
+                        <span data-lang="en">Chest</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Ngực</span>:
+                    </label>
                     <input type="text" id="top-chest" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top-waist" class="form-label inter-body">Eo / Waist:</label>
+                    <label for="top-waist" class="form-label inter-body">
+                        <span data-lang="en">Waist</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Eo</span>:
+                    </label>
                     <input type="text" id="top-waist" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top-length" class="form-label inter-body">Dài / Length:</label>
+                    <label for="top-length" class="form-label inter-body">
+                        <span data-lang="en">Length</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Dài</span>:
+                    </label>
                     <input type="text" id="top-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top-armpit" class="form-label inter-body">Vòng nách / Armpit:</label>
+                    <label for="top-armpit" class="form-label inter-body">
+                        <span data-lang="en">Armpit</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Vòng nách</span>:
+                    </label>
                     <input type="text" id="top-armpit" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="top-defect" class="form-label inter-body">Defect:</label>
+                    <label for="top-defect" class="form-label inter-body">
+                        <span data-lang="en">Defect</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Lỗi</span>:
+                    </label>
                     <input type="text" id="top-defect" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>
@@ -96,12 +143,20 @@
        
         <!-- Bottom -->
         <section class="mb-4 shadow-box">
-            <h2 class="inter-title">Bottom</h2>
+            <h2 class="inter-title">
+                <span data-lang="en">Bottom</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Quần</span>:
+            </h2>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="bottom-type" class="form-label inter-body">Chọn loại:</label>
+                    <label for="bottom-type" class="form-label inter-body">
+                        <span data-lang="en">Type</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Loại</span>:
+                    </label>
                     <select id="bottom-type" class="form-select inter-body">
-                        <option value="">Không chọn</option>
+                        <option value="">Không chọn / None</option>
                         <option value="Shorts">Shorts</option>
                         <option value="Skirt">Skirt</option>
                         <option value="Skirt Pants">Skirt Pants</option>
@@ -112,7 +167,7 @@
                 <div class="col-md-6">
                     <label for="fit-bottom" class="form-label inter-body">Chọn kích cỡ:</label>
                     <select id="fit-bottom" class="form-select inter-body">
-                        <option value="">Không chọn</option>
+                        <option value="">Không chọn / None</option>
                         <option value="Freesize">Freesize</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
@@ -126,27 +181,51 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="bottom-waist" class="form-label inter-body">Eo / Waist:</label>
+                    <label for="bottom-waist" class="form-label inter-body">
+                        <span data-lang="en">Waist</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Eo</span>:
+                    </label>
                     <input type="text" id="bottom-waist" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-6">
-                    <label for="bottom-hip" class="form-label inter-body">Hông / Hip</label>
+                    <label for="bottom-hip" class="form-label inter-body">
+                        <span data-lang="en">Hip</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Hông</span>:
+                    </label>
                     <input type="text" id="bottom-hip" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-6">
-                    <label for="bottom-butt" class="form-label inter-body">Mông / Butt</label>
+                    <label for="bottom-butt" class="form-label inter-body">
+                        <span data-lang="en">Butt</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Mông</span>:
+                    </label>
                     <input type="text" id="bottom-butt" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-6">
-                    <label for="bottom-length" class="form-label inter-body">Dài / Length:</label>
+                    <label for="bottom-length" class="form-label inter-body">
+                        <span data-lang="en">Length</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Dài</span>:
+                    </label>
                     <input type="text" id="bottom-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-6">
-                    <label for="bottom-thigh" class="form-label inter-body">Đùi / Thigh:</label>
+                    <label for="bottom-thigh" class="form-label inter-body">
+                        <span data-lang="en">Thigh</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Đùi</span>:
+                    </label>
                     <input type="text" id="bottom-thigh" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="bottom-defect" class="form-label inter-body">Defect:</label>
+                    <label for="bottom-defect" class="form-label inter-body">
+                        <span data-lang="en">Defect</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Lỗi</span>:
+                    </label>
                     <input type="text" id="bottom-defect" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>
@@ -154,12 +233,20 @@
 
         <!-- Coat -->
         <section class="mb-4 shadow-box">
-            <h2 class="inter-title">Khoác</h2>
+            <h2 class="inter-title">
+                <span data-lang="en">Coat</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Khoác</span>:
+            </h2>
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="coat-type" class="form-label inter-body">Chọn loại:</label>
+                    <label for="coat-type" class="form-label inter-body">
+                        <span data-lang="en">Type</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Loại</span>:
+                    </label>
                     <select id="coat-type" class="form-select inter-body">
-                        <option value="">Không chọn</option>
+                        <option value="">Không chọn / None</option>
                         <option value="Jacket">Jacket</option>
                         <option value="Coat">Coat</option>
                     </select>
@@ -167,7 +254,7 @@
                 <div class="col-md-6">
                     <label for="fit-coat" class="form-label inter-body">Chọn kích cỡ:</label>
                     <select id="fit-coat" class="form-select inter-body">
-                        <option value="">Không chọn</option>
+                        <option value="">Không chọn / None</option>
                         <option value="Freesize">Freesize</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
@@ -181,43 +268,206 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="coat-armpit" class="form-label inter-body">Vòng nách / Armpit:</label>
+                    <label for="coat-armpit" class="form-label inter-body">
+                        <span data-lang="en">Armpit</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Vòng nách</span>:
+                    </label>
                     <input type="text" id="coat-armpit" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-6">
-                    <label for="coat-length" class="form-label inter-body">Dài / Length:</label>
+                    <label for="coat-length" class="form-label inter-body">
+                        <span data-lang="en">Length</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Dài</span>:
+                    </label>
                     <input type="text" id="coat-length" class="form-control inter-body" placeholder="Nhập số">
                 </div>
                 <div class="col-md-4">
-                    <label for="coat-defect" class="form-label inter-body">Defect:</label>
+                    <label for="coat-defect" class="form-label inter-body">
+                        <span data-lang="en">Defect</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Lỗi</span>:
+                    </label>
                     <input type="text" id="coat-defect" class="form-control inter-body" placeholder="Nhập số">
                 </div>
             </div>
         </section>
 
-        <button id="add-section" class="btn btn-danger mt-3 inter-body custom-outline-btn">Thêm sản phẩm khác</button>
-
-        <!-- Vùng để thêm phần HTML -->
-        <div id="section-container" class="mb-4"></div>
-
-        <br>
-        <!-- Buttons -->
-        <div class="text-center">
-            <button class="btn btn-primary w-100 mb-3 inter-body custom-outline-btn" id="generate-output">Tạo Kết Quả</button>
-            <div class="output-container bg-light p-3 rounded">
-                <h3 class="text-center inter-title">Kết quả</h3>
-                <pre id="output" class="p-2 text-secondary inter-body" style="white-space: pre-wrap;"></pre>
-                <button class="btn btn-success w-100 mt-3 inter-body custom-outline-btn" id="copy-output">Sao chép kết quả gần nhất</button>
+        <!-- Other -->
+        <section class="mb-4 shadow-box" id="new-section" style="display: none;">
+            <h2 class="inter-title">
+                <span data-lang="en">Other</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Khác</span>
+            </h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="other-name" class="form-label inter-body">
+                        <span data-lang="en">Product's name</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Tên sản phẩm</span>:
+                    </label>
+                    <input type="text" id="other-name" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-6">
+                    <label for="other-fit" class="form-label inter-body">
+                        <span data-lang="en">Size</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Kích cỡ</span>:
+                    </label>
+                    <select id="other-fit" class="form-select inter-body">
+                        <option value="">Không chọn / None</option>
+                        <option value="Freesize">Freesize</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="S">XS/S</option>
+                        <option value="S/M">S/M</option>
+                        <option value="S">M</option>
+                        <option value="M/L">M/L</option>
+                        <option value="L">L</option>
+                        <option value="S">L/XL</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="other-chest" class="form-label inter-body">
+                        <span data-lang="en">Chest</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Ngực</span>:
+                    </label>
+                    <input type="text" id="other-chest" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="other-waist" class="form-label inter-body">
+                        <span data-lang="en">Waist</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Eo</span>:
+                    </label>
+                    <input type="text" id="other-waist" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="other-hip" class="form-label inter-body">
+                        <span data-lang="en">Hip</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Hông</span>:
+                    </label>
+                    <input type="text" id="other-hip" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="other-butt" class="form-label inter-body">
+                        <span data-lang="en">Butt</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Mông</span>:
+                    </label>
+                    <input type="text" id="other-butt" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="other-thigh" class="form-label inter-body">
+                        <span data-lang="en">Thigh</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Đùi</span>:
+                    </label>
+                    <input type="text" id="other-thigh" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="other-length" class="form-label inter-body">
+                        <span data-lang="en">Length</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Dài</span>:
+                    </label>
+                    <input type="text" id="other-length" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="other-armpit" class="form-label inter-body">
+                        <span data-lang="en">Armpit</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Vòng nách</span>:
+                    </label>
+                    <input type="text" id="other-armpit" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="other-defect" class="form-label inter-body">
+                        <span data-lang="en">Defect</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Lỗi</span>:
+                    </label>
+                    <input type="text" id="other-defect" class="form-control inter-body" placeholder="Nhập số">
+                </div>
             </div>
-        </div>
+            <!-- Delete button -->
+            <button class="btn btn-danger mt-3" onclick="deleteSection(this)">
+                <span data-lang="en">Delete</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Xóa</span>
+            </button>
+        </section>
 
-        <!-- History -->
-        <div class="mt-4">
-            <h2 class="text-secondary inter-title">Lịch Sử Kết Quả</h2>
-            <ul class="list-group ms-2 inter-body" id="history-list"></ul>
-            <button class="btn btn-info w-100 mt-3 inter-body custom-outline-btn" id="copy-history">Sao chép tất cả lịch sử</button>
+        <button id="add-section" class="btn btn-danger mb-4 inter-body custom-outline-btn">
+            <i class="bi bi-plus-circle me-1"></i>
+            <span data-lang="en">Add Other Product</span>
+            <span data-lang="both"> / </span>
+            <span data-lang="vi">Thêm sản phẩm khác</span>
+        </button>
+        <br>
+        
+    </div>
+
+    <!-- Buttons -->
+    <div class="container mb-4 text-center button-div">
+        <button class="btn btn-primary w-100 mb-3 inter-body custom-outline-btn" id="generate-output">
+            <i class="bi bi-plus-circle me-1"></i>
+            <span data-lang="en">Generate Result</span>
+            <span data-lang="both"> / </span>
+            <span data-lang="vi">Tạo Kết Quả</span>
+        </button>
+        <div class="output-container bg-light p-3 rounded"> 
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h3 class="inter-title mb-0">
+                    <span data-lang="en">Result</span>
+                    <span data-lang="both"> / </span>
+                    <span data-lang="vi">Kết quả</span>
+                </h3>
+                <button class="btn btn-link p-0 text-decoration-none" id="copy-output" aria-label="Copy results">
+                    <i class="bi bi-clipboard" style="font-size: 1.25rem;"></i>
+                    <span data-lang="en">Copy</span>
+                    <span data-lang="both"> / </span>
+                    <span data-lang="vi">Sao chép</span>
+                </button>
+            </div>
+            <pre id="output" class="p-2 text-secondary inter-body" style="white-space: pre-wrap;"></pre>
         </div>
     </div>
+
+    <!-- History -->
+    <div class="container mb-4 button-div">
+        <div style="margin-left: 18px;" class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="inter-title mb-0">
+                <span data-lang="en">History</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Lịch sử</span>
+            </h2>
+            <button class="btn btn-info inter-body custom-outline-btn" id="copy-history">
+                <i class="bi bi-clipboard"></i>
+                <span data-lang="en">Copy History</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Sao chép lịch sử</span>
+            </button>
+        </div>
+        <ul class="list-group ms-2 inter-body" id="history-list"></ul>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid py-3 mt-5 text-center">
+        <div class="container">
+            <p class="mb-0 inter-body">
+                <a href="https://www.instagram.com/barbie._.thrift/" target="_blank" class="text-decoration-none">
+                    <i class="bi bi-instagram"></i> barbie._.thrift
+                </a>
+            </p>
+            <small class="text-secondary inter-body">© 2024 barbie._.thrift. All rights reserved.</small>
+        </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

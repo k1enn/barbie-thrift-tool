@@ -23,7 +23,6 @@ body {
     padding-bottom: 8vh;
     background-color: white;
     color: black;
-    font-size: 20px;
 }
 
 /* Typography Classes */
@@ -211,6 +210,7 @@ body.dark-mode #darkModeIcon {
 /* Custom outline button styles */
 .custom-outline-btn {
     background-color: transparent;
+    max-width: 660px;
 }
 
 .custom-outline-btn.btn-danger {
@@ -315,10 +315,118 @@ body.dark-mode #darkModeIcon {
 }
 
 
-/*Set view for iPhone 16 Pro Max specifily */
-@media only screen and (min-device-width: 430px) and (max-device-width: 430px) {
-  shadow-box {
-    max-width: 430px;
-  }
+.button-div {
+    max-width: 724px;
+    width: 100%;
+    padding: 20px;
 }
 
+#add-section {
+    margin-left: 20px
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    /* Adjust container and shadow-box width */
+    .container,
+    .shadow-box {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Decrease line height for better text density */
+    p, 
+    .form-control, 
+    .form-select,
+    #output {
+        line-height: 1.2;
+    }
+
+    /* Existing mobile styles remain the same */
+    .form-control, 
+    .form-select, 
+    .btn {
+        min-height: 48px;
+        font-size: 16px;
+    }
+
+    /* Add more padding to improve touchability */
+    .shadow-box {
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    /* Increase spacing between form elements */
+    .row.g-3 {
+        row-gap: 1rem !important;
+    }
+
+    /* Make buttons easier to tap */
+    .btn {
+        padding: 12px 20px;
+    }
+
+    /* Adjust container padding */
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* Make copy buttons more prominent */
+    #copy-output,
+    #copy-history {
+        padding: 8px 16px;
+        width: auto;
+    }
+
+    /* Improve readability of output */
+    #output {
+        font-size: 14px;
+        padding: 16px;
+        margin: 12px 0;
+    }
+}
+
+/* Add smooth scrolling for better experience */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Add these styles */
+[data-lang] {
+    transition: display 0.3s ease;
+}
+
+.dropdown-menu {
+    min-width: 100px;
+}
+
+.dropdown-item {
+    cursor: pointer;
+}
+
+/* Add these styles for consistent button heights */
+#languageSwitch,
+.dropdown-menu .dropdown-item {
+    height: 38px;          /* Fixed height for both */
+    line-height: 24px;     /* Vertical centering */
+    padding: 6px 12px;     /* Consistent padding */
+    display: flex;         /* For better alignment */
+    align-items: center;   /* Vertical centering */
+}
+
+/* Style for the translate icon */
+#languageSwitch .bi-translate {
+    margin-right: 4px;     /* Space between icon and text */
+}
+
+/* Ensure dropdown width matches button */
+.dropdown-menu {
+    min-width: fit-content;
+    width: 100%;          /* Match parent width */
+}
+
+#output {
+    text-align: left !important;
+}

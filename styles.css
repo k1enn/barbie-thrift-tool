@@ -1,11 +1,11 @@
 /* Base Container and Body Styles */
 .container {
-    max-width: 724px;
+  max-width: 724px;
 }
 
- /* Add transition for smooth theme switching */
- body {
-    transition: background-color 0.3s ease, color 0.3s ease;
+/* Add transition for smooth theme switching */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Add transitions for all relevant elements */
@@ -14,88 +14,84 @@
 .form-select,
 .output-container,
 .list-group-item {
-    transition: background-color 0.3s ease, 
-                color 0.3s ease,
-                border-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 body {
-    padding-bottom: 8vh;
-    background-color: white;
-    color: black;
+  padding-bottom: 8vh;
+  background-color: white;
+  color: black;
 }
 
 /* Typography Classes */
 .inter-title {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .inter-body {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /* Shadow Box Styles */
 .shadow-box {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    max-width: 724px;
-    text-align: left;
-    margin: 20px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Keep transition only here */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 724px;
+  text-align: left;
+  margin: 20px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Keep transition only here */
 }
 
 .shadow-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
-  
-  .shadow-box .content h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  .shadow-box .content p {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .shadow-box .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #007BFF;
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s ease;
-  }
-  
+.shadow-box .content h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
 
+.shadow-box .content p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.shadow-box .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
 
 /* Dark Mode Styles */
 .dark-mode {
-    background-color: #121212;
-    color: #d6d6d6;
+  background-color: #121212;
+  color: #d6d6d6;
 }
 
 .dark-mode section {
-    background-color: #1e1e1e;
-    color: #d6d6d6;
+  background-color: #1e1e1e;
+  color: #d6d6d6;
 }
 
 .dark-mode div #set-number {
-    background-color: #1e1e1e;
-    color: #d6d6d6;
+  background-color: #1e1e1e;
+  color: #d6d6d6;
 }
 
 /* Dark Mode Form Elements */
@@ -105,9 +101,9 @@ body {
 .dark-mode .form-control,
 .dark-mode .form-select,
 .dark-mode .btn {
-    background-color: #222;
-    color: #fff;
-    border-color: #444;
+  background-color: #222;
+  color: #fff;
+  border-color: #444;
 }
 
 .dark-mode input:focus,
@@ -116,101 +112,100 @@ body {
 .dark-mode .form-control:focus,
 .dark-mode .form-select:focus,
 .dark-mode .btn:focus {
-    background-color: #333;
-    color: #fff;
-    border-color: #666;
-    outline: none;
-    box-shadow: 0 0 0 1px #444;
+  background-color: #333;
+  color: #fff;
+  border-color: #666;
+  outline: none;
+  box-shadow: 0 0 0 1px #444;
 }
 
 .dark-mode input::placeholder,
 .dark-mode textarea::placeholder,
 .dark-mode .form-control::placeholder {
-    color: #888;
+  color: #888;
 }
 
 /* Dark Mode Shadow Box Styles */
 .dark-mode .shadow-box {
-    background: #1e1e1e;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background: #1e1e1e;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .dark-mode .shadow-box:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 .dark-mode .shadow-box .content h2 {
-    color: #e0e0e0;
+  color: #e0e0e0;
 }
 
 .dark-mode .shadow-box .content p {
-    color: #b0b0b0;
+  color: #b0b0b0;
 }
 
 .dark-mode .shadow-box .btn {
-    background: #0066cc;
-    color: #fff;
+  background: #0066cc;
+  color: #fff;
 }
 
 .dark-mode .shadow-box .btn:hover {
-    background: #0052a3;
+  background: #0052a3;
 }
 
 /* Dark mode styles */
 body.dark-mode {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
 }
 
 /* Output container dark mode */
 body.dark-mode .output-container {
-    background-color: #2d2d2d !important;
-    border: 1px solid #404040;
+  background-color: #2d2d2d !important;
+  border: 1px solid #404040;
 }
 
 body.dark-mode #output {
-    color: #b0b0b0 !important;
+  color: #b0b0b0 !important;
 }
 
 /* History section dark mode */
 body.dark-mode .text-secondary {
-    color: #b0b0b0 !important;
+  color: #b0b0b0 !important;
 }
 
 body.dark-mode .list-group-item {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-    border-color: #404040;
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+  border-color: #404040;
 }
 
 /* Navbar styles */
 .navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Dark mode icon styles */
 #darkModeIcon {
-    font-size: 1.2rem;
-    color: #6c757d;
+  font-size: 1.2rem;
+  color: #6c757d;
 }
 
 body.dark-mode .navbar {
-    background-color: #2d2d2d !important;
+  background-color: #2d2d2d !important;
 }
 
 body.dark-mode .navbar-brand {
-    color: #e0e0e0;
+  color: #e0e0e0;
 }
 
 body.dark-mode #darkModeIcon {
-    color: #ffd700;
+  color: #ffd700;
 }
-
 
 /* Custom outline button styles */
 .custom-outline-btn {
-    background-color: transparent;
-    max-width: 660px;
+  background-color: transparent;
+  max-width: 660px;
 }
 
 .custom-outline-btn.btn-danger {
@@ -219,214 +214,209 @@ body.dark-mode #darkModeIcon {
 }
 
 .custom-outline-btn.btn-primary {
-    color: #0d6efd;
-    border-color: #0d6efd;
+  color: #0d6efd;
+  border-color: #0d6efd;
 }
 
 .custom-outline-btn.btn-success {
-    color: #198754;
-    border-color: #198754;
+  color: #198754;
+  border-color: #198754;
 }
 
 .custom-outline-btn.btn-info {
-    color: #0dcaf0;
-    border-color: #0dcaf0;
+  color: #0dcaf0;
+  border-color: #0dcaf0;
 }
 
 .custom-outline-btn {
-    font-size: 19px;
-    font-weight: 500;
+  font-size: 19px;
+  font-weight: 500;
 }
 
 .custom-outline-btn:hover {
-    background-color: rgba(0, 0, 0, 0.2) !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Edit history styles */
 .edit-container textarea {
-    min-height: 150px;
-    font-size: 0.9em;
+  min-height: 150px;
+  font-size: 0.9em;
 }
 
 /* Dark mode support for edit feature */
 .dark-mode .edit-container textarea {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-    border-color: #404040;
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+  border-color: #404040;
 }
 
 .dark-mode .btn-warning {
-    color: #000;
+  color: #000;
 }
 
 .dark-mode .edit-container .btn-secondary {
-    background-color: #4d4d4d;
-    border-color: #404040;
+  background-color: #4d4d4d;
+  border-color: #404040;
 }
 
 /* Validation Modal - Light Mode */
 .validation-modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .validation-modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    max-width: 90%;
-    width: 500px;
-    text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  width: 500px;
+  text-align: center;
 }
 
 /* Validation Modal - Dark Mode */
 .dark-mode .validation-modal-container {
-    background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .dark-mode .validation-modal-content {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .dark-mode .validation-modal-content button {
-    background-color: #4d4d4d;
-    border-color: #404040;
-    color: #e0e0e0;
+  background-color: #4d4d4d;
+  border-color: #404040;
+  color: #e0e0e0;
 }
 
 .dark-mode .validation-modal-content button:hover {
-    background-color: #5d5d5d;
-    border-color: #505050;
+  background-color: #5d5d5d;
+  border-color: #505050;
 }
-
-.dark-mode div #additional-html {
-  background-color: #1e1e1e;
-}
-
 
 .button-div {
-    max-width: 724px;
-    width: 100%;
-    padding: 20px;
+  max-width: 724px;
+  width: 100%;
+  padding: 20px;
 }
 
 #add-section {
-    margin-left: 20px
+  margin-left: 20px;
 }
 
 /* Mobile Optimizations */
 @media (max-width: 768px) {
-    /* Adjust container and shadow-box width */
-    .container,
-    .shadow-box {
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  /* Adjust container and shadow-box width */
+  .container,
+  .shadow-box {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-    /* Decrease line height for better text density */
-    p, 
-    .form-control, 
-    .form-select,
-    #output {
-        line-height: 1.2;
-    }
+  /* Decrease line height for better text density */
+  p,
+  .form-control,
+  .form-select,
+  #output {
+    line-height: 1.2;
+  }
 
-    /* Existing mobile styles remain the same */
-    .form-control, 
-    .form-select, 
-    .btn {
-        min-height: 48px;
-        font-size: 16px;
-    }
+  /* Existing mobile styles remain the same */
+  .form-control,
+  .form-select,
+  .btn {
+    min-height: 48px;
+    font-size: 16px;
+  }
 
-    /* Add more padding to improve touchability */
-    .shadow-box {
-        padding: 20px;
-        margin-bottom: 24px;
-    }
+  /* Add more padding to improve touchability */
+  .shadow-box {
+    padding: 20px;
+    margin-bottom: 24px;
+  }
 
-    /* Increase spacing between form elements */
-    .row.g-3 {
-        row-gap: 1rem !important;
-    }
+  /* Increase spacing between form elements */
+  .row.g-3 {
+    row-gap: 1rem !important;
+  }
 
-    /* Make buttons easier to tap */
-    .btn {
-        padding: 12px 20px;
-    }
+  /* Make buttons easier to tap */
+  .btn {
+    padding: 12px 20px;
+  }
 
-    /* Adjust container padding */
-    .container {
-        padding-left: 16px;
-        padding-right: 16px;
-    }
+  /* Adjust container padding */
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 
-    /* Make copy buttons more prominent */
-    #copy-output,
-    #copy-history {
-        padding: 8px 16px;
-        width: auto;
-    }
+  /* Make copy buttons more prominent */
+  #copy-output,
+  #copy-history {
+    padding: 8px 16px;
+    width: auto;
+  }
 
-    /* Improve readability of output */
-    #output {
-        font-size: 14px;
-        padding: 16px;
-        margin: 12px 0;
-    }
+  /* Improve readability of output */
+  #output {
+    font-size: 14px;
+    padding: 16px;
+    margin: 12px 0;
+  }
 }
 
 /* Add smooth scrolling for better experience */
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 /* Add these styles */
 [data-lang] {
-    transition: display 0.3s ease;
+  transition: display 0.3s ease;
 }
 
 .dropdown-menu {
-    min-width: 100px;
+  min-width: 100px;
 }
 
 .dropdown-item {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Add these styles for consistent button heights */
 #languageSwitch,
 .dropdown-menu .dropdown-item {
-    height: 38px;          /* Fixed height for both */
-    line-height: 24px;     /* Vertical centering */
-    padding: 6px 12px;     /* Consistent padding */
-    display: flex;         /* For better alignment */
-    align-items: center;   /* Vertical centering */
+  height: 38px; /* Fixed height for both */
+  line-height: 24px; /* Vertical centering */
+  padding: 6px 12px; /* Consistent padding */
+  display: flex; /* For better alignment */
+  align-items: center; /* Vertical centering */
 }
 
 /* Style for the translate icon */
 #languageSwitch .bi-translate {
-    margin-right: 4px;     /* Space between icon and text */
+  margin-right: 4px; /* Space between icon and text */
 }
 
 /* Ensure dropdown width matches button */
 .dropdown-menu {
-    min-width: fit-content;
-    width: 100%;          /* Match parent width */
+  min-width: fit-content;
+  width: 100%; /* Match parent width */
 }
 
 #output {
-    text-align: left !important;
+  text-align: left !important;
 }

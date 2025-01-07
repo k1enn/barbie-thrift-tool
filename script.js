@@ -3,10 +3,10 @@ let currentLanguage = 'both'; // Can be 'en', 'vi', or 'both'
 function switchLanguage(lang) {
     currentLanguage = lang;
     updateLanguageDisplay();
-    
+
     // Update the button text
     const langButton = document.getElementById('languageSwitch');
-    switch(lang) {
+    switch (lang) {
         case 'en':
             langButton.innerHTML = '<i class="bi bi-translate text-decoration-none"></i> EN';
             break;
@@ -14,7 +14,7 @@ function switchLanguage(lang) {
             langButton.innerHTML = '<i class="bi bi-translate text-decoration-none"></i> VI';
             break;
         case 'both':
-            langButton.innerHTML = '<i class="bi bi-translate text-decoration-none"></i> EN/VI';
+            langButton.innerHTML = '<i class="bi bi-translate text-decoration-none"></i> VI/EN';
             break;
     }
 }
@@ -35,12 +35,12 @@ function updateLanguageDisplay() {
 function darkMode() {
     const body = document.body;
     const icon = document.getElementById('darkModeIcon');
-    
+
     body.classList.toggle('dark-mode');
     icon.classList.add('animated');
 
     // Update icon
-    if(body.classList.contains('dark-mode')) {
+    if (body.classList.contains('dark-mode')) {
         icon.classList.remove('bi-sun-fill');
         icon.classList.add('bi-moon-stars-fill');
     } else {
@@ -60,7 +60,7 @@ let historyCount = 0;
 function clearInputs() {
     // Lấy tất cả các input type="text" và đặt giá trị về trống
     document.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
-    
+
     // Lấy tất cả các select và đặt giá trị về mặc định (giá trị đầu tiên)
     document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
 }
@@ -69,28 +69,29 @@ function clearInputs() {
 function validateInputs() {
 
     // Còn thiếu trường hợp nếu người dùng chọn mà không nhập, nhưng vì có thể làm vậy với chủ đích nên không làm
+    const setPrice = document.getElementById('set-price').value;
+    if (setPrice != 1) {
+      const setCount = parseInt(document.getElementById("set-price").value);
+      if (!setCount) return true; // If no set count selected, skip validation
 
-    const setCount = parseInt(document.getElementById('set-price').value);
-    if (!setCount) return true; // If no set count selected, skip validation
-    
-    let itemCount = 0;
-    
-    // Count items that have at least one field filled
-    const sections = ['top', 'bottom', 'coat', 'other'];
-    sections.forEach(section => {
+      let itemCount = 0;
+
+      // Count items that have at least one field filled
+      const sections = ["top", "bottom", "coat", "other", "top2"];
+      sections.forEach((section) => {
         const type = document.getElementById(`${section}-type`);
         if (type && type.value) itemCount++;
-    });
-    
+      });
 
-
-    if (itemCount < setCount) {
+      if (itemCount < setCount) {
         showValidationModal(
-            `Bạn chọn ${setCount} sản phẩm nhưng chỉ nhập ${itemCount}.\nVui lòng nhập thêm ${setCount - itemCount} món nữa.`
+          `Bạn chọn ${setCount} sản phẩm nhưng chỉ nhập ${itemCount}.\nVui lòng nhập thêm ${
+            setCount - itemCount
+          } món nữa.`
         );
         return false;
+      }
     }
-
     return true;
 }
 
@@ -100,21 +101,21 @@ function showValidationModal(message) {
     // Create modal container
     const modalContainer = document.createElement('div');
     modalContainer.className = 'validation-modal-container';
-    
+
     // Create modal content
     const modalContent = document.createElement('div');
     modalContent.className = 'validation-modal-content';
-    
+
     // Add message
     const messageElement = document.createElement('p');
     messageElement.textContent = message;
-    
+
     // Add close button
     const closeButton = document.createElement('button');
     closeButton.className = 'btn btn-primary';
     closeButton.textContent = 'Ok';
     closeButton.onclick = () => modalContainer.remove();
-    
+
     // Assemble modal
     modalContent.appendChild(messageElement);
     modalContent.appendChild(closeButton);
@@ -124,123 +125,172 @@ function showValidationModal(message) {
 
 // Hàm xử lý tạo kết quả
 document.getElementById('generate-output').addEventListener('click', function () {
+  // Get set quantity
+  const setPrice = document.getElementById("set-price").value;
 
-    // Get set quantity
-    const setPrice = document.getElementById('set-price').value;
+  if (!setPrice) {
+    showValidationModal("Vui lòng chọn số lượng sản phẩm!");
+    return;
+  }
 
-    if (!setPrice) {
-        showValidationModal('Vui lòng chọn số lượng sản phẩm!');
-        return;
-    }
-    
-    if (!validateInputs()) return; // Stop if validation fails
-    
-    //Get top value
-    const topType = document.getElementById('top-type').value;
-    const fitTop = document.getElementById('fit-top').value;
-    const topChest = document.getElementById('top-chest').value;
-    const topWaist = document.getElementById('top-waist').value;
-    const topLength = document.getElementById('top-length').value;
-    const topArmpit = document.getElementById('top-armpit').value;
-    const topDefect = document.getElementById('top-defect').value;
+  if (!validateInputs()) return; // Stop if validation fails
 
-    //Get top2 value
-    // Lấy giá trị từ các phần tử DOM, và cho phép chúng có thể là null nếu không có giá trị
-    const top2Type = document.getElementById('top2-type')?.value || null;
-    const fit2Top = document.getElementById('fit2-top')?.value || null;
-    const top2Chest = document.getElementById('top2-chest')?.value || null;
-    const top2Waist = document.getElementById('top2-waist')?.value || null;
-    const top2Length = document.getElementById('top2-length')?.value || null;
-    const top2Armpit = document.getElementById('top2-armpit')?.value || null;
-    const top2Defect = document.getElementById('top2-defect')?.value || null;
+  //Get top value
+  const topType = document.getElementById("top-type").value;
+  const fitTop = document.getElementById("fit-top").value;
+  const topChest = document.getElementById("top-chest").value;
+  const topWaist = document.getElementById("top-waist").value;
+  const topLength = document.getElementById("top-length").value;
+  const topArmpit = document.getElementById("top-armpit").value;
+  const topDefect = document.getElementById("top-defect").value;
 
-    // Get bottom value
-    const bottomType = document.getElementById('bottom-type').value;
-    const fitBottom = document.getElementById('fit-bottom').value;
-    const bottomWaist = document.getElementById('bottom-waist').value;
-    const bottomLength = document.getElementById('bottom-length').value;
-    const bottomThigh = document.getElementById('bottom-thigh').value;
-    const bottomDefect = document.getElementById('bottom-defect').value;
+  //Get top2 value
+  // Lấy giá trị từ các phần tử DOM, và cho phép chúng có thể là null nếu không có giá trị
+  const top2Type = document.getElementById("top2-type")?.value || null;
+  const fit2Top = document.getElementById("fit2-top")?.value || null;
+  const top2Chest = document.getElementById("top2-chest")?.value || null;
+  const top2Waist = document.getElementById("top2-waist")?.value || null;
+  const top2Length = document.getElementById("top2-length")?.value || null;
+  const top2Armpit = document.getElementById("top2-armpit")?.value || null;
+  const top2Defect = document.getElementById("top2-defect")?.value || null;
 
-    // Get coat value
-    const coatType = document.getElementById('coat-type').value;
-    const fitCoat = document.getElementById('fit-coat').value;
-    const coatArmpit = document.getElementById('coat-armpit').value;
-    const coatLength = document.getElementById('coat-length').value;
-    const coatDefect = document.getElementById('coat-defect').value;
+  // Get bottom value
+  const bottomType = document.getElementById("bottom-type").value;
+  const fitBottom = document.getElementById("fit-bottom").value;
+  const bottomWaist = document.getElementById("bottom-waist").value;
+  const bottomLength = document.getElementById("bottom-length").value;
+  const bottomThigh = document.getElementById("bottom-thigh").value;
+  const bottomDefect = document.getElementById("bottom-defect").value;
 
-    const otherName = document.getElementById('other-name')?.value || null;
-    const fitOther = document.getElementById('other-fit')?.value || null;
-    const otherChest = document.getElementById('other-chest')?.value || null;
-    const otherButt = document.getElementById('other-butt')?.value || null;
-    const otherWaist = document.getElementById('other-waist')?.value || null;
-    const otherHip = document.getElementById('other-hip')?.value || null;
-    const otherLength = document.getElementById('other-length')?.value || null;
-    const otherArmpit = document.getElementById('other-armpit')?.value || null;
-    const otherThigh = document.getElementById('other-thigh')?.value || null;
-    const otherDefect = document.getElementById('other-defect')?.value || null;
-    
-    let resultDisplay = "";
+  // Get coat value
+  const coatType = document.getElementById("coat-type").value;
+  const fitCoat = document.getElementById("fit-coat").value;
+  const coatArmpit = document.getElementById("coat-armpit").value;
+  const coatLength = document.getElementById("coat-length").value;
+  const coatDefect = document.getElementById("coat-defect").value;
 
-    // Add set quantity
-    resultDisplay += getSetQuantity(setPrice);
+  const otherName = document.getElementById("other-name")?.value || null;
+  const fitOther = document.getElementById("other-fit")?.value || null;
+  const otherChest = document.getElementById("other-chest")?.value || null;
+  const otherButt = document.getElementById("other-butt")?.value || null;
+  const otherWaist = document.getElementById("other-waist")?.value || null;
+  const otherHip = document.getElementById("other-hip")?.value || null;
+  const otherLength = document.getElementById("other-length")?.value || null;
+  const otherArmpit = document.getElementById("other-armpit")?.value || null;
+  const otherThigh = document.getElementById("other-thigh")?.value || null;
+  const otherDefect = document.getElementById("other-defect")?.value || null;
 
-    // Thêm thông tin Top
-    if(setPrice == '1') {
-        resultDisplay += getSingleTopInfo(fitTop, topChest, topWaist, topLength, topArmpit, topDefect);
-    }
-    else {
-        resultDisplay += getTopInfo(topType, fitTop, topChest, topWaist, topLength, topArmpit, topDefect);
-    }
-    
+  const singleName = document.getElementById("single-item-name")?.value || null;
+  const fitSingle = document.getElementById("single-item-fit")?.value || null;
+  const singleChest =
+    document.getElementById("single-item-chest")?.value || null;
+  const singleButt = document.getElementById("single-item-butt")?.value || null;
+  const singleWaist =
+    document.getElementById("single-item-waist")?.value || null;
+  const singleHip = document.getElementById("single-item-hip")?.value || null;
+  const singleLength =
+    document.getElementById("single-item-length")?.value || null;
+  const singleArmpit =
+    document.getElementById("single-item-armpit")?.value || null;
+  const singleThigh =
+    document.getElementById("single-item-thigh")?.value || null;
+  const singleDefect =
+    document.getElementById("single-item-defect")?.value || null;
+
+  let resultDisplay = "";
+
+  // Add set quantity
+  resultDisplay += getSetQuantity(setPrice);
+
+  // Thêm thông tin Top
+  if (setPrice == "1") {
+    resultDisplay += getSingleInfo(
+      singleName,
+      fitSingle,
+      singleChest,
+      singleButt,
+      singleWaist,
+      singleHip,
+      singleLength,
+      singleArmpit,
+      singleThigh,
+      singleDefect
+    );
+  } else {
+    resultDisplay += getTopInfo(
+      topType,
+      fitTop,
+      topChest,
+      topWaist,
+      topLength,
+      topArmpit,
+      topDefect
+    );
+
     // Thêm thông tin Top2
-    resultDisplay += getTop2Info(top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Armpit, topDefect);
+    resultDisplay += getTop2Info(
+      top2Type,
+      fit2Top,
+      top2Chest,
+      top2Waist,
+      top2Length,
+      top2Armpit,
+      topDefect
+    );
 
     // Thêm thông tin Bottom
-    resultDisplay += getBottomInfo(bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh, bottomDefect);
+    resultDisplay += getBottomInfo(
+      bottomType,
+      fitBottom,
+      bottomWaist,
+      bottomLength,
+      bottomThigh,
+      bottomDefect
+    );
 
     // Thêm thông tin Coat
-    resultDisplay += getCoatInfo(coatType, fitCoat, coatArmpit, coatLength, coatDefect);
+    resultDisplay += getCoatInfo(
+      coatType,
+      fitCoat,
+      coatArmpit,
+      coatLength,
+      coatDefect
+    );
 
     // Thêm thông tin cho sản phẩm khác
-    resultDisplay += getOtherInfo(otherName, fitOther, otherChest, otherButt, otherWaist, otherHip, otherLength, otherArmpit, otherThigh, otherDefect);
+    resultDisplay += getOtherInfo(
+      otherName,
+      fitOther,
+      otherChest,
+      otherButt,
+      otherWaist,
+      otherHip,
+      otherLength,
+      otherArmpit,
+      otherThigh,
+      otherDefect
+    );
+  }
 
+  document.getElementById("output").textContent = resultDisplay;
 
-    document.getElementById('output').textContent = resultDisplay;
+  resultDisplay += getAttentionMessage(currentLanguage);
 
-    resultDisplay += getAttentionMessage(currentLanguage);
+  addToHistory(resultDisplay);
 
-    addToHistory(resultDisplay);
-    
-    // Xóa dữ liệu input
-    clearInputs();
+  // Xóa dữ liệu input
+  clearInputs();
 });
 
 function getSetQuantity(setPrice) {
     const messages = {
-        1: {
-            en: "✨\n🎀𝐏𝐫𝐢𝐜𝐞: \n",
-            vi: "✨\n🎀𝐆𝐢𝐚́: \n",
-            both: "✨\n🎀𝐏𝐫𝐢𝐜𝐞 / 𝐆𝐢𝐚́: \n"
-        },
-        2: {
-            en: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n",
-            vi: "✨\n🎀𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟐 𝐦𝐨́𝐧: \n",
-            both: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬 / 𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟐 𝐦𝐨́𝐧: \n"
-        },
-        3: {
-            en: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n",
-            vi: "✨\n🎀𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟑 𝐦𝐨́𝐧: \n",
-            both: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬 / 𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟑 𝐦𝐨́𝐧: \n"
-        },
-        4: {
-            en: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n",
-            vi: "✨\n🎀𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟒 𝐦𝐨́𝐧: \n",
-            both: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬 / 𝐆𝐢𝐚́ 𝐬𝐞𝐭 𝟒 𝐦𝐨́𝐧: \n"
-        }
+      1: "✨\n🎀𝐏𝐫𝐢𝐜𝐞: \n",
+      2: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n",
+      3: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n",
+      4: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n",
     };
 
-    return messages[setPrice]?.[currentLanguage] || "";
+    return messages[setPrice];
 }
 
 // Translation object
@@ -288,7 +338,8 @@ const getTranslatedText = (key) => translations[key][currentLanguage] || transla
 // Modified getTopInfo function
 const getTopInfo = (topType, fitTop, topChest, topWaist, topLength, topArmpit, topDefect) => {
     var result = "";
-    if(topType) {
+
+    if (topType) {
         result += `${convertToBoldUnicode(topType)}:\n`;
         if (topDefect) result += `${topDefect}\n`;
         if (fitTop) result += `  - Fit: ${fitTop}\n`;
@@ -296,53 +347,82 @@ const getTopInfo = (topType, fitTop, topChest, topWaist, topLength, topArmpit, t
         if (topWaist) result += `  - ${getTranslatedText('waist')}: ${topWaist}cm\n`;
         if (topLength) result += `  - ${getTranslatedText('length')}: ${topLength}cm\n`;
         if (topArmpit) result += `  - ${getTranslatedText('armpit')}: ${topArmpit}cm\n`;
-    } 
+    }
+
     return result;
 }
 
-// Modified getSingleTopInfo function
+/* Modified getSingleTopInfo function
 const getSingleTopInfo = (fitTop, topChest, topWaist, topLength, topArmpit, topDefect) => {
     var result = "";
+
     if (topDefect) result += `${topDefect}\n`;
     if (fitTop) {
-        if(fitTop != "Freesize") result += `- Fit: ${fitTop}\n`;
-        else result += `- Freesize\n`;
+      if (fitTop != "Freesize") result += `- Fit: ${fitTop}\n`;
+      else result += `- Freesize\n`;
     }
-    if (topChest) result += `- ${getTranslatedText('chest')}: ${topChest}cm\n`;
-    if (topWaist) result += `- ${getTranslatedText('waist')}: ${topWaist}cm\n`;
-    if (topLength) result += `- ${getTranslatedText('length')}: ${topLength}cm\n`;
-    if (topArmpit) result += `- ${getTranslatedText('armpit')}: ${topArmpit}cm`;
+    if (topChest) result += `- ${getTranslatedText("chest")}: ${topChest}cm\n`;
+    if (topWaist) result += `- ${getTranslatedText("waist")}: ${topWaist}cm\n`;
+    if (topLength) result += `- ${getTranslatedText("length")}: ${topLength}cm\n`;
+    if (topArmpit) result += `- ${getTranslatedText("armpit")}: ${topArmpit}cm\n`;
+
     return result;
 }
-
+*/
 const getTop2Info = (top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Armpit, top2Defect) => {
     var result = "";
-    if(top2Type) { // Kiểm tra nếu top2Type không phải là chuỗi rỗng
-    result += `${convertToBoldUnicode(top2Type)}:\n`;
-    if (top2Defect) result += `${top2Defect}\n`;
-    if (fit2Top)  {
-        if(fit2Top != "Freesize") result += `  - Fit: ${fit2Top}\n`;
-        else result += `  - Freesize\n`;
+
+    // Kiểm tra nếu top2Type không phải là chuỗi rỗng để thêm vào hoặc không
+    if (top2Type) {
+
+        // Add type    
+        result += `${convertToBoldUnicode(top2Type)}:\n`;
+        if (top2Defect) result += `${top2Defect}\n`;
+
+        // Edit Freesize option
+        if (fit2Top) {
+            if (fit2Top != "Freesize") result += `  - Fit: ${fit2Top}\n`;
+            else result += `  - Freesize\n`;
+        }
+
+        // Add other things
+        if (top2Chest)
+          result += `  - ${getTranslatedText("chest")}: ${top2Chest}cm\n`;
+        if (top2Waist)
+          result += `  - ${getTranslatedText("waist")}: ${top2Waist}cm\n`;
+        if (top2Length)
+          result += `  - ${getTranslatedText("length")}: ${top2Length}cm\n`;
+        if (top2Armpit)
+          result += `  - ${getTranslatedText("armpit")}: ${top2Armpit}cm\n`;
     }
-        
-    if (top2Chest) result += `  - ${getTranslatedText('chest')}: ${top2Chest}cm\n`;
-    if (top2Waist) result += `  - ${getTranslatedText('waist')}: ${top2Waist}cm\n`;
-    if (top2Length) result += `  - ${getTranslatedText('length')}: ${top2Length}cm\n`;
-    if (top2Armpit) result += `  - ${getTranslatedText('armpit')}: ${top2Armpit}cm\n`;
-    }
+    
     return result;
 }
 
 // Add Bottom information
 const getBottomInfo = (bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh, bottomDefect) => {
     var result = "";
-    if(bottomType) { // Kiểm tra nếu bottomType không phải là chuỗi rỗng
+
+    // Kiểm tra nếu top2Type không phải là chuỗi rỗng để thêm vào hoặc không
+    if (bottomType) {
+
+        // Add type  
         result += `${convertToBoldUnicode(bottomType)}:\n`;
+
         if (bottomDefect) result += `${bottomDefect}\n`;
-        if (fitBottom) result += `  - Fit: ${fitBottom}\n`;
-        if (bottomWaist) result += `  - ${getTranslatedText('waist')}: ${bottomWaist}cm\n`;
-        if (bottomLength) result += `  - ${getTranslatedText('length')}: ${bottomLength}cm\n`;
-        if (bottomThigh) result += `  - ${getTranslatedText('thigh')}: ${bottomThigh}cm\n`;
+
+        // Edit Freesize option
+        if (fitBottom) {
+            if (fitBottom != "Freesize") result += `  - Fit: ${fitBottom}\n`;
+            else result += `  - Freesize\n`;
+        }
+
+        if (bottomWaist)
+          result += `  - ${getTranslatedText("waist")}: ${bottomWaist}cm\n`;
+        if (bottomLength)
+          result += `  - ${getTranslatedText("length")}: ${bottomLength}cm\n`;
+        if (bottomThigh)
+          result += `  - ${getTranslatedText("thigh")}: ${bottomThigh}cm\n`;
     }
 
     return result;
@@ -351,12 +431,25 @@ const getBottomInfo = (bottomType, fitBottom, bottomWaist, bottomLength, bottomT
 //  Add Coat information
 const getCoatInfo = (coatType, fitCoat, coatArmpit, coatLength, coatDefect) => {
     var result = "";
-    if (coatType) { // Kiểm tra nếu coatType không phải là chuỗi rỗng
+
+    // Kiểm tra nếu top2Type không phải là chuỗi rỗng để thêm vào hoặc không
+    if (coatType) {
+        // Add type
         result += `${convertToBoldUnicode(coatType)}:\n`;
+
         if (coatDefect) result += `${coatDefect}\n`;
-        if (fitCoat) result += `  - Fit: ${fitCoat}\n`;
-        if (coatArmpit) result += `  - ${getTranslatedText('armpit')}: ${coatArmpit}cm\n`;
-        if (coatLength) result += `  - ${getTranslatedText('length')}: ${coatLength}cm\n`;
+
+        // Edit Freesize option
+        if (fitCoat) {
+            if (fitCoat != "Freesize") result += `  - Fit: ${fitCoat}\n`;
+            else result += `  - Freesize\n`;
+        }
+
+        // Add other things
+        if (coatArmpit)
+            result += `  - ${getTranslatedText("armpit")}: ${coatArmpit}cm\n`;
+        if (coatLength)
+            result += `  - ${getTranslatedText("length")}: ${coatLength}cm\n`;
     }
     return result;
 };
@@ -364,18 +457,67 @@ const getCoatInfo = (coatType, fitCoat, coatArmpit, coatLength, coatDefect) => {
 
 
 const getOtherInfo = (otherName, fitOther, otherChest, otherButt, otherWaist, otherHip, otherLength, otherArmpit, otherThigh, otherDefect) => {
-    var result = `${convertToBoldUnicode(otherName)}`;
-    if (otherName) result += `:\n`;
-    if (otherDefect) result += `${otherDefect}\n`;
-    if (fitOther) result += `  - Fit: ${fitOther}\n`;
-    if (otherChest) result += `  - ${getTranslatedText('chest')}: ${otherChest}cm\n`;
-    if (otherButt) result += `  - ${getTranslatedText('butt')}: ${otherButt}cm\n`; 
-    if (otherWaist) result += `  - ${getTranslatedText('waist')}: ${otherWaist}cm\n`;
-    if (otherHip) result += `  - ${getTranslatedText('hip')}: ${otherHip}cm\n`;
-    if (otherLength) result += `  - ${getTranslatedText('length')}: ${otherLength}cm\n`;
-    if (otherArmpit) result += `  - ${getTranslatedText('armpit')}: ${otherArmpit}cm\n`;
-    if (otherThigh) result += `  - ${getTranslatedText('thigh')}: ${otherThigh}cm\n`;
+    var result = "";
+
+    if (otherName) {
+        // Add type
+        result += `${convertToBoldUnicode(otherName)}:\n`;
+
+        if (otherDefect) result += `${otherDefect}\n`;
+
+        // Edit Freesize option
+        if (fitOther) {
+            if (fitOther != "Freesize") result += `  - Fit: ${fitOther}\n`;
+            else result += `  - Freesize\n`;
+        }
+
+        if (otherChest)
+            result += `  - ${getTranslatedText("chest")}: ${otherChest}cm\n`;
+        if (otherButt)
+            result += `  - ${getTranslatedText("butt")}: ${otherButt}cm\n`;
+        if (otherWaist)
+            result += `  - ${getTranslatedText("waist")}: ${otherWaist}cm\n`;
+        if (otherHip)
+            result += `  - ${getTranslatedText("hip")}: ${otherHip}cm\n`;
+        if (otherLength)
+            result += `  - ${getTranslatedText("length")}: ${otherLength}cm\n`;
+        if (otherArmpit)
+            result += `  - ${getTranslatedText("armpit")}: ${otherArmpit}cm\n`;
+        if (otherThigh)
+            result += `  - ${getTranslatedText("thigh")}: ${otherThigh}cm\n`;
+    }
+
     return result;
+}
+
+// Add Single item information
+const getSingleInfo = (fitsingle, singleChest, singleButt, singleWaist, singleHip, singleLength, singleArmpit, singleThigh, singleDefect) => {
+  var result = "";
+
+
+  if (singleDefect) result += `${singleDefect}\n`;
+
+  // Edit Freesize option
+  if (fitsingle) {
+    if (fitsingle != "Freesize") result += `  - Fit: ${fitsingle}\n`;
+    else result += `  - Freesize\n`;
+  }
+
+  if (singleChest)
+    result += `  - ${getTranslatedText("chest")}: ${singleChest}cm\n`;
+  if (singleButt)
+    result += `  - ${getTranslatedText("butt")}: ${singleButt}cm\n`;
+  if (singleWaist)
+    result += `  - ${getTranslatedText("waist")}: ${singleWaist}cm\n`;
+  if (singleHip) result += `  - ${getTranslatedText("hip")}: ${singleHip}cm\n`;
+  if (singleLength)
+    result += `  - ${getTranslatedText("length")}: ${singleLength}cm\n`;
+  if (singleArmpit)
+    result += `  - ${getTranslatedText("armpit")}: ${singleArmpit}cm\n`;
+  if (singleThigh)
+    result += `  - ${getTranslatedText("thigh")}: ${singleThigh}cm\n`;
+
+  return result;
 }
 
 // Hàm sao chép kết quả
@@ -467,127 +609,34 @@ function updateHistoryNumbers() {
     });
 }
 
-// Thêm vào Top phụ
+// Add event listener to Additional Top
 document.addEventListener("DOMContentLoaded", () => {
     const topTypeElement = document.getElementById("top-type");
     const generateOutputButton = document.getElementById("generate-output");
-    const topSection = document.querySelector('section:nth-of-type(1) > .row.g-3');
+    const additionalHtml = document.getElementById("additional-html");
 
-    // Hàm thêm HTML
-    const addInnerOrOuterHtml = () => {
-        const newHtml = `
-            <div style="padding-top: 2rem; padding-bottom:0.1rem;" class="row g-3" id="additional-html">
-            <hr class="w-70 mx-auto">
-            <h5>Addition</h5>
-                <div class="col-md-6">
-                    <label for="top2-type" class="form-label inter-body">
-                        <span data-lang="en">Type</span>
-                        <span data-lang="both"> / </span>
-                        <span data-lang="vi">Loại:</span>:
-                    </label>
-                    <select id="top2-type" class="form-select inter-body">
-                        <option value="">Không chọn</option>
-                        <option value="Top">Top</option>
-                        <option value="Cami">Cami</option>
-                        <option value="Inner Top">Inner Top</option>
-                        <option value="Outer Top">Outer Top</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="fit2-top" class="form-label inter-body">
-                        <span data-lang="en">Size</span>
-                        <span data-lang="both"> / </span>
-                        <span data-lang="vi">Kích cỡ</span>:
-                    </label>
-                    <select id="fit2-top" class="form-select inter-body">
-                        <option value="">Không chọn</option>
-                        <option value="Freesize">Freesize</option>
-                        <option value="XS">XS</option>
-                        <option value="S">S</option>
-                        <option value="S">XS/S</option>
-                        <option value="S/M">S/M</option>
-                        <option value="S">M</option>
-                        <option value="M/L">M/L</option>
-                        <option value="L">L</option>
-                        <option value="S">L/XL</option>
-                        <option value="XL">XL</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="top2-chest" class="form-label inter-body">
-                        <span data-lang="en">Chest</span>
-                        <span data-lang="both"> / </span>
-                        <span data-lang="vi">Ngực</span>:
-                    </label>
-                    <input type="text" id="top2-chest" class="form-control inter-body" placeholder="Nhập số">
-                </div>
-                <div class="col-md-4">
-                    <label for="top2-waist" class="form-label inter-body">
-                        <span data-lang="en">Waist</span>
-                        <span data-lang="both"> / </span>
-                        <span data-lang="vi">Eo</span>:
-                    </label>
-                    <input type="text" id="top2-waist" class="form-control inter-body" placeholder="Nhập số">
-                </div>
-                <div class="col-md-4">
-                    <label for="top2-length" class="form-label inter-body">
-                        <span data-lang="en">Length</span>
-                        <span data-lang="both"> / </span>
-                        <span data-lang="vi">Dài</span>:
-                    </label>
-                    <input type="text" id="top2-length" class="form-control inter-body" placeholder="Nhập số">
-                </div>
-                <div class="col-md-4">
-                    <label for="top2-armpit" class="form-label inter-body">
-                        <span data-lang="en">Armpit</span>
-                        <span data-lang="both"> / </span>
-                        <span data-lang="vi">Vòng nách</span>:
-                    </label>
-                    <input type="text" id="top2-armpit" class="form-control inter-body" placeholder="Nhập số">
-                </div>
-                <div class="col-md-4">
-                    <label for="top2-defect" class="form-label inter-body">
-                        <span data-lang="en">Defect</span>
-                        <span data-lang="both"> / </span>
-                        <span data-lang="vi">Lỗi</span>:
-                    </label>
-                    <input type="text" id="top2-defect" class="form-control inter-body" placeholder="Nhập số">
-                </div>
-            </div>`;
+    additionalHtml.style.display = "none"; // Hide by default
 
-        const existingHtml = document.getElementById("additional-html");
-        // Kiểm tra nếu HTML chưa được thêm vào thì mới thêm
-        if (!existingHtml) {
-            topSection.insertAdjacentHTML("afterend", newHtml);
-        }
-    };
+    // Function to show or hide the additional HTML section
+    const toggleAdditionalHtml = () => {
+        const selectedValue = topTypeElement.value;
 
-    // Hàm xóa HTML
-    const removeInnerOrOuterHtml = () => {
-        const additionalHtml = document.getElementById("additional-html");
-        if (additionalHtml) {
-            additionalHtml.remove();
-        }
-    };
-
-    // Lắng nghe sự kiện thay đổi trong top-type
-    topTypeElement.addEventListener("change", (e) => {
-        const selectedValue = e.target.value;
-
-        // Nếu chọn Inner Top hoặc Outer Top, thêm HTML nếu chưa có
         if (selectedValue === "Inner Top" || selectedValue === "Outer Top") {
-            addInnerOrOuterHtml();
+            additionalHtml.style.display = "flex"; // Show the additional HTML
         } else {
-            // Nếu chọn loại khác, xóa HTML nếu đã thêm
-            removeInnerOrOuterHtml();
+            additionalHtml.style.display = "none"; // Hide the additional HTML
         }
-    });
+    };
 
-    // Xóa HTML khi nhấn "Tạo Kết Quả"
+    // Listen for changes in the top-type dropdown
+    topTypeElement.addEventListener("change", toggleAdditionalHtml);
+
+    // Hide the additional HTML when the "Generate Output" button is pressed
     generateOutputButton.addEventListener("click", () => {
-        removeInnerOrOuterHtml();  // Xóa HTML nếu có
+        additionalHtml.style.display = "none"; // Hide the additional HTML
     });
 });
+
 
 // Get the "Add Section" button and the hidden section
 const addSectionButton = document.getElementById('add-section');
@@ -606,7 +655,7 @@ function deleteSection(button) {
     const sectionToHide = button.closest('section');
     // Hide the section
     sectionToHide.style.display = 'none';
-    
+
     // Clear all inputs in the hidden section
     const inputs = sectionToHide.querySelectorAll('input, select');
     inputs.forEach(input => {
@@ -630,7 +679,7 @@ function convertToBoldUnicode(inputText) {
         'k': '𝐤', 'l': '𝐥', 'm': '𝐦', 'n': '𝐧', 'o': '𝐨', 'p': '𝐩', 'q': '𝐪', 'r': '𝐫', 's': '𝐬', 't': '𝐭',
         'u': '𝐮', 'v': '𝐯', 'w': '𝐰', 'x': '𝐱', 'y': '𝐲', 'z': '𝐳',
         '0': '𝟎', '1': '𝟏', '2': '𝟐', '3': '𝟑', '4': '𝟒', '5': '𝟓', '6': '𝟔', '7': '𝟕', '8': '𝟖', '9': '𝟗',
-        
+
         // Vietnamese uppercase characters
         'À': '𝐀̀', 'Á': '𝐀́', 'Ả': '𝐀̉', 'Ã': '𝐀̃', 'Ạ': '𝐀̣',
         'È': '𝐄̀', 'É': '𝐄́', 'Ẻ': '𝐄̉', 'Ẽ': '𝐄̃', 'Ẹ': '𝐄̣',
@@ -639,7 +688,7 @@ function convertToBoldUnicode(inputText) {
         'Ù': '𝑈̀', 'Ú': '𝑈́', 'Ủ': '𝑈̉', 'Ũ': '𝑈̃', 'Ụ': '𝑈̣',
         'Ỳ': '𝑌̀', 'Ý': '𝑌́', 'Ỷ': '𝑌̉', 'Ỹ': '𝑌̃', 'Ỵ': '𝑌̣',
         'Đ': '𝐷', 'Ê': '𝐸̂', 'Ô': '𝑂̂', 'Ơ': '𝑂̛', 'Ư': '𝑈̛',
-        
+
         // Vietnamese lowercase characters
         'à': '𝐚̀', 'á': '𝐚́', 'ả': '𝐚̉', 'ã': '𝐚̃', 'ạ': '𝐚̣',
         'è': '𝐞̀', 'é': '𝐞́', 'ẻ': '𝐞̉', 'ẽ': '𝐞̃', 'ẹ': '𝐞̣',
@@ -648,7 +697,7 @@ function convertToBoldUnicode(inputText) {
         'ù': '𝑢̀', 'ú': '𝑢́', 'ủ': '𝑢̉', 'ũ': '𝑢̃', 'ụ': '𝑢̣',
         'ỳ': '𝑦̀', 'ý': '𝑦́', 'ỷ': '𝑦̉', 'ỹ': '𝑦̃', 'ỵ': '𝑦̣',
         'đ': '𝑑', 'ê': '𝑒̂', 'ô': '𝑜̂', 'ơ': '𝑜̛', 'ư': '𝑢̛',
-    };    
+    };
 
     const boldText = Array.from(inputText).map(char => boldMap[char] || char).join('');
     return boldText;
@@ -659,7 +708,7 @@ function editHistory(index) {
     const historyItem = document.querySelector(`#history-list li[data-index="${index}"]`);
     const editContainer = historyItem.querySelector('.edit-container');
     const content = historyItem.querySelector('.history-content');
-    
+
     editContainer.classList.remove('d-none');
     content.classList.add('d-none');
 }
@@ -669,7 +718,7 @@ function saveEdit(index) {
     const editContainer = historyItem.querySelector('.edit-container');
     const content = historyItem.querySelector('.history-content');
     const textarea = editContainer.querySelector('textarea');
-    
+
     content.textContent = textarea.value;
     editContainer.classList.add('d-none');
     content.classList.remove('d-none');
@@ -680,7 +729,7 @@ function cancelEdit(index) {
     const editContainer = historyItem.querySelector('.edit-container');
     const content = historyItem.querySelector('.history-content');
     const textarea = editContainer.querySelector('textarea');
-    
+
     textarea.value = content.textContent;
     editContainer.classList.add('d-none');
     content.classList.remove('d-none');
@@ -727,3 +776,33 @@ const getAttentionMessage = (language) => {
             ${messages.unboxing[language]}
             ${messages.noReturn[language]}`;
 };
+
+// Add event listener to the set-price dropdown
+document.getElementById('set-price').addEventListener('change', function() {
+    const selectedValue = this.value;
+
+    // Get all sections except buttons, history, and footer
+    const sections = document.querySelectorAll('section:not(#buttons):not(#history):not(#footer)');
+
+    // Unhide the specific section if value is 1, otherwise hide it
+    if (selectedValue === "1") {
+        // Unhide the specific section
+        document.getElementById('single-item').style.display = 'block'; // Unhide the specific section
+
+        // Hide other sections
+        sections.forEach(section => {
+            if (section.id !== 'single-item') {
+                section.style.display = 'none'; // Hide all other sections
+            }
+        });
+    } else  { // Assuming "other" is the value for the other option
+        // Restore all sections
+        sections.forEach(section => {
+            if (section.id !== 'new-section') {
+                section.style.display = 'block'; // Show all sections except the new-section
+            }
+        });
+
+        document.getElementById('single-item').style.display = 'none';
+    } 
+});

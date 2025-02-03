@@ -202,6 +202,10 @@ body.dark-mode #darkModeIcon {
   color: #ffd700;
 }
 
+body.dark-mode .navbar .btn {
+  background-color: transparent;
+}
+
 /* Custom outline button styles */
 .custom-outline-btn {
   background-color: transparent;
@@ -419,4 +423,95 @@ html {
 
 #output {
   text-align: left !important;
+}
+
+.template-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.template-modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.template-card {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.template-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.template-card i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #0d6efd;
+}
+
+.template-card h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* Dark mode support */
+.dark-mode .template-modal-content {
+  background: #1e1e1e;
+  color: #e0e0e0;
+}
+
+.dark-mode .template-card {
+  background: #2d2d2d;
+  color: #e0e0e0;
+}
+
+.dark-mode .template-card i {
+  color: #5b9aff;
+}
+
+/* Dark mode navbar button styles */
+body.dark-mode .navbar .btn-link {
+  background-color: transparent;
+  color: #e0e0e0;
+  border: none;  /* Remove border */
+}
+
+body.dark-mode .navbar .dropdown-menu {
+  background-color: #2d2d2d;
+  border-color: #404040;  /* Subtle border for dropdown menu */
+}
+
+body.dark-mode .navbar .dropdown-item {
+  color: #e0e0e0;
+  border: none;  /* Remove border from dropdown items */
+}
+
+body.dark-mode .navbar .dropdown-item:hover {
+  background-color: #3d3d3d;
+  color: #fff;
 }

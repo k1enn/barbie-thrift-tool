@@ -18,7 +18,7 @@
       <small> November, 2024</small>
 </div>
 
-## **Web link**: https://k1enn.github.io/Thrift-Shop-Tool/
+## k1enn.github.io/barbie-thrift-tool
 
 ## **Project Description:**  
 This is a web application is a multi-purposes tool for thrift shop owner. Using ChatGPT and basic Javascript to edit string and allow user to copy it.

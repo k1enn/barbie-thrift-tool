@@ -515,3 +515,30 @@ body.dark-mode .navbar .dropdown-item:hover {
   background-color: #3d3d3d;
   color: #fff;
 }
+
+/* Mobile-specific styles - everything 70% of original size */
+@media screen and (max-width: 768px) {
+  .template-modal-content {
+    transform: scale(0.7);
+    transform-origin: center center;
+    margin: auto;
+  }
+
+  .template-grid {
+    gap: 1.05rem;
+    margin-top: 1.4rem;
+  }
+
+  .template-card {
+    padding: 1.4rem;
+  }
+
+  .template-card i {
+    font-size: 1.75rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .template-card h3 {
+    font-size: 1.05rem;
+  }
+}

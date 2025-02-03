@@ -14,11 +14,127 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
+        .template-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
 
+        .template-modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .template-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #0d6efd;
+        }
+
+        .template-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Dark mode support */
+        .dark-mode .template-modal-content {
+            background: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .template-card {
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .template-card i {
+            color: #5b9aff;
+        }
     </style>
 </head>
 
 <body class="inter-body">
+    <!-- Add this right after the opening <body> tag -->
+    <div class="template-modal" id="templateModal" >
+        <div class="template-modal-content" style="display: hidden;">
+            <h2 class="inter-title text-center mb-4">
+                <span data-lang="en">Other tempates</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="vi">Mẫu khác</span>
+            </h2>
+            
+            <div class="template-grid">
+                <div class="template-card" data-template="clothing">
+                    <i class="bi bi-bag-heart"></i>
+                    <h3>
+                        <span data-lang="en">Clothing</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Quần Áo</span>
+                    </h3>
+                </div>
+                
+                <div class="template-card" data-template="accessories">
+                    <i class="bi bi-watch"></i>
+                    <h3>
+                        <span data-lang="en">Accessories</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Phụ Kiện</span>
+                    </h3>
+                </div>
+                
+                <div class="template-card" data-template="shoes">
+                    <i class="bi bi-person-walking"></i>
+                    <h3>
+                        <span data-lang="en">Shoes</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Giày</span>
+                    </h3>
+                </div>
+                
+                <div class="template-card" data-template="bags">
+                    <i class="bi bi-handbag"></i>
+                    <h3>
+                        <span data-lang="en">Bags</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Túi</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
             <span class="navbar-brand inter-title">
@@ -27,9 +143,16 @@
                 </a>
             </span>
             <div class="d-flex">
+                <!-- Add template button before language switch -->
+                <button class="btn btn-link me-2 text-decoration-none" id="templateButton">
+                    <i class="bi bi-grid-3x3-gap"></i>
+                    <span data-lang="en">Other tempates</span>
+                    <span data-lang="both"> / </span>
+                    <span data-lang="vi">Mẫu khác</span>
+                </button>
                 <!-- Add language switch button -->
-                <div class="dropdown me-2">
-                    <button class="btn btn-link dropdown-toggle" type="button" id="languageSwitch"
+                <div class="dropdown me-2 ">
+                    <button class="btn btn-link dropdown-toggle text-decoration-none" type="button" id="languageSwitch"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-translate"></i> VI/EN
                     </button>
@@ -488,6 +611,179 @@
         </section>
         <!-- End Coat -->
 
+        <!-- Shoes Section -->
+        <section class="mb-4 shadow-box" id="shoes-section" style="display: none;">
+            <h2 class="inter-title">
+                <span data-lang="vi">Giày</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="en">Shoes</span>
+            </h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="shoe-type" class="form-label inter-body">
+                        <span data-lang="vi">Loại</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Type</span>:
+                    </label>
+                    <select id="shoe-type" class="form-select inter-body">
+                        <option value="">Không chọn / None</option>
+                        <option value="Sneakers">Sneakers</option>
+                        <option value="Boots">Boots</option>
+                        <option value="Heels">Heels</option>
+                        <option value="Flats">Flats</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="shoe-size" class="form-label inter-body">Size:</label>
+                    <input type="text" id="shoe-size" class="form-control inter-body" placeholder="35-43">
+                </div>
+                <div class="col-md-4">
+                    <label for="shoe-length" class="form-label inter-body">
+                        <span data-lang="vi">Dài</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Length</span>:
+                    </label>
+                    <input type="text" id="shoe-length" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="shoe-width" class="form-label inter-body">
+                        <span data-lang="vi">Rộng</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Width</span>:
+                    </label>
+                    <input type="text" id="shoe-width" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="shoe-defect" class="form-label inter-body">
+                        <span data-lang="en">Defect</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Lỗi</span>:
+                    </label>
+                    <input type="text" id="shoe-defect" class="form-control inter-body" placeholder="Nhập lỗi">
+                </div>
+            </div>
+        </section>
+
+        <!-- Accessories Section -->
+        <section class="mb-4 shadow-box" id="accessories-section" style="display: none;">
+            <h2 class="inter-title">
+                <span data-lang="vi">Phụ kiện</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="en">Accessories</span>
+            </h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="accessory-type" class="form-label inter-body">
+                        <span data-lang="vi">Loại</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Type</span>:
+                    </label>
+                    <select id="accessory-type" class="form-select inter-body">
+                        <option value="">Không chọn / None</option>
+                        <option value="Belt">Belt / Thắt lưng</option>
+                        <option value="Scarf">Scarf / Khăn</option>
+                        <option value="Hat">Hat / Mũ</option>
+                        <option value="Jewelry">Jewelry / Trang sức</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="accessory-size" class="form-label inter-body">Size:</label>
+                    <input type="text" id="accessory-size" class="form-control inter-body" placeholder="Nhập size">
+                </div>
+                <div class="col-md-4">
+                    <label for="accessory-length" class="form-label inter-body">
+                        <span data-lang="vi">Dài</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Length</span>:
+                    </label>
+                    <input type="text" id="accessory-length" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="accessory-width" class="form-label inter-body">
+                        <span data-lang="vi">Rộng</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Width</span>:
+                    </label>
+                    <input type="text" id="accessory-width" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="accessory-defect" class="form-label inter-body">
+                        <span data-lang="en">Defect</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Lỗi</span>:
+                    </label>
+                    <input type="text" id="accessory-defect" class="form-control inter-body" placeholder="Nhập lỗi">
+                </div>
+            </div>
+        </section>
+
+        <!-- Bags Section -->
+        <section class="mb-4 shadow-box" id="bags-section" style="display: none;">
+            <h2 class="inter-title">
+                <span data-lang="vi">Túi</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="en">Bags</span>
+            </h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="bag-type" class="form-label inter-body">
+                        <span data-lang="vi">Loại</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Type</span>:
+                    </label>
+                    <select id="bag-type" class="form-select inter-body">
+                        <option value="">Không chọn / None</option>
+                        <option value="Handbag">Handbag / Túi xách</option>
+                        <option value="Backpack">Backpack / Ba lô</option>
+                        <option value="Shoulder Bag">Shoulder Bag / Túi đeo vai</option>
+                        <option value="Tote">Tote / Túi tote</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="bag-size" class="form-label inter-body">Size:</label>
+                    <select id="bag-size" class="form-select inter-body">
+                        <option value="">Không chọn / None</option>
+                        <option value="Mini">Mini</option>
+                        <option value="Small">Small</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Large">Large</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="bag-length" class="form-label inter-body">
+                        <span data-lang="vi">Dài</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Length</span>:
+                    </label>
+                    <input type="text" id="bag-length" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="bag-width" class="form-label inter-body">
+                        <span data-lang="vi">Rộng</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Width</span>:
+                    </label>
+                    <input type="text" id="bag-width" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-4">
+                    <label for="bag-height" class="form-label inter-body">
+                        <span data-lang="vi">Cao</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="en">Height</span>:
+                    </label>
+                    <input type="text" id="bag-height" class="form-control inter-body" placeholder="Nhập số">
+                </div>
+                <div class="col-md-12">
+                    <label for="bag-defect" class="form-label inter-body">
+                        <span data-lang="en">Defect</span>
+                        <span data-lang="both"> / </span>
+                        <span data-lang="vi">Lỗi</span>:
+                    </label>
+                    <input type="text" id="bag-defect" class="form-control inter-body" placeholder="Nhập lỗi">
+                </div>
+            </div>
+        </section>
+
         <!-- Other -->
         <section class="mb-4 shadow-box" id="new-section" style="display: none;">
             <h2 class="inter-title">
@@ -502,7 +798,7 @@
                         <span data-lang="both"> / </span>
                         <span data-lang="en">Product's name</span>:
                     </label>
-                    <input type="text" id="other-name" class="form-control inter-body" placeholder="Nhập số">
+                    <input type="text" id="other-name" class="form-control inter-body" placeholder="Nhập tên">
                 </div>
                 <div class="col-md-6">
                     <label for="other-fit" class="form-label inter-body">

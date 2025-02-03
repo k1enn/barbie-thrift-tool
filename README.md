@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  Tools for thrift store
+  A tool for my thrift store
 </h1>
 <div align="center">
   <h3>Follow me: </h3>

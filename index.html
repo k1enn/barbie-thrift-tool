@@ -104,6 +104,21 @@
     </nav>
 
     <div class="container mt-5">
+        <!-- Số đếm bắt đầu -->
+        <div id="set-number" class="mb-2 shadow-box">
+            <h2 class="inter-title">                    
+                <span data-lang="vi">Bắt đầu từ</span>
+                <span data-lang="both"> / </span>
+                <span data-lang="en">Start from</span>:
+            </h2>
+            <div class="row g-1">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="number" class="form-control inter-body" id="start-range" placeholder="Số đếm bắt đầu từ ‌/ Counting number start from">
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Số lượng set -->
         <div id="set-number" class="mb-4 shadow-box">
             <h2 class="inter-title">                    
@@ -111,13 +126,23 @@
                 <span data-lang="both"> / </span>
                 <span data-lang="en">Quantity</span>:
             </h2>
-            <select id="set-price" class="form-select inter-body">
-                <option value="">Không chọn / None</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <select id="set-price" class="form-select inter-body">
+                        <option value="">Không chọn / None</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control inter-body" id="price-input" placeholder="Nhập giá / Enter price">
+                        <span class="input-group-text">k</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Single Item -->

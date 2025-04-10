@@ -1,5 +1,6 @@
 let currentLanguage = 'both'; // Can be 'en', 'vi', or 'both'
 
+// Start UI-related functions
 function switchLanguage(lang) {
     currentLanguage = lang;
     updateLanguageDisplay();
@@ -18,7 +19,6 @@ function switchLanguage(lang) {
             break;
     }
 }
-
 function updateLanguageDisplay() {
     const elements = document.querySelectorAll('[data-lang]');
     elements.forEach(element => {
@@ -30,8 +30,6 @@ function updateLanguageDisplay() {
         }
     });
 }
-
-// Dark mode switch
 function darkMode() {
     const body = document.body;
     const icon = document.getElementById('darkModeIcon');
@@ -53,19 +51,12 @@ function darkMode() {
         icon.classList.remove('animated');
     }, 500);
 }
+// End UI-related functions
 
-let historyCount = 0;
 
-// Hàm xóa dữ liệu trong các input
-function clearInputs() {
-    // Lấy tất cả các input type="text" và đặt giá trị về trống
-    document.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
 
-    // Lấy tất cả các select và đặt giá trị về mặc định (giá trị đầu tiên)
-    document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-}
 
-// Hàm kiểm tra số lượng sản phẩm đã nhập
+// Validation-related functions
 function validateInputs() {
 
     // Còn thiếu trường hợp nếu người dùng chọn mà không nhập, nhưng vì có thể làm vậy với chủ đích nên không làm
@@ -96,7 +87,14 @@ function validateInputs() {
     }
     return true;
 }
+// Hàm xóa dữ liệu trong các input
+function clearInputs() {
+    // Lấy tất cả các input type="text" và đặt giá trị về trống
+    document.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
 
+    // Lấy tất cả các select và đặt giá trị về mặc định (giá trị đầu tiên)
+    document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+}
 
 // Add this new function
 function showValidationModal(message) {
@@ -129,7 +127,7 @@ function showValidationModal(message) {
 document.getElementById('generate-output').addEventListener('click', function () {
     // Get set quantity
     const setPrice = document.getElementById("set-price").value;
-
+    const priceInput = document.getElementById("price-input").value;
     // Get current template type from visible sections
     const isShoeTemplate = document.getElementById("shoes-section").style.display === 'block';
     const isAccessoryTemplate = document.getElementById("accessories-section").style.display === 'block';
@@ -152,176 +150,221 @@ document.getElementById('generate-output').addEventListener('click', function ()
 
     let resultDisplay = "";
     // Add set quantity
-    resultDisplay += getSetQuantity(setPrice);
-
-
-
+    if (setPrice !== null && setPrice > 0 && priceInput > 0) {
+        resultDisplay += getSetQuantity(setPrice);
+        resultDisplay += getPrice(priceInput);
+    }
+    else {
+        resultDisplay += getSetQuantity(setPrice) + "\n";
+    }
 
     if (setPrice == "1") {
-        const singleName = document.getElementById("single-item-name")?.value || null;
-        const fitSingle = document.getElementById("single-item-fit")?.value || null;
-        const singleChest =
-            document.getElementById("single-item-chest")?.value || null;
-        const singleButt = document.getElementById("single-item-butt")?.value || null;
-        const singleWaist =
-            document.getElementById("single-item-waist")?.value || null;
-        const singleHip = document.getElementById("single-item-hip")?.value || null;
-        const singleLength =
-            document.getElementById("single-item-length")?.value || null;
-        const singleArmpit =
-            document.getElementById("single-item-armpit")?.value || null;
-        const singleThigh =
-            document.getElementById("single-item-thigh")?.value || null;
-        const singleDefect =
-            document.getElementById("single-item-defect")?.value || null;
+        try {
+            const singleName = document.getElementById("single-item-name")?.value || null;
+            const fitSingle = document.getElementById("single-item-fit")?.value || null;
+            const singleChest = document.getElementById("single-item-chest")?.value || null;
+            const singleButt = document.getElementById("single-item-butt")?.value || null;
+            const singleWaist = document.getElementById("single-item-waist")?.value || null;
+            const singleHip = document.getElementById("single-item-hip")?.value || null;
+            const singleLength = document.getElementById("single-item-length")?.value || null;
+            const singleArmpit = document.getElementById("single-item-armpit")?.value || null;
+            const singleThigh = document.getElementById("single-item-thigh")?.value || null;
+            const singleDefect = document.getElementById("single-item-defect")?.value || null;
 
-        resultDisplay += getSingleInfo(
-            singleName,
-            fitSingle,
-            singleChest,
-            singleButt,
-            singleWaist,
-            singleHip,
-            singleLength,
-            singleArmpit,
-            singleThigh,
-            singleDefect
-        );
+            resultDisplay += getSingleInfo(
+                singleName,
+                fitSingle,
+                singleChest,
+                singleButt,
+                singleWaist,
+                singleHip,
+                singleLength,
+                singleArmpit,
+                singleThigh,
+                singleDefect
+            );
+        } catch (error) {
+            console.error("Error processing single item data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu. Vui lòng thử lại. / An error occurred while processing data. Please try again.");
+            return;
+        }
     }
     if (isTopChose) {
-        //Get top value if user chose
-        const topType = document.getElementById("top-type").value;
-        const fitTop = document.getElementById("fit-top").value;
-        const topChest = document.getElementById("top-chest").value;
-        const topWaist = document.getElementById("top-waist").value;
-        const topLength = document.getElementById("top-length").value;
-        const topArmpit = document.getElementById("top-armpit").value;
-        const topDefect = document.getElementById("top-defect").value;
+        try {
+            const topType = document.getElementById("top-type").value;
+            const fitTop = document.getElementById("fit-top").value;
+            const topChest = document.getElementById("top-chest").value;
+            const topWaist = document.getElementById("top-waist").value;
+            const topLength = document.getElementById("top-length").value;
+            const topArmpit = document.getElementById("top-armpit").value;
+            const topDefect = document.getElementById("top-defect").value;
 
-        resultDisplay += getTopInfo(
-            topType,
-            fitTop,
-            topChest,
-            topWaist,
-            topLength,
-            topArmpit,
-            topDefect
-        );
+            resultDisplay += getTopInfo(
+                topType,
+                fitTop,
+                topChest,
+                topWaist,
+                topLength,
+                topArmpit,
+                topDefect
+            );
+        } catch (error) {
+            console.error("Error processing top item data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu áo. / Error processing top data.");
+            return;
+        }
     }
     if (isTop2Chose) {
-        // Get top2 value if user chose
-        // Lấy giá trị từ các phần tử DOM, và cho phép chúng có thể là null nếu không có giá trị
-        const top2Type = document.getElementById("top2-type")?.value || null;
-        const fit2Top = document.getElementById("fit2-top")?.value || null;
-        const top2Chest = document.getElementById("top2-chest")?.value || null;
-        const top2Waist = document.getElementById("top2-waist")?.value || null;
-        const top2Length = document.getElementById("top2-length")?.value || null;
-        const top2Armpit = document.getElementById("top2-armpit")?.value || null;
-        const top2Defect = document.getElementById("top2-defect")?.value || null;
+        try {
+            const top2Type = document.getElementById("top2-type")?.value || null;
+            const fit2Top = document.getElementById("fit2-top")?.value || null;
+            const top2Chest = document.getElementById("top2-chest")?.value || null;
+            const top2Waist = document.getElementById("top2-waist")?.value || null;
+            const top2Length = document.getElementById("top2-length")?.value || null;
+            const top2Armpit = document.getElementById("top2-armpit")?.value || null;
+            const top2Defect = document.getElementById("top2-defect")?.value || null;
 
-        // Thêm thông tin Top2
-        resultDisplay += getTop2Info(
-            top2Type,
-            fit2Top,
-            top2Chest,
-            top2Waist,
-            top2Length,
-            top2Armpit,
-            top2Defect
-        );
+            resultDisplay += getTop2Info(
+                top2Type,
+                fit2Top,
+                top2Chest,
+                top2Waist,
+                top2Length,
+                top2Armpit,
+                top2Defect
+            );
+        } catch (error) {
+            console.error("Error processing second top item data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu áo thứ hai. / Error processing second top data.");
+            return;
+        }
     }
     if (isBottomChose) {
-        // Get bottom value
-        const bottomType = document.getElementById("bottom-type").value;
-        const fitBottom = document.getElementById("fit-bottom").value;
-        const bottomHip = document.getElementById("bottom-hip").value;
-        const bottomWaist = document.getElementById("bottom-waist").value;
-        const bottomLength = document.getElementById("bottom-length").value;
-        const bottomThigh = document.getElementById("bottom-thigh").value;
-        const bottomDefect = document.getElementById("bottom-defect").value;
+        try {
+            const bottomType = document.getElementById("bottom-type").value;
+            const fitBottom = document.getElementById("fit-bottom").value;
+            const bottomHip = document.getElementById("bottom-hip").value;
+            const bottomWaist = document.getElementById("bottom-waist").value;
+            const bottomLength = document.getElementById("bottom-length").value;
+            const bottomThigh = document.getElementById("bottom-thigh").value;
+            const bottomDefect = document.getElementById("bottom-defect").value;
 
-        // Thêm thông tin Bottom
-        resultDisplay += getBottomInfo(
-            bottomType,
-            fitBottom,
-            bottomHip,
-            bottomWaist,
-            bottomLength,
-            bottomThigh,
-            bottomDefect
-        );
+            resultDisplay += getBottomInfo(
+                bottomType,
+                fitBottom,
+                bottomHip,
+                bottomWaist,
+                bottomLength,
+                bottomThigh,
+                bottomDefect
+            );
+        } catch (error) {
+            console.error("Error processing bottom item data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu quần. / Error processing bottom data.");
+            return;
+        }
     }
-     if (isCoatChose) {// Get coat value
-        const coatType = document.getElementById("coat-type").value;
-        const fitCoat = document.getElementById("fit-coat").value;
-        const coatArmpit = document.getElementById("coat-armpit").value;
-        const coatLength = document.getElementById("coat-length").value;
-        const coatDefect = document.getElementById("coat-defect").value;
+    if (isCoatChose) {
+        try {
+            const coatType = document.getElementById("coat-type").value;
+            const fitCoat = document.getElementById("fit-coat").value;
+            const coatArmpit = document.getElementById("coat-armpit").value;
+            const coatLength = document.getElementById("coat-length").value;
+            const coatDefect = document.getElementById("coat-defect").value;
 
-        // Thêm thông tin Coat
-        resultDisplay += getCoatInfo(
-            coatType,
-            fitCoat,
-            coatArmpit,
-            coatLength,
-            coatDefect
-        );
+            resultDisplay += getCoatInfo(
+                coatType,
+                fitCoat,
+                coatArmpit,
+                coatLength,
+                coatDefect
+            );
+        } catch (error) {
+            console.error("Error processing coat item data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu áo khoác. / Error processing coat data.");
+            return;
+        }
     }
 
     if (isOtherChose) {
-        const otherName = document.getElementById("other-name")?.value || null;
-        const fitOther = document.getElementById("other-fit")?.value || null;
-        const otherChest = document.getElementById("other-chest")?.value || null;
-        const otherButt = document.getElementById("other-butt")?.value || null;
-        const otherWaist = document.getElementById("other-waist")?.value || null;
-        const otherHip = document.getElementById("other-hip")?.value || null;
-        const otherLength = document.getElementById("other-length")?.value || null;
-        const otherArmpit = document.getElementById("other-armpit")?.value || null;
-        const otherThigh = document.getElementById("other-thigh")?.value || null;
-        const otherDefect = document.getElementById("other-defect")?.value || null;
+        try {
+            const otherName = document.getElementById("other-name")?.value || null;
+            const fitOther = document.getElementById("other-fit")?.value || null;
+            const otherChest = document.getElementById("other-chest")?.value || null;
+            const otherButt = document.getElementById("other-butt")?.value || null;
+            const otherWaist = document.getElementById("other-waist")?.value || null;
+            const otherHip = document.getElementById("other-hip")?.value || null;
+            const otherLength = document.getElementById("other-length")?.value || null;
+            const otherArmpit = document.getElementById("other-armpit")?.value || null;
+            const otherThigh = document.getElementById("other-thigh")?.value || null;
+            const otherDefect = document.getElementById("other-defect")?.value || null;
 
-        // Thêm thông tin cho sản phẩm khác
-        resultDisplay += getOtherInfo(
-            otherName,
-            fitOther,
-            otherChest,
-            otherButt,
-            otherWaist,
-            otherHip,
-            otherLength,
-            otherArmpit,
-            otherThigh,
-            otherDefect
-        );
+            resultDisplay += getOtherInfo(
+                otherName,
+                fitOther,
+                otherChest,
+                otherButt,
+                otherWaist,
+                otherHip,
+                otherLength,
+                otherArmpit,
+                otherThigh,
+                otherDefect
+            );
+        } catch (error) {
+            console.error("Error processing other item data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu sản phẩm khác. / Error processing other item data.");
+            return;
+        }
     }
     
     if (isShoeTemplate) {
-        const shoeType = document.getElementById("shoe-type").value;
-        const shoeSize = document.getElementById("shoe-size").value;
-        const shoeLength = document.getElementById("shoe-length").value;
-        const shoeWidth = document.getElementById("shoe-width").value;
-        const shoeDefect = document.getElementById("shoe-defect").value;
+        try {
+            const shoeType = document.getElementById("shoe-type").value;
+            const shoeSize = document.getElementById("shoe-size").value;
+            const shoeLength = document.getElementById("shoe-length").value;
+            const shoeWidth = document.getElementById("shoe-width").value;
+            const shoeDefect = document.getElementById("shoe-defect").value;
 
-        resultDisplay += getShoesInfo(shoeType, shoeSize, shoeLength, shoeWidth, shoeDefect);
-    } 
-     if (isAccessoryTemplate) {
-        const accessoryType = document.getElementById("accessory-type").value;
-        const accessorySize = document.getElementById("accessory-size").value;
-        const accessoryLength = document.getElementById("accessory-length").value;
-        const accessoryWidth = document.getElementById("accessory-width").value;
-        const accessoryDefect = document.getElementById("accessory-defect").value;
+            resultDisplay += getShoesInfo(shoeType, shoeSize, shoeLength, shoeWidth, shoeDefect);
+        } catch (error) {
+            console.error("Error processing shoe data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu giày. / Error processing shoe data.");
+            return;
+        }
+    }
+    
+    if (isAccessoryTemplate) {
+        try {
+            const accessoryType = document.getElementById("accessory-type").value;
+            const accessorySize = document.getElementById("accessory-size").value;
+            const accessoryLength = document.getElementById("accessory-length").value;
+            const accessoryWidth = document.getElementById("accessory-width").value;
+            const accessoryDefect = document.getElementById("accessory-defect").value;
 
-        resultDisplay += getAccessoriesInfo(accessoryType, accessorySize, accessoryLength, accessoryWidth, accessoryDefect);
-    } 
+            resultDisplay += getAccessoriesInfo(accessoryType, accessorySize, accessoryLength, accessoryWidth, accessoryDefect);
+        } catch (error) {
+            console.error("Error processing accessory data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu phụ kiện. / Error processing accessory data.");
+            return;
+        }
+    }
+
     if (isBagTemplate) {
-        const bagType = document.getElementById("bag-type").value;
-        const bagSize = document.getElementById("bag-size").value;
-        const bagLength = document.getElementById("bag-length").value;
-        const bagWidth = document.getElementById("bag-width").value;
-        const bagHeight = document.getElementById("bag-height").value;
-        const bagDefect = document.getElementById("bag-defect").value;
+        try {
+            const bagType = document.getElementById("bag-type").value;
+            const bagSize = document.getElementById("bag-size").value;
+            const bagLength = document.getElementById("bag-length").value;
+            const bagWidth = document.getElementById("bag-width").value;
+            const bagHeight = document.getElementById("bag-height").value;
+            const bagDefect = document.getElementById("bag-defect").value;
 
-        resultDisplay += getBagsInfo(bagType, bagSize, bagLength, bagWidth, bagHeight, bagDefect);
+            resultDisplay += getBagsInfo(bagType, bagSize, bagLength, bagWidth, bagHeight, bagDefect);
+        } catch (error) {
+            console.error("Error processing bag data:", error);
+            showValidationModal("Có lỗi xảy ra khi xử lý dữ liệu túi. / Error processing bag data.");
+            return;
+        }
     }
 
     document.getElementById("output").textContent = resultDisplay;
@@ -332,18 +375,12 @@ document.getElementById('generate-output').addEventListener('click', function ()
 
     // Xóa dữ liệu input
     clearInputs();
+
+    // Clear the start-range input after use
+    document.getElementById('start-range').value = '';
 });
 
-function getSetQuantity(setPrice) {
-    const messages = {
-        1: "✨\n🎀𝐏𝐫𝐢𝐜𝐞: \n",
-        2: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: \n",
-        3: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: \n",
-        4: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: \n",
-    };
 
-    return messages[setPrice];
-}
 
 // Translation object
 const translations = {
@@ -394,6 +431,36 @@ const translations = {
     }
 };
 
+function getPrice(priceInput) {
+    try {
+        // Remove 'k' and convert to number
+        const vndAmount = parseFloat(priceInput.replace('k', ''));
+        
+        // Convert to USD (divide by 23)
+        const usdAmount = vndAmount / 23;
+        
+        // Round to 1 decimal place
+        const roundedUSD = Math.round(usdAmount * 10) / 10;
+        
+        // Format the output
+        return `${priceInput}k / ${roundedUSD}usd \n`;
+    } catch (error) {
+        console.error("Error processing price:", error);
+        showValidationModal("Có lỗi xảy ra khi xử lý giá tiền. / Error processing price.");
+        return "";
+    }
+}
+
+function getSetQuantity(setPrice) {
+    const messages = {
+        1: "✨\n🎀𝐏𝐫𝐢𝐜𝐞: ",
+        2: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟐𝐩𝐜𝐬: ",
+        3: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟑𝐩𝐜𝐬: ",
+        4: "✨\n🎀𝐒𝐞𝐭 𝐩𝐫𝐢𝐜𝐞 𝟒𝐩𝐜𝐬: ",
+    };
+
+    return messages[setPrice];
+}
 // Helper function to get translated text
 const getTranslatedText = (key) => translations[key][currentLanguage] || translations[key]['both'];
 
@@ -414,23 +481,6 @@ const getTopInfo = (topType, fitTop, topChest, topWaist, topLength, topArmpit, t
     return result;
 }
 
-/* Modified getSingleTopInfo function
-const getSingleTopInfo = (fitTop, topChest, topWaist, topLength, topArmpit, topDefect) => {
-    var result = "";
-
-    if (topDefect) result += `${topDefect}\n`;
-    if (fitTop) {
-      if (fitTop != "Freesize") result += `- Fit: ${fitTop}\n`;
-      else result += `- Freesize\n`;
-    }
-    if (topChest) result += `- ${getTranslatedText("chest")}: ${topChest}cm\n`;
-    if (topWaist) result += `- ${getTranslatedText("waist")}: ${topWaist}cm\n`;
-    if (topLength) result += `- ${getTranslatedText("length")}: ${topLength}cm\n`;
-    if (topArmpit) result += `- ${getTranslatedText("armpit")}: ${topArmpit}cm\n`;
-
-    return result;
-}
-*/
 const getTop2Info = (top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Armpit, top2Defect) => {
     var result = "";
 
@@ -662,8 +712,14 @@ copyOutput.addEventListener('click', function () {
     copyToClipboardWithIndex(document.getElementById('output').textContent, 'Kết quả đã được sao chép!');
 });
 
+
+let historyCount = 0;
 // Thêm kết quả vào lịch sử
 function addToHistory(resultDisplay) {
+    let startRange = document.getElementById('start-range').value;
+    if(startRange && parseInt(startRange) > 0) {
+        historyCount = parseInt(startRange) - 1;
+    }
     historyCount++;
     const historyList = document.getElementById('history-list');
 
@@ -695,6 +751,9 @@ function addToHistory(resultDisplay) {
     `;
 
     historyList.appendChild(historyItem);
+    
+    // Sort history items after adding new item
+    sortHistoryItems();
 }
 
 // Sao chép từng mục lịch sử
@@ -913,40 +972,47 @@ const getAttentionMessage = (language) => {
             ${messages.noReturn[language]}`;
 };
 
+
 // Add event listener to the set-price dropdown
-document.getElementById('set-price').addEventListener('change', function () {
+document.getElementById('set-price').addEventListener('change', function() {
     const selectedValue = this.value;
-    const currentTemplate = getCurrentTemplate(); // Add this helper function
+    const currentTemplate = getCurrentTemplate();
 
     // Only process set-price changes for clothing template
     if (currentTemplate !== 'clothing') {
         return;
     }
 
-    // Get all sections except buttons, history, and footer
-    const sections = document.querySelectorAll('section:not(#buttons):not(#history):not(#footer)');
+    // Get all clothing-related sections
+    const clothingSections = [
+        document.getElementById('single-item'),
+        ...document.querySelectorAll('section:has([id$="-type"])')
+    ].filter(section => 
+        section && 
+        !section.id.includes('shoes') && 
+        !section.id.includes('accessories') && 
+        !section.id.includes('bags')
+    );
 
     if (selectedValue === "1") {
-        // Show single item section and hide others for clothing template
-        document.getElementById('single-item').style.display = 'block';
-        sections.forEach(section => {
-            if (section.id !== 'single-item' && section.id !== 'set-number') {
-                section.style.display = 'none';
-            }
+        // For single item, show only single-item section
+        clothingSections.forEach(section => {
+            section.style.display = section.id === 'single-item' ? 'block' : 'none';
         });
-    } else {
-        // Show clothing sections and hide single item
-        sections.forEach(section => {
-            if (section.id !== 'new-section' && 
-                section.id !== 'single-item' && 
-                section.id !== 'accessories-section' && 
-                section.id !== 'shoes-section' && 
-                section.id !== 'bags-section') {
-                section.style.display = 'block';
-            }
+    } else if (["2", "3", "4"].includes(selectedValue)) {
+        // For multiple items, show all clothing sections except single-item
+        clothingSections.forEach(section => {
+            section.style.display = section.id === 'single-item' ? 'none' : 'block';
         });
-        document.getElementById('single-item').style.display = 'none';
     }
+});
+
+
+// Add an input event listener to catch all changes (recommended)
+document.getElementById('set-price').addEventListener('input', function() {
+    // Trigger the change event manually
+    const event = new Event('change');
+    this.dispatchEvent(event);
 });
 
 // Helper function to determine current template
@@ -978,6 +1044,12 @@ document.addEventListener('DOMContentLoaded', function () {
             templateModal.style.display = 'none';
         });
     });
+
+    // Load clothing template by default
+    loadTemplate('clothing');
+
+    // Initially hide the modal
+    templateModal.style.display = 'none';
 });
 
 function loadTemplate(template) {
@@ -989,26 +1061,34 @@ function loadTemplate(template) {
     const setNumberSection = document.getElementById('set-number');
     setNumberSection.style.display = template === 'clothing' ? 'block' : 'none';
 
+    // Reset set-price value
+    const setPriceSelect = document.getElementById('set-price');
+    setPriceSelect.value = '1';
+
     switch (template) {
         case 'clothing':
+            // For clothing template, show single item section by default
             document.getElementById('single-item').style.display = 'block';
+            // Hide other clothing sections initially
+            ['top', 'bottom', 'coat'].forEach(section => {
+                const elem = document.querySelector(`section:has(#${section}-type)`);
+                if (elem) elem.style.display = 'none';
+            });
             break;
         case 'accessories':
             document.getElementById('accessories-section').style.display = 'block';
-            // Reset set-price when switching to accessories
-            document.getElementById('set-price').value = '1';
             break;
         case 'shoes':
             document.getElementById('shoes-section').style.display = 'block';
-            // Reset set-price when switching to shoes
-            document.getElementById('set-price').value = '1';
             break;
         case 'bags':
             document.getElementById('bags-section').style.display = 'block';
-            // Reset set-price when switching to bags
-            document.getElementById('set-price').value = '1';
             break;
     }
+
+    // Trigger the set-price change event to ensure proper section visibility
+    const event = new Event('change');
+    setPriceSelect.dispatchEvent(event);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -1048,3 +1128,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Add this new function to sort history items
+function sortHistoryItems() {
+    const historyList = document.getElementById('history-list');
+    const items = Array.from(historyList.children);
+    
+    items.sort((a, b) => {
+        const aIndex = parseInt(a.dataset.index);
+        const bIndex = parseInt(b.dataset.index);
+        return aIndex - bIndex;
+    });
+    
+    // Clear the list and add back items in sorted order
+    historyList.innerHTML = '';
+    items.forEach(item => historyList.appendChild(item));
+}

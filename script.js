@@ -234,6 +234,7 @@ document.getElementById('generate-output').addEventListener('click', function ()
         // Get bottom value
         const bottomType = document.getElementById("bottom-type").value;
         const fitBottom = document.getElementById("fit-bottom").value;
+        const bottomHip = document.getElementById("bottom-hip").value;
         const bottomWaist = document.getElementById("bottom-waist").value;
         const bottomLength = document.getElementById("bottom-length").value;
         const bottomThigh = document.getElementById("bottom-thigh").value;
@@ -243,6 +244,7 @@ document.getElementById('generate-output').addEventListener('click', function ()
         resultDisplay += getBottomInfo(
             bottomType,
             fitBottom,
+            bottomHip,
             bottomWaist,
             bottomLength,
             bottomThigh,
@@ -460,7 +462,7 @@ const getTop2Info = (top2Type, fit2Top, top2Chest, top2Waist, top2Length, top2Ar
 }
 
 // Add Bottom information
-const getBottomInfo = (bottomType, fitBottom, bottomWaist, bottomLength, bottomThigh, bottomDefect) => {
+const getBottomInfo = (bottomType, fitBottom, bottomHip, bottomWaist, bottomLength, bottomThigh, bottomDefect) => {
     var result = "";
 
     // Kiểm tra nếu top2Type không phải là chuỗi rỗng để thêm vào hoặc không
@@ -477,6 +479,9 @@ const getBottomInfo = (bottomType, fitBottom, bottomWaist, bottomLength, bottomT
             else result += `  - Freesize\n`;
         }
 
+        if(bottomHip) {
+            result += `  - ${getTranslatedText("hip")}: ${bottomHip}cm\n`;
+        }
         if (bottomWaist)
             result += `  - ${getTranslatedText("waist")}: ${bottomWaist}cm\n`;
         if (bottomLength)
@@ -869,34 +874,34 @@ function cancelEdit(index) {
 const getAttentionMessage = (language) => {
     const messages = {
         attention: {
-            en: "‼️𝐀𝐭𝐭𝐞𝐧𝐭𝐢𝐨𝐧‼️",
-            vi: `‼️${convertToBoldUnicode("Lưu ý")}‼️`,
-            both: `‼️𝐀𝐭𝐭𝐞𝐧𝐭𝐢𝐨𝐧 / ${convertToBoldUnicode("Lưu ý")}‼️`
+            en: `${convertToBoldUnicode("!!Attention!!")}`,
+            vi: `${convertToBoldUnicode("!!Lưu ý!!")}`,
+            both: `${convertToBoldUnicode("!!Attention!!")} / ${convertToBoldUnicode("!!Lưu ý!!")}️`
         },
         priority: {
-            en: "𝑷𝒓𝒊𝒐𝒓𝒊𝒕𝒚 𝑪𝒐𝒎𝒎𝒆𝒏𝒕: Payment within 12 hours.",
-            vi: "𝑳𝒖̛𝒖 𝒚́ 𝒒𝒖𝒂𝒏 𝒕𝒓𝒐̣𝒏𝒈: Thanh toán trong vòng 12 tiếng.",
-            both: "𝑷𝒓𝒊𝒐𝒓𝒊𝒕𝒚 𝑪𝒐𝒎𝒎𝒆𝒏𝒕 / 𝑳𝒖̛𝒖 𝒚́ 𝒒𝒖𝒂𝒏 𝒕𝒓𝒐̣𝒏𝒈: Payment within 12 hours / Thanh toán trong vòng 12 tiếng."
+            en: `${convertToBoldUnicode("Payment")}: Payment within 12 hours.`,
+            vi: `${convertToBoldUnicode("Thanh toán")}: Thanh toán trong vòng 12 tiếng.`,
+            both: `${convertToBoldUnicode("Payment")}/ ${convertToBoldUnicode("Thanh toán")}: Payment within 12 hours / Thanh toán trong vòng 12 tiếng.`
         },
         details: {
-            en: "𝑷𝒓𝒐𝒅𝒖𝒄𝒕 𝑫𝒆𝒕𝒂𝒊𝒍𝒔: Check each post carefully before buying.",
-            vi: "𝑻𝒉𝒐̂𝒏𝒈 𝒕𝒊𝒏 𝒔𝒂̉𝒏 𝒑𝒉𝒂̂̉𝒎: Vui lòng đọc kỹ bài đăng trước khi mua.",
-            both: "𝑷𝒓𝒐𝒅𝒖𝒄𝒕 𝑫𝒆𝒕𝒂𝒊𝒍𝒔 / 𝑻𝒉𝒐̂𝒏𝒈 𝒕𝒊𝒏 𝒔𝒂̉𝒏 𝒑𝒉𝒂̂̉𝒎: Check each post carefully before buying / Vui lòng đọc kỹ bài đăng trước khi mua."
+            en: `${convertToBoldUnicode("Product Details")}: Check each post carefully before buying.`,
+            vi: `${convertToBoldUnicode("Thông tin sản phẩm")}: Vui lòng đọc kỹ bài đăng trước khi mua.`,
+            both: `${convertToBoldUnicode("Product Details")} / ${convertToBoldUnicode("Thông tin sản phẩm")}: Check each post carefully before buying / Vui lòng đọc kỹ bài đăng trước khi mua.`
         },
         secondhand: {
-            en: "𝑺𝒆𝒄𝒐𝒏𝒅𝒉𝒂𝒏𝒅 𝑰𝒕𝒆𝒎𝒔: May have minor flaws not visible in pictures.",
-            vi: "𝑯𝒂̀𝒏𝒈 𝒔𝒆𝒄𝒐𝒏𝒅: Có thể có khuyết điểm nhỏ không thấy trong ảnh.",
-            both: "𝑺𝒆𝒄𝒐𝒏𝒅𝒉𝒂𝒏𝒅 𝑰𝒕𝒆𝒎𝒔 / 𝑯𝒂̀𝒏𝒈 𝒔𝒆𝒄𝒐𝒏𝒅: May have minor flaws not visible in pictures / Có thể có khuyết điểm nhỏ không thấy trong ảnh."
+            en: `${convertToBoldUnicode("Secondhand Items")}: May have minor flaws not visible in pictures.`,
+            vi: `${convertToBoldUnicode("Hàng secondhand")}: Có thể có khuyết điểm nhỏ không thấy trong ảnh.`,
+            both: `${convertToBoldUnicode("Secondhand Items")} / ${convertToBoldUnicode("Hàng secondhand")}: May have minor flaws not visible in pictures / Có thể có khuyết điểm nhỏ không thấy trong ảnh.`
         },
         unboxing: {
-            en: "𝑼𝒏𝒃𝒐𝒙𝒊𝒏𝒈: Record a video when opening the package.",
-            vi: "𝑴𝒐̛̉ 𝒉𝒂̀𝒏𝒈: Quay video khi mở hàng.",
-            both: "𝑼𝒏𝒃𝒐𝒙𝒊𝒏𝒈 / 𝑴𝒐̛̉ 𝒉𝒂̀𝒏𝒈: Record a video when opening the package / Quay video khi mở hàng."
+            en: `${convertToBoldUnicode("Unboxing")}: Record a video when opening the package.`,
+            vi: `${convertToBoldUnicode("Mở hàng")}: Quay video khi mở hàng.`,
+            both: `${convertToBoldUnicode("Unboxing")} / ${convertToBoldUnicode("Mở hàng")}: Record a video when opening the package / Quay video khi mở hàng.`
         },
         noReturn: {
-            en: "𝑵𝒐 𝑹𝒆𝒕𝒖𝒓𝒏/𝑹𝒆𝒇𝒖𝒏𝒅: Except for serious defects with unboxing video proof.",
-            vi: "𝑲𝒉𝒐̂𝒏𝒈 𝒉𝒐𝒂̀𝒏 𝒕𝒓𝒂̉: Trừ trường hợp lỗi nghiêm trọng có video mở hàng.",
-            both: "𝑵𝒐 𝑹𝒆𝒕𝒖𝒓𝒏/𝑹𝒆𝒇𝒖𝒏𝒅 / 𝑲𝒉𝒐̂𝒏𝒈 𝒉𝒐𝒂̀𝒏 𝒕𝒓𝒂̉: Except for serious defects with unboxing video proof / Trừ trường hợp lỗi nghiêm trọng có video mở hàng."
+            en: `${convertToBoldUnicode("No Return / Refund")}: Except for serious defects with unboxing video proof.`,
+            vi: `${convertToBoldUnicode("Không hoàn trả")}: Trừ trường hợp lỗi nghiêm trọng có video mở hàng.`,
+            both: `${convertToBoldUnicode("No Return / Refund")} / ${convertToBoldUnicode("Không hoàn trả")}: Except for serious defects with unboxing video proof / Trừ trường hợp lỗi nghiêm trọng có video mở hàng.`
         }
     };
 

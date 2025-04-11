@@ -440,7 +440,7 @@ function getPrice(priceInput) {
         const usdAmount = vndAmount / 23;
         
         // Round to 1 decimal place
-        const roundedUSD = Math.round(usdAmount * 10) / 10;
+        const roundedUSD = Math.round(usdAmount * 1000) / 1000;
         
         // Format the output
         return `${priceInput}k / ${roundedUSD}usd \n`;

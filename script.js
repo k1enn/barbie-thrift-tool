@@ -755,7 +755,21 @@ function addToHistory(resultDisplay) {
     // Sort history items after adding new item
     sortHistoryItems();
 }
-
+// Add this new function to sort history items
+function sortHistoryItems() {
+    const historyList = document.getElementById('history-list');
+    const items = Array.from(historyList.children);
+    
+    items.sort((a, b) => {
+        const aIndex = parseInt(a.dataset.index);
+        const bIndex = parseInt(b.dataset.index);
+        return aIndex - bIndex;
+    });
+    
+    // Clear the list and add back items in sorted order
+    historyList.innerHTML = '';
+    items.forEach(item => historyList.appendChild(item));
+}
 // Sao chép từng mục lịch sử
 function copyHistoryItem(index) {
     const historyItem = document.querySelector(`#history-list li[data-index="${index}"]`);
@@ -1129,18 +1143,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Add this new function to sort history items
-function sortHistoryItems() {
-    const historyList = document.getElementById('history-list');
-    const items = Array.from(historyList.children);
-    
-    items.sort((a, b) => {
-        const aIndex = parseInt(a.dataset.index);
-        const bIndex = parseInt(b.dataset.index);
-        return aIndex - bIndex;
-    });
-    
-    // Clear the list and add back items in sorted order
-    historyList.innerHTML = '';
-    items.forEach(item => historyList.appendChild(item));
-}

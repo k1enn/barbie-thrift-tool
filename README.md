@@ -22,6 +22,9 @@
 
 ## **Project Description:**  
 This is a web application is a multi-purposes tool for thrift shop owner. Using ChatGPT and basic Javascript to edit string and allow user to copy it.
+
+![barbie-thrift-shop-tool](./image/barbie-thrift-tools.png)
+
 ### Technologies:
 - Bootstrap framework for responsive view 
 - Dynamic generation of output text with a structured format.  
